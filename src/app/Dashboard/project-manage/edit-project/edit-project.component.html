@@ -1,0 +1,188 @@
+<div class="container mt-4 mb-3" style="max-width: 800px;">
+  <form [formGroup]="projectForm" (ngSubmit)="submitForm()">
+    <!-- Project Title -->
+    <div class="mb-3">
+      <label for="title" class="form-label">اسم المشروع</label>
+      <input id="title" type="text" class="form-control" [ngClass]="{'is-invalid':projectForm.get('title')?.invalid && projectForm.get('title')?.touched,
+        'is-valid':projectForm.get('title')?.valid && projectForm.get('title')?.touched,
+      }"  formControlName="title" placeholder="ادخل اسم المشروع" />
+      <div *ngIf="projectForm.get('title')?.invalid && projectForm.get('title')?.touched" class="text-danger">
+        {{ projectForm.get('title')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="aboutProject" class="form-label">About Project</label>
+      <editor
+        
+      formControlName="aboutProject"
+        apiKey="qzrowtc3pocptuko571bzuu8j4csx9q9z6qcj2ptythonm7u
+
+        "
+        [init]="init"
+      ></editor>
+      <div 
+        *ngIf="projectForm.get('aboutProject')?.invalid && projectForm.get('aboutProject')?.touched" 
+        class="text-danger">
+        {{ projectForm.get('aboutProject')?.errors?.['required'] && 'This field is required' }}
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="mainImage" class="form-label">صوره الاساسيه للمشروع</label>
+      <ng-container *ngIf="projectForm.get('mainImage')?.value!==''&& isFormInitialized">
+        <app-image-upload  nameImage="{{projectForm.get('mainImage')?.value}}" 
+        Url="{{apiUrl+'/Projects/'+projectForm.get('mainImage')?.value}}"  
+          (imageSelected)="onFileChange($event,-1)" ></app-image-upload>
+      </ng-container>
+      
+      
+      <!-- <input id="mainImage" #f (change)="onFileChange($event, -1)" type="file" class="form-control" (click)="onclickInputFile(-1)" [ngClass]="{'is-invalid':projectForm.get('mainImage')?.invalid && projectForm.get('mainImage')?.touched,
+      'is-valid':projectForm.get('mainImage')?.valid && projectForm.get('mainImage')?.touched,
+    }" /> -->
+      <div *ngIf="projectForm.get('mainImage')?.invalid && projectForm.get('mainImage')?.touched" class="text-danger">
+        {{ projectForm.get('mainImage')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="videoUrl" class="form-label">لينك فيديو يوتيوب للمشروع</label>
+      <input id="videoUrl" type="text" class="form-control" [ngClass]="{'is-invalid':projectForm.get('videoUrl')?.invalid && projectForm.get('videoUrl')?.touched,
+      'is-valid':projectForm.get('videoUrl')?.valid && projectForm.get('videoUrl')?.touched,
+    }" formControlName="videoUrl" placeholder="Enter video URL" />
+      <div *ngIf="projectForm.get('videoUrl')?.invalid && projectForm.get('videoUrl')?.touched" class="text-danger">
+        {{ projectForm.get('videoUrl')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
+      </div>
+    </div>
+    <!-- Advantage Projects -->
+    <div class="mb-3" >
+      <label class="form-label" style="display: block;">مميزات مشروع</label>
+      <div formArrayName="advantageProjects">
+        <div *ngFor="let advantage of advantageProjects.controls; let i = index" [formGroupName]="i" class="mb-2">
+          <div class="d-flex gap-2">
+            <!-- Text Input -->
+            <div>
+              <input type="text" class="form-control" [ngClass]="{'is-invalid':advantage.get('text')?.invalid && advantage.get('text')?.touched,
+              'is-valid':advantage.get('text')?.valid && advantage.get('text')?.touched,
+            }" formControlName="text"  placeholder="اسم ميزه" />
+              <div *ngIf="advantage.get('text')?.invalid && advantage.get('text')?.touched" class="text-danger">
+                <div *ngIf="advantage.get('text')?.errors?.['required']">هذا الحقل مطلوب</div>
+                <div *ngIf="advantage.get('text')?.errors?.['maxLength']">لا يمكن أن يكون أكثر من 15 حرفًا</div>
+              </div>
+            </div>
+
+            <!-- Image Input -->
+            <div>
+              <ng-container >
+                <app-image-upload  nameImage="{{ListImageAdv[i]==null?'':ListImageAdv[i]}}" 
+                Url="{{ListImageAdv[i]==null?'':apiUrl+'/Projects/'+ListImageAdv[i]}}"   (imageSelected)="onFileChange($event, i)" ></app-image-upload>
+              </ng-container>
+              <!-- <input type="file"  class="form-control" [ngClass]="{'is-invalid':advantage.get('image')?.invalid && advantage.get('image')?.touched,
+              'is-valid':advantage.get('image')?.valid && advantage.get('image')?.touched,
+            }" (change)="onFileChange($event, i)" (click)="onclickInputFile(i)" /> -->
+              <div *ngIf="advantage.get('image')?.invalid && advantage.get('image')?.touched" class="text-danger">
+                <div *ngIf="advantage.get('image')?.errors?.['required']">الصورة مطلوبة</div>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-danger" (click)="removeAdvantage(i)">حذف</button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary mt-2" (click)="addAdvantage()">اضافه ميزه</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="locationImage" class="form-label">صوره موقع</label>
+      <!-- <input id="locationImage" type="file" (change)="" (click)="onclickInputFile(-2)" class="form-control"  
+      [ngClass]="{'is-invalid':projectForm.get('locationImage')?.invalid && projectForm.get('locationImage')?.touched,
+      'is-valid':projectForm.get('locationImage')?.valid && projectForm.get('locationImage')?.touched,
+        }" /> -->
+
+        <ng-container *ngIf="!(projectForm.get('locationImage')?.value==='') && isFormInitialized">
+          <app-image-upload  nameImage="{{projectForm.get('locationImage')?.value==null?'':projectForm.get('locationImage')?.value}}" 
+          Url="{{projectForm.get('locationImage')?.value==null?'':apiUrl+'/Projects/'+projectForm.get('locationImage')?.value}}"   (imageSelected)="onFileChange($event, -2)" ></app-image-upload>
+        </ng-container>
+        
+      <div *ngIf="projectForm.get('locationImage')?.invalid && projectForm.get('locationImage')?.touched" class="text-danger">
+        {{ projectForm.get('locationImage')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
+      </div>
+    </div>
+
+    <!-- Location Projects -->
+    <div class="mb-3">
+      <label class="form-label" style="display: block;">مسافه مشروع عن موقع (Max: {{ maxLocations }})</label>
+      <div formArrayName="locationProjects">
+        <div *ngFor="let location of locationProjects.controls; let i = index" [formGroupName]="i" class="mb-2">
+          <div class="d-flex gap-2">
+            <!-- Time Input -->
+            <div>
+              <input type="number" class="form-control" 
+              [ngClass]="{'is-invalid':location.get('time')?.invalid && location.get('time')?.touched,
+              'is-valid':location.get('time')?.valid && location.get('time')?.touched,
+            }" formControlName="time" placeholder="Time in minutes" />
+              <div *ngIf="location.get('time')?.invalid && location.get('time')?.touched" class="text-danger">
+                <div *ngIf="location.get('time')?.errors?.['required']">هذا الحقل مطلوب</div>
+                <div *ngIf="location.get('time')?.errors?.['min']">يجب أن تكون القيمة أكبر من الصفر</div>
+              </div>
+            </div>
+
+            <!-- Street Input -->
+            <div>
+              <input type="text" class="form-control" [ngClass]="{'is-invalid':location.get('street')?.invalid && location.get('street')?.touched,
+              'is-valid':location.get('street')?.valid && location.get('street')?.touched,
+            }" formControlName="street" placeholder="Street name" />
+              <div *ngIf="location.get('street')?.invalid && location.get('street')?.touched" class="text-danger">
+                <div *ngIf="location.get('street')?.errors?.['required']">هذا الحقل مطلوب</div>
+                <div *ngIf="location.get('street')?.errors?.['minLength']">يجب أن يكون الاسم أكثر من 3 أحرف</div>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-danger"  (click)="removeLocation(i)">حذف</button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary mt-2" *ngIf="maxLocations!==locationProjects.length" (click)="addLocation()">اضافه موقع اخر</button>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" style="display: block;"> صور مشروع </label>
+      <div formArrayName="imageSlider">
+        <div *ngFor="let imageSlider of imageSlider.controls; let i = index" [formGroupName]="i" class="mb-2">
+          <div class="d-flex gap-2">
+            <div>
+              <!-- <input type="file"  class="form-control" [ngClass]="{'is-invalid':imageSlider.get('image')?.invalid && imageSlider.get('image')?.touched,
+              'is-valid':imageSlider.get('image')?.valid && imageSlider.get('image')?.touched,
+            }" (change)="onFileChangeSilder($event, i)" /> -->
+            <div style="width: 50%;">
+              <ng-container >
+                <app-image-upload IsUpdate="{{ListImageSlider[i]==null?'':'true'}}"  nameImage="{{ListImageSlider[i]!=null?ListImageSlider[i] :''}}" 
+                Url="{{ListImageSlider[i]!=null?apiUrl+'/Projects/'+ListImageSlider[i]:''}}"   (imageSelected)="onFileChangeSilder($event,i)" ></app-image-upload>
+              
+              </ng-container>
+            </div>
+           
+           
+              <div *ngIf="imageSlider.get('image')?.invalid && imageSlider.get('image')?.touched" class="text-danger">
+                <div *ngIf="imageSlider.get('image')?.errors?.['required']">الصورة مطلوبة</div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-danger"  (click)="removeImage(i)">حذف</button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary mt-2"  (click)="addImage()">اضافه صوره</button>
+    </div>
+    <div class="mb-3">
+      <input type="file" class="form-control" (change)="onFileSelected($event)" accept="application/pdf"  [ngClass]="{'is-invalid':projectForm.get('pdfFile')?.invalid,
+            'is-valid':projectForm.get('pdfFile')?.valid,
+          }" />
+      <div *ngIf="projectForm.get('pdfFile')?.invalid"  class="text-danger">
+        {{ projectForm.get('pdfFile')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
+      </div>
+      <div *ngIf="PdfUrl!==''" style="height: 60vh;">
+        <ngx-extended-pdf-viewer [src]="ImageUrl+'Projects/'+PdfUrl" [showDownloadButton]="true"></ngx-extended-pdf-viewer>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-success mt-3" [disabled]="projectForm.invalid">اضافه تفاصيل مشروع</button>
+  </form>
+</div>

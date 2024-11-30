@@ -1,0 +1,327 @@
+<form [formGroup]="unitForm" (ngSubmit)="onSubmit()" style="width: 90%; margin-left: auto; margin-right: auto;">
+  <!-- Title -->
+  <div class="mb-3">
+    <input 
+        id="search-bar" 
+        type="text" 
+        placeholder="اسم لوكيشن" 
+        formControlName="NameLocation"
+        class="form-control mb-3" 
+    />
+    <google-map
+        height="450px"
+        width="100%"
+        [center]="center"
+        [zoom]="zoom"
+        (mapClick)="moveMap($event)"
+    >
+        <map-marker [position]="markerPosition"></map-marker>
+    </google-map>
+ 
+    
+  </div>
+  <div class="mb-3">
+    <label for="title" class="form-label">اسم الوحده</label>
+    <input
+      id="title"
+      type="text"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': unitForm.get('title')?.invalid && unitForm.get('title')?.touched,
+        'is-valid': unitForm.get('title')?.valid && unitForm.get('title')?.touched
+      }"
+      formControlName="title"
+      placeholder="اسم الوحده"    />
+    <div *ngIf="unitForm.get('title')?.invalid && unitForm.get('title')?.touched" class="text-danger">
+      <small *ngIf="unitForm.get('title')?.errors?.['required']">هذا الحقل مطلوب</small>
+      <small *ngIf="unitForm.get('title')?.errors?.['maxlength']">يجب ألا يزيد عن 150 حرفًا</small>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="mb-3">
+    <label for="description" class="form-label">الوصف</label>
+    <editor
+        
+        formControlName="aboutProject"
+        apiKey="qzrowtc3pocptuko571bzuu8j4csx9q9z6qcj2ptythonm7u
+
+        "
+        [ngClass]="{
+          'is-invalid': unitForm.get('description')?.invalid && unitForm.get('description')?.touched,
+          'is-valid': unitForm.get('description')?.valid && unitForm.get('description')?.touched
+        }"
+        formControlName="description"
+        [init]="init"
+      ></editor>
+    
+    <div *ngIf="unitForm.get('description')?.invalid && unitForm.get('description')?.touched" class="text-danger">
+      <small *ngIf="unitForm.get('description')?.errors?.['required']">هذا الحقل مطلوب</small>
+      <small *ngIf="unitForm.get('description')?.errors?.['maxlength']">يجب ألا يزيد عن 1000 حرف</small>
+    </div>
+  </div>
+
+  <!-- Image -->
+  <div class="mb-3">
+    <label for="image" class="form-label">الصورة</label>
+    <!-- <input
+      id="image"
+      type="file"
+      class="form-control"
+      (change)="onFileSelect($event, -1)"
+    /> -->
+    <ng-container *ngIf="unitForm.get('image')?.value!=='' && isFormInit">
+      <app-image-upload  nameImage="{{unitForm.get('image')?.value}}" 
+      Url="{{apiUrl+'/Units/'+unitForm.get('image')?.value}}"  
+        (imageSelected)="onFileChange($event,-1)" ></app-image-upload>
+    </ng-container>
+    <div *ngIf="unitForm.get('image')?.invalid && unitForm.get('image')?.touched" class="text-danger">
+      <small>هذا الحقل مطلوب</small>
+    </div>
+  </div>
+
+  <!-- Status -->
+  <div class="mb-3">
+    <label for="status" class="form-label">حالة الوحدة</label>
+    <select
+      id="status"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': unitForm.get('status')?.invalid && unitForm.get('status')?.touched,
+        'is-valid': unitForm.get('status')?.valid && unitForm.get('status')?.touched
+      }"
+      formControlName="status"
+    >
+      <option value="">اختر الحالة</option>
+      <option value="Available">متاحة</option>
+      <option value="Sold">تم بيعها</option>
+    </select>
+    <div *ngIf="unitForm.get('status')?.invalid && unitForm.get('status')?.touched" class="text-danger">
+      <small>الحالة مطلوبة ويجب أن تكون 'متاحة' أو 'تم بيعها'</small>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="status" class="form-label">حالة الدفع</label>
+    <select
+      id="status"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': unitForm.get('typePrice')?.invalid && unitForm.get('typePrice')?.touched,
+        'is-valid': unitForm.get('typePrice')?.valid && unitForm.get('typePrice')?.touched
+      }"
+      formControlName="typePrice"
+    >
+      <option value="">اختر الحالة</option>
+      <option value="Available">مقدم</option>
+      <option value="Sold">تقسيط</option>
+    </select>
+    <div *ngIf="unitForm.get('typePrice')?.invalid && unitForm.get('typePrice')?.touched" class="text-danger">
+      <small>الحالة الدفع مطلوبة ويجب أن تكون 'مقدم' أو 'تقسيط'</small>
+    </div>
+  </div>
+  <!-- Code Unit -->
+  <div class="mb-3">
+    <label for="codeUnit" class="form-label">رمز الوحدة</label>
+    <input
+      id="codeUnit"
+      type="text"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': unitForm.get('codeUnit')?.invalid && unitForm.get('codeUnit')?.touched,
+        'is-valid': unitForm.get('codeUnit')?.valid && unitForm.get('codeUnit')?.touched
+      }"
+      formControlName="codeUnit"
+      placeholder="أدخل رمز الوحدة"
+    />
+    <div *ngIf="unitForm.get('codeUnit')?.invalid && unitForm.get('codeUnit')?.touched" class="text-danger">
+      <small>هذا الحقل مطلوب</small>
+      <small *ngIf="unitForm.get('codeUnit')?.errors?.['maxlength']">يجب ألا يزيد عن 20 حرفًا</small>
+    </div>
+  </div>
+
+  <!-- Area -->
+  <div class="mb-3">
+    <label for="area" class="form-label">المساحة</label>
+    <input
+      id="area"
+      type="number"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': unitForm.get('area')?.invalid && unitForm.get('area')?.touched,
+        'is-valid': unitForm.get('area')?.valid && unitForm.get('area')?.touched
+      }"
+      formControlName="area"
+      placeholder="أدخل مساحة الوحدة"
+    />
+    <div *ngIf="unitForm.get('area')?.invalid && unitForm.get('area')?.touched" class="text-danger">
+      <small>هذا الحقل مطلوب</small>
+      <small *ngIf="unitForm.get('area')?.errors?.['min']">يجب أن تكون المساحة أكبر من 0</small>
+    </div>
+  </div>
+
+  <!-- Number of Bathrooms -->
+  <div class="mb-3">
+    <label for="numberBathroom" class="form-label">عدد الحمامات</label>
+    <input
+      id="numberBathroom"
+      type="number"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': unitForm.get('numberBathroom')?.invalid && unitForm.get('numberBathroom')?.touched,
+        'is-valid': unitForm.get('numberBathroom')?.valid && unitForm.get('numberBathroom')?.touched
+      }"
+      formControlName="numberBathroom"
+      placeholder="أدخل عدد الحمامات"
+    />
+    <div *ngIf="unitForm.get('numberBathroom')?.invalid && unitForm.get('numberBathroom')?.touched" class="text-danger">
+      <small>هذا الحقل مطلوب</small>
+      <small *ngIf="unitForm.get('numberBathroom')?.errors?.['min']">يجب أن يكون أكبر من 0</small>
+    </div>
+  </div>
+
+  <!-- Number of Rooms -->
+  <div class="mb-3">
+    <label for="numberRoom" class="form-label">عدد الغرف</label>
+    <input
+      id="numberRoom"
+      type="number"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': unitForm.get('numberRoom')?.invalid && unitForm.get('numberRoom')?.touched,
+        'is-valid': unitForm.get('numberRoom')?.valid && unitForm.get('numberRoom')?.touched
+      }"
+      formControlName="numberRoom"
+      placeholder="أدخل عدد الغرف"
+    />
+    <div *ngIf="unitForm.get('numberRoom')?.invalid && unitForm.get('numberRoom')?.touched" class="text-danger">
+      <small>هذا الحقل مطلوب</small>
+      <small *ngIf="unitForm.get('numberRoom')?.errors?.['min']">يجب أن يكون أكبر من 0</small>
+    </div>
+  </div>
+
+  <!-- Year of Build -->
+  <div class="mb-3">
+    <label for="yearOfBuild" class="form-label">سنة البناء</label>
+    <input
+      id="yearOfBuild"
+      type="number"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': unitForm.get('yearOfBuild')?.invalid && unitForm.get('yearOfBuild')?.touched,
+        'is-valid': unitForm.get('yearOfBuild')?.valid && unitForm.get('yearOfBuild')?.touched
+      }"
+      formControlName="yearOfBuild"
+      placeholder="أدخل سنة البناء"
+    />
+    <div *ngIf="unitForm.get('yearOfBuild')?.invalid && unitForm.get('yearOfBuild')?.touched" class="text-danger">
+      <small>هذا الحقل مطلوب</small>
+      <small *ngIf="unitForm.get('yearOfBuild')?.errors?.['min']">يجب أن تكون السنة بعد 1800</small>
+      <small *ngIf="unitForm.get('yearOfBuild')?.errors?.['max']">يجب أن تكون السنة قبل 2100</small>
+    </div>
+  </div>
+
+  <!-- Price -->
+  <div class="mb-3">
+    <label for="price" class="form-label">السعر</label>
+    <input
+      id="price"
+      type="number"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': unitForm.get('price')?.invalid && unitForm.get('price')?.touched,
+        'is-valid': unitForm.get('price')?.valid && unitForm.get('price')?.touched
+      }"
+      formControlName="price"
+      placeholder="أدخل السعر"
+    />
+    <div *ngIf="unitForm.get('price')?.invalid && unitForm.get('price')?.touched" class="text-danger">
+      <small>هذا الحقل مطلوب</small>
+      <small *ngIf="unitForm.get('price')?.errors?.['min']">يجب أن يكون السعر أكبر من 0</small>
+    </div>
+  </div>
+
+  <!-- Video URL -->
+  <div class="mb-3">
+    <label for="videoUrl" class="form-label">رابط الفيديو</label>
+    <input
+      id="videoUrl"
+      type="url"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': unitForm.get('videoUrl')?.invalid && unitForm.get('videoUrl')?.touched,
+        'is-valid': unitForm.get('videoUrl')?.valid && unitForm.get('videoUrl')?.touched
+      }"
+      formControlName="videoUrl"
+      placeholder="أدخل رابط الفيديو"
+    />
+    <div *ngIf="unitForm.get('videoUrl')?.invalid && unitForm.get('videoUrl')?.touched" class="text-danger">
+      <small>هذا الحقل مطلوب</small>
+      <small *ngIf="unitForm.get('videoUrl')?.errors?.['pattern']">يجب أن يكون رابط صالح</small>
+    </div>
+  </div>
+
+  <!-- Dynamic Advantages -->
+  <div class="mb-3" formArrayName="advantages">
+    <label class="form-label">المميزات</label>
+    <div *ngFor="let advantage of advantages.controls; let i = index" [formGroupName]="i" class="mb-2">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="advantage" 
+        placeholder="أدخل ميزة"
+        [ngClass]="{
+          'is-invalid': advantage.invalid && advantage.touched,
+          'is-valid': advantage.valid && advantage.touched
+        }"
+      />
+      <div *ngIf="advantage.invalid && advantage.touched" class="text-danger">
+        <small>هذا الحقل مطلوب</small>
+      </div>
+      <button type="button" class="btn btn-danger mt-1" (click)="removeAdvantage(i)">حذف</button>
+    </div>
+    <button type="button" class="btn btn-primary mt-2" (click)="addAdvantage()">إضافة ميزة</button>
+  </div>
+
+  <!-- Services -->
+  <div class="mb-3" formArrayName="services">
+    <label class="form-label">الخدمات</label>
+    <div *ngFor="let service of services.controls; let i = index" [formGroupName]="i" class="mb-2">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="service" 
+        placeholder="أدخل خدمة"
+        [ngClass]="{
+          'is-invalid': service.invalid && service.touched,
+          'is-valid': service.valid && service.touched
+        }"
+      />
+      <div *ngIf="service.invalid && service.touched" class="text-danger">
+        <small>هذا الحقل مطلوب</small>
+      </div>
+      <button type="button" class="btn btn-danger mt-1" (click)="removeService(i)">حذف</button>
+    </div>
+    <button type="button" class="btn btn-primary mt-2" (click)="addService()">إضافة خدمة</button>
+  </div>
+
+  <!-- Detail Images -->
+  <div class="mb-3" formArrayName="detailImages">
+    <label class="form-label">صور تفصيلية</label>
+    <div *ngFor="let detailImage of detailImages.controls; let i = index" class="mb-2">
+      <div style="width: 50%;">
+
+        <ng-container *ngIf="isFormInit">
+          <app-image-upload IsUpdate="{{detailImages.at(i).get('image')?.value==null?'':'true'}}"  nameImage="{{detailImage.get('image')?.value!=null?detailImage.get('image')?.value :''}}" 
+          Url="{{detailImage.get('image')?.value!=null?apiUrl+'/Units/'+detailImage.get('image')?.value:''}}"   (imageSelected)="onFileChange($event, i)" ></app-image-upload>
+        
+        </ng-container>
+      </div>
+      <button type="button" class="btn btn-danger mt-1" (click)="removeDetailImage(i)">حذف</button>
+    </div>
+    <button type="button" class="btn btn-primary mt-2" (click)="addDetailImage()">إضافة صورة</button>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-success" [disabled]="unitForm.invalid">إرسال</button>
+</form>
+

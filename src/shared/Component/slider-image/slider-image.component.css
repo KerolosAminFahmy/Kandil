@@ -1,0 +1,104 @@
+@import '../../../../node_modules/lightcase/src/css/lightcase.css';
+.ImageSlider{
+  margin-bottom: 10rem;
+}
+.ltn__img-slide-item-4 {
+  position: relative;
+  margin-bottom: 30px;
+}
+.ltn__img-slide-item-4 img, .ltn__img-slide-item-3 img, .ltn__img-slide-item-2 img {
+
+transition: all 0.5s ease 0s;
+}
+
+.ltn__img-slide-item-4 > a, .ltn__img-slide-item-3 > a, .ltn__img-slide-item-2 > a {
+display: block;
+overflow: hidden;
+}
+.ltn__img-slide-item-4:hover img, .ltn__img-slide-item-3:hover img, .ltn__img-slide-item-2:hover img {
+-webkit-transform: scale(1.1);
+-ms-transform: scale(1.1);
+transform: scale(1.1);
+}
+.slick-dots li {
+display: inline-block;
+list-style: none;
+display: inline-block;
+font-size: 0;
+height: 10px;
+width: 10px;
+border-radius: 100%;
+margin-left: 10px;
+background-color: #c0c0c0;
+cursor: pointer;
+margin-top: 0;
+-webkit-transition: all 0.3s ease 0s;
+-o-transition: all 0.3s ease 0s;
+transition: all 0.3s ease 0s;
+}
+.slick-dots li:hover, .slick-dots li.slick-active {
+background-color: #d61c23;
+height: 15px;
+width: 15px;
+margin-bottom: -2px;
+}
+.slick-slider{
+  padding: 0 ;
+}
+.slick-dots li button {
+display: none;
+}
+.slick-arrow {
+background-color: #fff;
+cursor: pointer;
+position: absolute;
+top: 50%;
+right: 15px;
+left: auto;
+-webkit-transform: translateY(-50%);
+-ms-transform: translateY(-50%);
+transform: translateY(-50%);
+width: 50px;
+height: 50px;
+line-height: 48px;
+display: block;
+border: 1px solid #e6ecf0;
+border-radius: 100%;
+text-align: center;
+font-size: 20px;
+color: #000000 !important;
+z-index: 1;
+opacity: 0;
+visibility: hidden;
+transition: all 0.5s ease;
+}
+.row:hover .slick-arrow {
+right: 50px;
+left: auto;
+}
+.row:hover .slick-arrow {
+opacity: 1;
+visibility: visible;
+}
+.row:hover .slick-next {
+left: 50px;
+right: auto;
+}
+.slick-arrow::before{
+color:#d61c23
+}
+.slick-arrow:hover::before{
+color: white  ;
+}
+.slick-arrow:hover {
+background-color: #d61c23;
+border-color: #d61c23;
+color: #fff;
+}
+img{
+  max-height: 90vh;
+
+    object-fit: cover;
+    object-position: 0% 50% !important;
+    width: 100%;
+}

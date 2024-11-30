@@ -1,0 +1,133 @@
+.custom-select {
+  position: relative;
+}
+
+.select-selected {
+  background-color: #f0f0f0;
+  padding: 5px 15px 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.Disabled{
+  background-color: #f0f0f0cc;
+  border: 1px solid #f0f0f0cc;
+  cursor: not-allowed;
+}
+
+.select-items {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+
+  width: calc(100% - 24px);
+  z-index: 99;
+
+}
+.select-items
+.select-items div {
+  padding: 10px;
+  cursor: pointer;
+}
+.select-items{
+  border-radius: 5px;
+  margin-top: 5px;
+  opacity: 1;
+  max-height: 120px ;
+  transform: translateY(0);
+  overflow-y: scroll;
+  transition: all 300ms ease-in-out;
+
+}
+.select-items div:hover {
+  background-color: #e0e0e0;
+}
+.select-option{
+  padding: 10px;
+  cursor: pointer;
+}
+.select-option.active-option{
+  background-color: #e0e0e0;
+  border-right:5px solid var(--mainColor) ;
+  border-radius: 5px;
+}
+.select-hide {
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  transform: translateY(-5px);
+  overflow: hidden;
+  max-height: 0;
+}
+
+
+
+
+
+
+
+
+button span {
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  padding: 18px 25px;
+  color: #fff;
+  font-size: 1.125em;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover span {
+  color: #183153;
+  animation: scaleUp 0.3s ease-in-out;
+}
+button.FadeInAnimation {
+  position: relative;
+  z-index: 21;
+  padding: 5px 5px;
+  color: #183153;
+  border: none;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+button.FadeInAnimation:hover {
+  color: #e5eaee;
+}
+button.FadeInAnimation:after {
+  content: '';
+  background-color: var(--mainColor);
+  position: absolute;
+  border-radius: 6px;
+  z-index: -1;
+  right: 0;
+  top: 0;
+  width: 0%;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+}
+button.FadeInAnimation:hover::after {
+  width: 100%;
+  right: auto;
+  left: 0;
+}
+@media (max-width:980px) {
+   button.FadeInAnimation {
+    margin:10px auto 0 auto;
+  }
+}
+@media (max-width:760px) {
+  .select-items{
+    margin: 0;
+  }
+
+  button.FadeInAnimation {
+    margin:10px auto 0 auto;
+    width: calc(100% - 25px);
+  }
+  .select-selected:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}

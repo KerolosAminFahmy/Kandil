@@ -1,0 +1,237 @@
+<header id="Header" #header [ngClass]="customClass">
+  <div class="container HeaderContent">
+    <div class="LeftContainer">
+      <img
+      [src]="headerImageUrl|| '../../assets/Images/k1.png'"
+        alt="Logo Company of Kandil"
+        class="LogoCompany"
+      />
+    </div>
+    <div class="RightContainer">
+      <div class="toggle-btn" [ngClass]="{ 'ActiveMenu': isOverlayVisible }" (click)="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="LinksNavigator">
+        <li class="LinkNavigator">
+          <a class="LinkA" routerLink="/home"> الرئيسية </a>
+        </li>
+        <li class="LinkNavigator">
+          <a class="LinkA" routerLink="/whyus">لماذا قنديل</a>
+        </li>
+        <li class="LinkNavigator">
+          <a class="LinkA" routerLink="/projectcategory">المشروعات +</a>
+          <ul class="SubmenuLinkNavigator">
+            <li>
+              <a class="LinkB" href="Pages/units.html"> عروض للبيع </a>
+            </li>
+            <li>
+              <a class="LinkB" routerLink="/projectcategory">
+                سابقة الاعمال
+              </a>
+            </li>
+            <li class="SubLinkNavigator">
+              <a class="LinkB" routerLink="/projectcategory"> المشروعات المتاحة + </a>
+              <ul class="Sub-menuLinkNavigator">
+                <li class="SubLinkNavigator1" *ngFor="let item of AllArea; let i=index">
+                  <a class="LinkC" [routerLink]="['/projectcategory/',item.id]">
+                    {{item.city}}
+                  </a>
+                  <ul class="Sub-menuLinkNavigator1">
+                    <li *ngFor="let project of item.viewAreas; let j=index">
+                      <a
+                        class="LinkD"
+                        [routerLink]="['/projectcategory/{{item.id}}/project/',project.id]"
+                      >
+                      {{project.name}}</a
+                      >
+                    </li>
+                    </ul>
+                </li>
+                </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="LinkNavigator">
+          <a class="LinkA" routerLink="/finishcategory"> التشطيبات + </a>
+          <ul class="SubmenuLinkNavigator">
+            <li>
+              <a class="LinkB" href="Pages/Interiorfinishes.html"> التشطيبات داخليه </a>
+            </li>
+          </ul>
+        </li>
+        <li class="LinkNavigator">
+          <a class="LinkA" routerLink="/mediaCategories">
+            المركز الإعلامي +
+          </a>
+          <ul class="SubmenuLinkNavigator">
+            <li *ngFor="let item of AllMediaCategory; let i=index">
+              <a class="LinkB" [routerLink]="['mediaCategories/', item.id]"> {{item.title}} </a>
+            </li>
+          
+          </ul>
+        </li>
+        <li class="LinkNavigator">
+          <a class="LinkA" routerLink="callus"> اتصل بنا </a>
+        </li>
+        <li class="LinkNavigator">
+          <a class="LinkA" href="">
+            
+            19473
+            <i class="fa-solid fa-phone-volume" style="transform: rotateZ(17deg);margin-right: 3px;"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+ <!-- Start Overlay Section For Mobile Heading -->
+ <div id="page-overlay" [ngClass]="{ 'HiddenOverlay': isOverlayVisible }"></div>
+ <!-- End Overlay Section For Mobile Heading -->
+<!--Start Header Mobile Section For Responsive-->
+<div class="headerModileContainer" [ngClass]="{ 'open-sidebar': isSidebarOpen }">
+  <div class="headerModile">
+    <div class="ImageCompany">
+      <img src="../../../assets/Images/kd1.png" alt="Logo Company" />
+    </div>
+    <div class="closeContainer">
+      <div class="BtnClose" (click)="toggleSidebar()">
+        <span class="TextClose">X</span>
+      </div>
+    </div>
+  </div>
+  <div class="AllLinkList">
+    <ul class="LinkList">
+      <li><a routerLink="/home">الرئيسية</a></li>
+        <li>
+          <a routerLink="/whyus"
+            >لماذا قنديل</a
+          >
+        </li>
+
+        <li>
+          <a href="Pages/units.html">وحدات للبيع</a>
+        </li>
+
+        <li>
+          <a routerLink="/projectcategory"
+            >سابقة الاعمال
+          </a>
+        </li>
+
+        <li >
+          <div class="Arrow" #arrow  (click)="toggleSubMenu(arrow)">
+            <span class="ArrowLine"></span>
+            <span class="ArrowLine"></span>
+          </div>
+            <a routerLink="/projectcategory"
+            >المشروعات</a
+          >
+          @for (city of AllArea; track city.id) {
+            <ul class="sub-menu">
+              <li>
+                <div class="Arrow" #arrow (click)="toggleSubMenu(arrow)">
+                  <span class="ArrowLine"></span>
+                  <span class="ArrowLine"></span>
+                </div>
+              
+                  <a
+                  [routerLink]="['/projectcategory/',city.id]"
+                  >
+                  {{city.city}}
+                </a>
+                <ul class="sub-menu">
+                  <li *ngFor="let area of city.viewAreas">
+                    <a
+                    [routerLink]="['/projectcategory/{{city.id}}/project/',area.id]"
+                      >{{area.name}}</a
+                    >
+                  </li>
+                
+    
+                </ul>
+              
+                
+              </li>
+            </ul>
+          }
+            </li>
+
+      
+          
+
+        <li>
+          <div class="Arrow" #arrow11 (click)="toggleSubMenu(arrow11)">
+            <span class="ArrowLine "></span>
+            <span class="ArrowLine "></span>
+          </div>
+          <a routerLink="/finishcategory">
+            التشطيبات</a
+          >
+          <ul class="sub-menu">
+            <li>
+              <a
+                href="Pages/Interiorfinishes.html"
+                >تشطيبات داخلية</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <div class="Arrow" #arrow10 (click)="toggleSubMenu(arrow10)">
+            <span class="ArrowLine "></span>
+            <span class="ArrowLine "></span>
+          </div>
+          <a routerLink="/mediaCategories">
+            المركز الإعلامي </a
+          >
+          <ul class="sub-menu">
+            <li *ngFor="let item of AllMediaCategory; let i=index">
+              <a  [routerLink]="['mediaCategories/', item.id]"> {{item.title}} </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="Pages/callUs.html">اتصل بنا</a>
+        </li>
+    </ul>
+  </div>
+  <div class="FooterHeader">
+    <ul>
+      <li>
+        <a
+          href="https://www.facebook.com/kandilrealestateinvestment"
+          title="Facebook"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+      </li>
+      <li>
+        <a href="https://twitter.com/kandilestates" title="Twitter"
+          ><i class="fab fa-twitter"></i
+        ></a>
+      </li>
+      <li>
+        <a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a>
+      </li>
+      <li>
+        <a
+          href="https://www.instagram.com/kandil.realestate/"
+          title="Instagram"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/c/KandilRealEstate" title="Youtube"
+          ><i class="fab fa-youtube"></i
+        ></a>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--End Header Mobile Section For Responsive-->
+<!--Button For Scroll up Faster-->
+<a id="scrollUp" href="/#" #buttonUp (click)="scrollToTopManual($event)" style="position: fixed; z-index: 2147483647">
+  <i class="fa fa-angle-up"></i>
+</a>
+<!--Button For Scroll up Faster-->

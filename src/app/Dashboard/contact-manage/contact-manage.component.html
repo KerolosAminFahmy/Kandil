@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>Contact Dashboard</h2>
+
+  <!-- Contact Table -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Project</th>
+        <th>Message</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ contact.name }}</td>
+        <td>{{ contact.phone }}</td>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.project }}</td>
+        <td>{{ contact.message }}</td>
+        <td>
+          <!-- Remove Button -->
+          <button class="btn btn-danger" (click)="removeContact(contact.id)">
+            Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

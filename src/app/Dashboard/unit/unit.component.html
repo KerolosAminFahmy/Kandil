@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="product-item text-center col-4" style="margin-left: auto; margin-right:auto ;" *ngFor="let unit of units">
+      <div class="product-img" style="height: auto !important;">
+        <a
+          routerLink=""
+      
+          ><img
+            [src]="ImageUrl+'Units/'+unit.imageName"
+            alt="#"
+        /></a>
+        <div class="product-badge">
+          <ul>
+            <li class="sale-badge "  [ngClass]="unit.status.toLowerCase()=='available'?'bg-green':'bg-red'">{{unit.status | statusTranslate}}</li>
+          </ul>
+        </div>
+        <div class="product-img-location-gallery">
+          <div class="product-img-location">
+            <ul>
+              <li>
+                <a [href]="'https://www.google.com/maps?q='+unit.latitude+','+unit.longitude"
+                  ><i class="fa-solid fa-location-dot"></i> {{unit.nameLocation}}</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="product-info">
+        <h2 class="product-title">
+          <a
+            href="Pages/DetailUnit1.html"
+            > {{unit.title}}</a
+          >
+        </h2>
+    
+        <ul class="list-item">
+          <li>
+            <span>{{unit.numberRoom}} <i class="fa-solid fa-bed"></i></span>
+            غرف
+          </li>
+          <li>
+            <span>{{unit.numberBathroom}} <i class="fa-solid fa-bath"></i></span>
+            حمام
+          </li>
+          <li>
+            <span>{{unit.area}} <i class="fa-solid fa-vector-square"></i></span>
+            متر
+          </li>
+          <li style="color: var(--mainColor)">
+            <span style="position: relative;margin-bottom: 1px;top:10px;text-align: center;"
+              > <p style="width: inherit;position:absolute; top:3px; right:25%;">{{unit.typePrice}}</p>  <br> {{unit.price}} <i class="fa-solid fa-sterling-sign"></i
+            ></span >
+                <p style="margin: 0; font-weight: 700;">جنيه</p>
+          </li>
+        </ul>
+      </div>
+      <div class="card-buttons">
+        <a class="btn btn-edit"  [routerLink]="['/dashboard/Projects/unit/edit/', unit.id]">Edit</a>
+        <button class="btn btn-delete" (click)="onDelete(unit.id)">Delete</button>
+      </div>
+    </div>
+    <div class="card-container col-4">
+      <a class="card add-card"  [routerLink]="['/dashboard/Projects/unit/'+projectId.toString()+'/add']" >
+        <span class="plus-icon">+</span>
+      </a>
+    </div>
+  </div>
+  
+</div>
+
+
+
+

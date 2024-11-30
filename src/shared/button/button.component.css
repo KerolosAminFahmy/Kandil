@@ -1,0 +1,29 @@
+button.FadeInAnimation {
+  position: relative;
+  z-index: 21;
+  padding: 5px 5px;
+  color: #183153;
+  border: none;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+button.FadeInAnimation:hover {
+  color: #e5eaee;
+}
+button.FadeInAnimation:after {
+  content: '';
+  background-color: var(--mainColor);
+  position: absolute;
+  border-radius: 6px;
+  z-index: -1;
+  right: 0;
+  top: 0;
+  width: 0%;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+}
+button.FadeInAnimation:hover::after {
+  width: 100%;
+  right: auto;
+  left: 0;
+}

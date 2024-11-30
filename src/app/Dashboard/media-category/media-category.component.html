@@ -1,0 +1,43 @@
+<div class="card-container">
+  <!-- Dynamic List of Cards -->
+  <div class="card" *ngFor="let item of MediaCategory">
+    <img [src]="ImageUrl+'Media/'+item.imageName" alt="Image" class="card-image" />
+    <h3 class="card-title">{{ item.title}}</h3>
+    <div class="card-buttons">
+      <button (click)="onEdit(item.id)" class="btn btn-edit">Edit</button>
+      <a class="btn btn-info"  [routerLink]="['/dashboard/MediaCategory/', item.id]">All Event</a>
+      <button (click)="onDelete(item.id)" class="btn btn-delete">Delete</button>
+    </div>
+  </div>
+
+  <!-- Add New Card -->
+  <div class="card add-card" (click)="openAddCityModal()">
+    <span class="plus-icon">+</span>
+  </div>
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-content">
+      <span class="close-btn" (click)="closeModal()">×</span>
+      @if(isEditMode){
+        <h2>تعديل فئه ايفنت</h2>
+      }@else {
+        <h2>اضافه فئه ايفنت جديد</h2>
+      }
+      
+      <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+        <label for="name">اسم فئه ايفنت</label>
+        <input id="name" formControlName="title" type="text" placeholder="ادخل اسم المدينه" />
+  
+        <label for="image">صوره فئه ايفنت</label>
+        <app-image-upload nameImage="{{NameImage}}" Url="{{UrlEdit}}" (imageSelected)="onImageSelected($event)"></app-image-upload>
+        <button type="submit" [disabled]="cityForm.invalid" class="btn btn-submit">
+          @if(isEditMode){
+            تعديل
+          }@else{
+            اضافه
+          }
+
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

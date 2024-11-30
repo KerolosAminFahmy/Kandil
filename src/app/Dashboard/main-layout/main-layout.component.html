@@ -1,0 +1,115 @@
+
+
+<div class="container-dashboard">
+  <div class="navigation" [ngClass]="{ 'active': isMenuActive }">
+      <ul>
+          <li>
+              <a href="#" >
+                  <span class="icon">
+                      <img src="../../../assets/Images/k1.png" width="60px" height="45" alt="">
+                  </span>
+                  <!-- <span class="title" style="font-size: 30px;margin-top: 10px;">قنديل</span> -->
+              </a>
+          </li>
+
+          <!-- <li routerLinkActive="hovered" [routerLinkActiveOptions]="{ exact: true }">
+              <a routerLink="/dashboard" >
+                  <span class="icon">
+                      <ion-icon name="home-outline"></ion-icon>
+                  </span>
+                  <span class="title">رئيسي</span>
+              </a>
+          </li> -->
+
+          <li routerLinkActive="hovered" >
+              <a routerLink="/dashboard/Cities" >
+                  <span class="icon">
+                      <ion-icon name="people-outline"></ion-icon>
+                  </span>
+                  <span class="title">المدن</span>
+              </a>
+          </li>
+
+          <li routerLinkActive="hovered" >
+              <a routerLink="/dashboard/allarea" >
+                  <span class="icon">
+                      <ion-icon name="chatbubble-outline"></ion-icon>
+                  </span>
+                  <span class="title">المنطقه</span>
+              </a>
+          </li>
+
+          <li routerLinkActive="hovered" >
+              <a routerLink="/dashboard/Projects" >
+                  <span class="icon">
+                      <ion-icon name="help-outline"></ion-icon>
+                  </span>
+                  <span class="title">مشاريع</span>
+              </a>
+          </li>
+
+          <li routerLinkActive="hovered" >
+              <a routerLink="/dashboard/MediaCategory" >
+                  <span class="icon">
+                      <ion-icon name="settings-outline"></ion-icon>
+                  </span>
+                  <span class="title">ميديا</span>
+              </a>
+          </li>
+
+          <li>
+              <a routerLink="WhyUs">
+                  <span class="icon">
+                      <ion-icon name="lock-closed-outline"></ion-icon>
+                  </span>
+                  <span class="title">تعديل لماذا قنديل</span>
+              </a>
+          </li>
+          <li>
+            <a routerLink="ContactManage">
+                <span class="icon">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                </span>
+                <span class="title">عرض رسائل</span>
+            </a>
+        </li>
+          <li>
+              <a href="#" (click)="Signout()">
+                  <span class="icon">
+                      <ion-icon name="log-out-outline"></ion-icon>
+                  </span>
+                  <span class="title">Sign Out</span>
+              </a>
+          </li>
+      </ul>
+  </div>
+
+  <!-- ========================= Main ==================== -->
+  <div class="main" [ngClass]="{ 'active': isMenuActive }">
+      <div class="topbar">
+          <div class="toggle"  (click)="toggleMenu()">
+              <ion-icon name="menu-outline"></ion-icon>
+          </div>
+
+          <div class="search">
+              <label>
+                  <input type="text" placeholder="بحث هنا">
+                  <ion-icon name="search-outline"></ion-icon>
+              </label>
+          </div>
+
+          <div class="user">
+              <img src="../../../assets/Images/customer01.jpg" alt="">
+          </div>
+      </div>
+      <p-toast position="top-left" />
+
+
+      <router-outlet></router-outlet>
+      
+  
+  </div>
+</div>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+

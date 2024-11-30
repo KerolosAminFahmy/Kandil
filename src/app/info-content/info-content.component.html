@@ -1,0 +1,35 @@
+<app-title-navigation title={{title}}></app-title-navigation>
+
+<section class="InfoContent">
+  <div class="container">
+    <div class="row" style="text-align: center;">
+      <div class="col-lg-12">
+        <div class="page-details-inner service-details-inner">
+          
+          <!-- Image Section -->
+          <div class="blog-img">
+            <img [src]="imageSrc" alt="Image">
+          </div>
+
+          <!-- Blockquote Section -->
+          <blockquote>
+            <i class="fa-sharp fa-solid fa-quote-left" style="color: #ffffff;"></i>
+            <p>{{ quoteText }}</p>
+          </blockquote>
+
+          <!-- Main Text Section -->
+          <p>{{ mainText }}</p>
+
+          <!-- List Items Section -->
+          <ul *ngIf="listItems.length > 0">
+            <li *ngFor="let item of listItems">
+              <strong>{{ item.title }}</strong>: {{ item.description }}
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,66 @@
+<div class="accordion" id="cityAccordion">
+   
+  <div class="accordion-item" *ngFor="let item of areas; let i = index">
+    <h2 class="accordion-header" id="headingCity{{i}}">
+      <button 
+        class="accordion-button" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        [attr.data-bs-target]="'#collapseCity' + i" 
+        aria-expanded="true" 
+        [attr.aria-controls]="'collapseCity' + i">
+        {{ item.city }}
+      </button>
+    </h2>
+    <div 
+      [id]="'collapseCity' + i" 
+      class="accordion-collapse collapse" 
+      [attr.aria-labelledby]="'headingCity' + i" 
+      data-bs-parent="#cityAccordion">
+      <div class="accordion-body">
+        <div class="card-container">
+          <div class="card" *ngFor="let area of item.viewAreas">
+            <img [src]="ImageUrl+area.imageName" alt="Image" class="card-image" />
+            <h3 class="card-title">{{ area.name }}</h3>
+            <div class="card-buttons">
+              <button class="btn btn-edit" (click)="onEdit(area.id,item.id)">Edit</button>
+              <button class="btn btn-delete" (click)="onDelete(area.id)">Delete</button>
+            </div>
+          </div>
+          <div class="card add-card" (click)="openAddAreaModal(item.id)">
+            <span class="plus-icon">+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <span class="close-btn" (click)="closeModal()">×</span>
+    @if(isEditMode){
+      <h2>تعديل منطقه</h2>
+    }@else {
+      <h2>اضافه منطقه جديده</h2>
+    }
+    
+    <form [formGroup]="AreaForm" (ngSubmit)="onSubmit()">
+      <label for="name">اسم منطقه</label>
+      <input id="name" formControlName="name" type="text" placeholder="ادخل اسم المدينه" />
+
+      <label for="image">صوره منطقه</label>
+      <app-image-upload nameImage="{{NameImage}}" Url="{{UrlEdit}}" (imageSelected)="onImageSelected($event)"></app-image-upload>
+      <button type="submit" [disabled]="AreaForm.invalid" class="btn btn-submit">
+        @if(isEditMode){
+          تعديل
+        }@else{
+          اضافه
+        }
+
+      </button>
+    </form>
+  </div>
+</div>

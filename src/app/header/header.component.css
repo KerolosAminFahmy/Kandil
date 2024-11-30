@@ -1,0 +1,499 @@
+header{
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  
+  transition: all 0.5s ease-in-out;
+}
+header .HeaderContent{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+header.ColorBlack{
+  background-color: black;
+}
+header.FixedAtTop{
+  position: fixed;
+
+  box-shadow: 0px 22px 14px 1px rgba(0,0,0,0.44);
+
+  top: 0;
+  width: 100%;
+}
+header .LeftContainer{
+  width: 10%;
+}
+header .LeftContainer img{
+  width: 100%;
+} 
+header .RightContainer{
+  width: 80%;
+}
+header .RightContainer ul.LinksNavigator{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator{
+  padding:20px 10px;
+  margin-left: 5px;
+  position: relative;
+} 
+header .RightContainer ul.LinksNavigator li.LinkNavigator::before{
+    position: absolute;
+    content: "";
+    right: 49%;
+    bottom: 5px;
+    width: 0%;
+    height: 3px;
+    background-color: var(--mainColor) ;
+    transition: all 0.5s ease 0s;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(50%)
+}
+
+header .RightContainer ul.LinksNavigator li.LinkNavigator a.LinkA,
+header .RightContainer ul.LinksNavigator li.LinkNavigator li a.LinkB,
+header .RightContainer ul.LinksNavigator li.LinkNavigator  ul.Sub-menuLinkNavigator li a.LinkC,
+header .RightContainer ul.LinksNavigator li.LinkNavigator  ul.Sub-menuLinkNavigator1 li a.LinkD{
+  transition: all 0.5s ease-in-out;
+}
+
+header .RightContainer ul.LinksNavigator li.LinkNavigator li a.LinkB,
+header .RightContainer ul.LinksNavigator li.LinkNavigator  ul.Sub-menuLinkNavigator li a.LinkC,
+header .RightContainer ul.LinksNavigator li.LinkNavigator  ul.Sub-menuLinkNavigator1 li a.LinkD{
+  color: #5c727d;
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator:hover a.LinkA,
+header .RightContainer ul.LinksNavigator li.LinkNavigator li:hover a.LinkB,
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.Sub-menuLinkNavigator li:hover a.LinkC,
+header .RightContainer ul.LinksNavigator li.LinkNavigator  ul.Sub-menuLinkNavigator1 li:hover a.LinkD{
+  color:var(--mainColor);
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator:hover::before{
+  width: 80%;
+  opacity: 1;
+  visibility: visible;
+}
+li.SubLinkNavigator,
+li.SubLinkNavigator1{
+  position: relative;
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator,
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator li.SubLinkNavigator ul.Sub-menuLinkNavigator,
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator li.SubLinkNavigator1 ul.Sub-menuLinkNavigator1{
+  position: absolute;
+  padding: 20px 15px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border-top:#d61c23 8px solid;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 999;
+  transition: opacity .2s ease .1s, visibility .2s ease .1s, top .2s ease .1s,right .2s ease .1s;
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator{
+  top: 130%;
+  right: 0;
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator li.SubLinkNavigator ul.Sub-menuLinkNavigator,
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator li.SubLinkNavigator1 ul.Sub-menuLinkNavigator1{
+
+  right: 230px;
+  top: 15px;
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator:hover ul.SubmenuLinkNavigator,
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator li.SubLinkNavigator:hover ul.Sub-menuLinkNavigator,
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator li.SubLinkNavigator1:hover ul.Sub-menuLinkNavigator1{
+  visibility:visible;
+  opacity: 1;
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator:hover ul.SubmenuLinkNavigator{
+  top: 105%;
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator li.SubLinkNavigator:hover ul.Sub-menuLinkNavigator,
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator li.SubLinkNavigator1:hover ul.Sub-menuLinkNavigator1{
+  right: 185px;
+  
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator li{
+  width: 100%;
+  padding: 10px 0;
+}
+header .RightContainer ul.LinksNavigator li.LinkNavigator ul.SubmenuLinkNavigator li:nth-child(1){
+  padding: 0 0 10px 0;
+}
+header ul li {
+  text-wrap: nowrap;
+}
+.btn-effect-4:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  width: 0%;
+  height: 100%;
+  top:0;
+  background: var(--mainColor);
+  transition: all 0.3s;
+}
+header .toggle-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 21;
+  cursor: pointer;
+  background-color: #1b1b1b47;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+  width: 45px;
+  padding: 12px;
+  height: 45px;
+  border-radius: 5px;
+  display: none;
+}
+header .toggle-btn::after{
+  content: '';
+  width: 100%;
+  background-color: var(--mainColor);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0;
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+}
+header .toggle-btn:hover::after{
+  bottom: auto;
+  top: 0;
+  height: 100%;
+}
+header .toggle-btn span {
+  background-color: #fff;
+  height: 3px;
+  width: 100%;
+  display: block;
+  padding: 0;
+  transition: all 0.3s ease-in-out;
+}
+.ActiveMenu span:nth-child(1) {
+  transform: rotate(45deg) translateY(7px) translateX(6px);
+}
+.ActiveMenu span:nth-child(2) {
+  transform: translateX(200%);
+}
+.ActiveMenu span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-7px) translateX(5px);
+}
+
+.btn-effect-4:hover::after {
+  width: 100%;
+  left: 0;
+  right: auto;
+}
+.btn {
+  border-radius: 0;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--ltn__heading-font);
+  padding: 17px 40px;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  position: relative;
+  z-index: 1;
+  margin-right: 15px;
+}
+
+/*Scroll UP Style*/
+#scrollUp {
+  display: none;
+  background-color: #f2f6f7;
+  position: relative;
+  color: #071c1f;
+  bottom: 43px;
+  font-size: 20px;
+  font-weight: bold;
+  height: 40px;
+  width: 40px;
+  left: 3%;
+  text-align: center;
+  transform: rotate(-45deg);
+  transition: all 0.3s ease 0s;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+  overflow: hidden;
+}
+#scrollUp::after{
+  content: '';
+  left: 0;
+  position: absolute;
+  background-color: var(--mainColor);
+  width: 0%;
+  height: 100%;
+  z-index: -1;
+  transition: all 0.5s ease-in-out;
+}
+#scrollUp:hover{
+  color: #ffffff;
+}
+#scrollUp:hover::after{
+  width: 100%;
+  right:0 ;
+  left: auto;
+}
+#scrollUp i {
+  line-height: 40px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/*Mobile header */
+.headerModileContainer{
+  position: fixed;
+  z-index: 9999999;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 360px;
+  background-color: white;
+  transform: translateX(100%);
+  transition: all 0.5s ease-in-out;
+}
+.headerModileContainer.open-sidebar{
+  transform: translateX(0);
+}
+.headerModileContainer .headerModile{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+.headerModileContainer .headerModile .closeContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.headerModileContainer .headerModile .closeContainer .BtnClose{
+  border: none;
+  border-radius: 5px;
+  background-color: #f2f6f7;
+
+  width: 40px;
+  height: 40px;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.headerModileContainer .headerModile .closeContainer .BtnClose span{
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #5c727d;
+  padding: 0 !important;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+
+}
+.headerModileContainer .headerModile .closeContainer .BtnClose span:hover{
+  color: white;
+}
+
+
+.AllLinkList{
+  height: calc(100% - 200px);
+  overflow-y: scroll;
+}
+.AllLinkList::-webkit-scrollbar{
+  width: 3px;
+}
+.AllLinkList li{
+  padding: 0px 0px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+.AllLinkList .LinkList > li > a:hover{
+  background-color: #3e3e3e1f;
+  color: var(--mainColor);
+}
+.AllLinkList .LinkList  li a{
+  padding: 10px 20px;
+  display: block;
+  color: #5c727d;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+}
+.AllLinkList .sub-menu{
+  max-height:0 ;
+  overflow: hidden;
+  transition: max-height 0.15s ease-out;
+}
+.AllLinkList .LinkList  li .sub-menu.active-sub-menu{
+  max-height:100%;
+  transition: max-height 0.25s ease-in;
+}
+.AllLinkList .LinkList .Arrow {
+  position: absolute;
+  top: 8px;
+  height: 30px;
+  left: 35px;
+  width: 230px;
+}
+.Arrow .ArrowLine {
+  position: absolute;
+  width: 2px;
+  height: 10px;
+  background-color: rgb(232, 6, 6);
+  top: 7px;
+
+  border-radius: 7px;
+  transition: all 0.6s ease-in-out;
+}
+.Arrow .ArrowLine:nth-child(1) {
+  left: 5px;
+  transform: rotateZ(-39deg);
+}
+.Arrow .ArrowLine:nth-child(2) {
+  left: 10px;
+  transform: rotateZ(39deg);
+}
+.Arrow .ArrowLine.ActiveArrowLine:nth-child(1) {
+  transform: rotateZ(39deg);
+}
+.Arrow .ArrowLine.ActiveArrowLine:nth-child(2) {
+  transform: rotateZ(-39deg);
+}
+.AllLinkList .LinkList  li > .sub-menu > li a:hover{
+  background-color: #3e3e3e1f;
+}
+.AllLinkList .sub-menu li{
+  padding: 10px  0 !important;
+}
+
+
+.FooterHeader{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.FooterHeader ul li {
+  list-style: none;
+  display: inline-block;
+  margin-left: 10px;
+}
+.FooterHeader ul li a {
+  background-color: #f2f6f7;
+  color: #5c727d;
+  display: block;
+  position: relative;
+  z-index: 1;
+  border-radius: 5px;
+
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+.FooterHeader ul li a::after,
+.headerModileContainer .headerModile .closeContainer .BtnClose::after{
+  content: "";
+  position: absolute;
+  border-radius: 5px;
+
+  background-color: var(--mainColor);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  position: absolute;
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+
+}
+.FooterHeader ul li a:hover::after,
+.headerModileContainer .headerModile .closeContainer .BtnClose:hover::after{
+  height: 100%;
+  bottom: auto;
+  top:0;
+} 
+.FooterHeader ul li a:hover {
+  color: white;
+}
+.FooterHeader ul li a i {
+  color: inherit;
+}
+#page-overlay{
+  position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+#page-overlay.HiddenOverlay{
+  display: block;
+}
+
+
+
+@media (max-width:960px) {
+  header .RightContainer ul.LinksNavigator{
+    display: none;
+  }
+  header .LeftContainer {
+    width: 150px !important;
+  }
+  
+  header .toggle-btn {
+    display: flex;
+  } 
+  header .RightContainer{
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center;
+  }
+}
+
+header#Header.header-page{
+  background-color: white;
+} 
+header#Header.header-page li.LinkNavigator a.LinkA{
+  color: black;
+  transition: all 0.3s ease;
+}
+header#Header.header-page li.LinkNavigator:hover a.LinkA{
+  color:var(--mainColor);
+}
+header.header-page .HeaderContent .LeftContainer{
+  width: 11%;
+  padding: 5px 1px;
+}
+header.header-page .HeaderContent  .RightContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

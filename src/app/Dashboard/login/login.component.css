@@ -1,0 +1,93 @@
+
+
+/* Login Container */
+.container{
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-container {
+  background: #ffffff; /* White background */
+  padding: 2rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+
+}
+
+/* Heading */
+.login-container h2 {
+  margin-bottom: 1.5rem;
+  color: #333333; /* Darker text */
+  font-size: 1.5rem;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 1.2rem;
+  text-align: right;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #555555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #dddddd; /* Light border */
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3); /* Subtle focus effect */
+}
+
+/* Submit Button */
+.btn {
+  background-color: #007bff; /* Primary blue */
+  color: #ffffff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .login-container h2 {
+    font-size: 1.3rem;
+  }
+
+  .form-group input {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+}

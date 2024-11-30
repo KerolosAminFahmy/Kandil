@@ -1,0 +1,38 @@
+<div class="blog-item blog-item-3">
+  <div class="blog-img">
+    <a
+      routerLink={{Url}}
+    >
+      <img [src]="imgUrl" alt="#" />
+    </a>
+  </div>
+  <div class="blog-brief" [ngClass]="{'media-style': isMedia}">
+    <h3 class="blog-title animated fadeIn">
+      <a
+      routerLink={{Url}}
+        >{{title}}</a
+      >
+    </h3>
+    <div class="blog-meta-btn">
+      <div class="blog-meta">
+        <ul>
+          <li class="blog-date" *ngIf="date!==''">
+            <i class="far fa-calendar-alt"></i>{{date | customDate }}
+          </li>
+          <li class="blog-tags" *ngIf="media.mediaType!==''">
+            <a routerLink={{media.url}}>
+              <i class="fas fa-tags"></i>
+              {{media.mediaType}}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="blog-btn">
+        <a
+        routerLink={{Url}}
+          >مشاهدة</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

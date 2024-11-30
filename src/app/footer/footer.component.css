@@ -1,0 +1,221 @@
+section.DiscoverArea{
+  position: relative;
+}
+section.DiscoverArea::before{
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 70%;
+  right: 0;
+  bottom: 0;
+  background-color: #171b2a;
+}
+section.DiscoverArea .DiscverBody{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 60px;
+    background-color: var(--mainColor);
+}
+section.DiscoverArea .DiscverBody .DiscverBodyInfo{
+  color: white;
+}
+.btn {
+  border-radius: 0;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--ltn__heading-font);
+  padding: 17px 40px;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  position: relative;
+  z-index: 1;
+  margin-right: 15px;
+}
+.btn-white {
+  display: inline-block;
+  position: relative;
+  background-color:white;
+  color: #000000;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+  text-wrap: nowrap;
+}
+.btn-white:hover{
+  color: #ffffff;
+}
+.btn-effect-3:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 0%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  transition: all 0.3s;
+  background-color: #000000;
+}
+.btn-effect-3:hover::after {
+  width: 100%;
+  right: auto;
+  left: 0;
+}
+@media (max-width:800px) {
+  .DiscverBody{
+    flex-direction: column;
+
+  }
+}
+
+footer{
+  background-color:#171b2a ;
+  padding-top: 92px;
+  padding-bottom: 20px;
+}
+.container, .container-fluid {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footer-widget {
+  margin-bottom: 60px;
+}
+.footer-widget .footer-title {
+  font-size: 22px;
+  color: white;
+  margin-bottom: 25px;
+  font-weight: 500;
+    line-height: 1.2;
+}
+.footer-address-icon{
+  color: white;
+}
+.footer-address ul {
+  margin: 0;
+  padding: 0;
+}
+.footer-address ul li {
+  list-style: none;
+  display: block;
+  margin-top: 8px;
+}
+.footer-address ul li .footer-address-icon {
+  float: right;
+  margin-left: 15px;
+}
+.footer-address ul li .footer-address-info {
+  overflow: hidden;
+}
+.mt-20 {
+  margin-top: 20px !important;
+}
+.ltn__social-media ul {
+  margin: 0;
+  padding: 0;
+}
+.ltn__social-media ul li {
+  list-style: none;
+  display: inline-block;
+  margin: 0 0 0 15px;
+}
+.ltn__social-media ul li:hover i{
+  transition: all 0.3s ease ;
+}
+footer ul li:hover i{
+  color: var(--mainColor);
+}
+footer a{
+  text-align: center;
+  transition: all 0.3s ease ;
+}
+footer li:hover a{
+  color: var(--mainColor);
+}
+
+.footer-menu ul li {
+  list-style: none;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.footer-menu ul li a {
+  position: relative;
+}
+.footer-menu ul li:hover a {
+  padding-right: 20px;
+}
+.footer-menu ul li a::before {
+  position: absolute;
+  content: "//";
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-transition: inherit;
+  -o-transition: inherit;
+  transition: inherit;
+  opacity: 0;
+  visibility: hidden;
+  margin-right: -20px;
+  color: var(--mainColor);
+}
+.footer-menu ul li:hover a::before {
+  opacity: 1;
+  visibility: visible;
+  margin-right: 0;
+}
+.ltn__copyright-area {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+
+
+
+
+
+
+
+@media (max-width:760px) {
+
+  .footer-address ul li 
+  footer .container .row div{
+    text-align: center;
+  }
+  .footer-address-info{
+    width: 60%;
+  }
+  section.FirstSection div.SearchContianer button.FadeInAnimation {
+    margin:10px auto 0 auto;
+    width: calc(100% - 25px);
+  }
+  .select-selected {
+    margin-bottom: 10px;
+  }
+}
+
+
+@media (max-width:570px) {
+  .footer-address ul li {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  }
+  .footer-address-info p{
+    margin: 0;
+  }
+  .footer-address ul li ,
+  footer .container .row div,.footer-widget .footer-title,.footer-menu ul li  {
+    text-align: center;
+  }
+  .footer-address ul li .footer-address-icon {
+    float: left;
+    margin: 0;
+  }
+}

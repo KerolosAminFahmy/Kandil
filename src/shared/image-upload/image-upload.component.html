@@ -1,0 +1,43 @@
+<div
+  class="file-upload-wrapper"
+  [class.success]="uploadSuccess"
+  [class.error]="uploadError"
+  (drop)="onFileDrop($event)"
+  (dragover)="onDragOver($event)"
+>
+  <input
+    type="file"
+    accept="image/*"
+    (change)="onFileChange($event)"
+    hidden
+    #fileInput
+  />
+  <div class="file-dropper" (click)="fileInput.click()">
+    <!-- <mat-icon>upload</mat-icon> -->
+    <ion-icon name="cloud-upload-outline"></ion-icon>
+    <p></p>
+    <div *ngIf="imageName()">
+      <div *ngIf="selectedFile || imagePreview" style="display: flex
+      ;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;">
+        <img
+          [src]="imagePreview()"
+          loading="lazy"
+          alt="Image Preview"
+          class="image-preview"
+          width="200px"
+          height="200PX"
+        />
+        <p>
+          <span class="image-name">{{ imageName() }}</span> ({{
+            fileSize()
+          }} KB)
+        </p>
+        <ion-icon class="delete-icon" name="trash-outline" (click)="removeImage()"> </ion-icon>
+        <!-- <mat-icon class="delete-icon" (click)="removeImage()">delete</mat-icon> -->
+      </div>
+    </div>
+  </div>
+</div>

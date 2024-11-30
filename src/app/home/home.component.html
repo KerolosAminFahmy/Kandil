@@ -1,0 +1,497 @@
+<!--Start Image And Video For Company And Search Section-->
+<section class="FirstSection">
+  <div class="container">
+    <div class="SearchContianer">
+      <h3 class="TitleSearch">دوّر على أي وحدات عندنا</h3>
+      <app-dropdown></app-dropdown>
+    </div>
+  </div>
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="Image">
+          <img src="../../assets/Images/download.png" alt="" srcset="" />
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <video autoplay loop muted crossorigin="anonymous">
+          <source
+            src="../../assets/Images/No Copyright Video, Background, Green Screen, Motion Graphics, Animated Background, Copyright Free.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+      <div class="swiper-slide">
+        <video autoplay loop muted crossorigin="anonymous">
+          <source src="../../assets/Images/videoplayback.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Image And Video For Company And Search Section-->
+<!--Start Extra Information About Company Sections-->
+<section class="AboutUsSection">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 align-self-center">
+        <div class="AboutusImage">
+          <img src="../../assets/Images/11.png" alt="About Us Image" />
+        </div>
+      </div>
+      <div class="col-lg-6 align-self-center">
+        <div class="AboutusInfo">
+          <div class="SectionTitle">
+            <h6>عن قنديل</h6>
+          </div>
+          <div class="LinkTitle">
+            <h1 class="section-title"><a routerLink="/whyus">لماذا قنديل</a></h1>
+            <p>
+
+              الإنشاءات والعقارات والنمو الاقتصادي**: سأشرح كيف تسهم صناعة
+              الإنشاءات والعقارات في زيادة الناتج المحلي الإجمالي للدولة
+            
+            </p>
+          </div>
+          <div class="cardItem cardItem3">
+            <div class="CardIcon">
+              <span><i class="fa-solid fa-shield-alt"></i></span>
+            </div>
+
+            <a routerLink="/info/2">
+              <div class="CardBody">
+                <h4>الثقة</h4>
+                <p>
+                  الإنشاءات والعقارات والنمو الاقتصادي**: سأشرح كيف تسهم
+                  صناعة الإنشاءات والعقارات في زيادة الناتج المحلي الإجمالي
+                  للدولة
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="cardItem cardItem3">
+            <div class="CardIcon">
+              <span><i class="fa-solid fa-handshake"></i></span>
+            </div>
+
+            <a routerLink="/info/3">
+              <div class="CardBody">
+                <h4>الإلتزام</h4>
+                <p>
+                  الإنشاءات والعقارات والنمو الاقتصادي**: سأشرح كيف تسهم
+                  صناعة الإنشاءات والعقارات في زيادة الناتج المحلي الإجمالي
+                  للدولة
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="cardItem cardItem3">
+            <div class="CardIcon">
+              <span><i class="fa-solid fa-certificate"></i></span>
+            </div>
+
+            <a routerLink="/info/1"> </a>
+            <div class="CardBody">
+              <a routerLink="/info/1">
+                <h4>الجودة</h4>
+                <p>
+                  الإنشاءات والعقارات والنمو الاقتصادي**: سأشرح كيف تسهم
+                  صناعة الإنشاءات والعقارات في زيادة الناتج المحلي الإجمالي
+                  للدولة
+                </p>
+              </a>
+            </div>
+          </div>
+          <div class="cardItem cardItem3">
+            <div class="CardIcon">
+              <span><i class="fa-solid fa-check-square"></i></span>
+            </div>
+
+            <a routerLink="/info/4"> </a>
+            <div class="CardBody">
+              <a routerLink="/info/4">
+                <h4>المصداقية</h4>
+                <p>
+                  الإنشاءات والعقارات والنمو الاقتصادي**: سأشرح كيف تسهم
+                  صناعة الإنشاءات والعقارات في زيادة الناتج المحلي الإجمالي
+                  للدولة
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Extra Information About Company Sections-->
+<!--Start Showing All Project Section -->
+<section class="ProjectArea">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <form action="#">
+          <div class="TabMenu text-center">
+            <div class="nav">
+              <br /><br />
+              <a
+                *ngFor="let item of AllArea;let i=index"
+                class="show btn theme-btn-4 btn-effect-4" [ngClass]="i===0?'active':''"
+                data-bs-toggle="tab"
+                style="border: none;"
+                href="#liton_tab_3_{{i}}"
+                >{{item.city}}</a
+              >
+              <!-- <a
+                class="show btn theme-btn-4 btn-effect-4 active"
+                data-bs-toggle="tab"
+                href="#liton_tab_3_1"
+                >التجمع الخامس</a
+              >
+              <a
+                data-bs-toggle="tab"
+                href="#liton_tab_3_2"
+                class="btn theme-btn-4 btn-effect-4"
+                >مدينة الشروق</a
+              >-->
+              <a
+                data-bs-toggle="tab"
+                href="#liton_tab_3_3"
+                class="btn theme-btn-4 btn-effect-4"
+                >التشطيبات</a
+              > 
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane fade " *ngFor="let city of AllArea; let i=index" id="liton_tab_3_{{i}}" [ngClass]="i==0?'active show':''">
+              <div class="TabCotent">
+                <div class="mb-100">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-4 col-sm-6 col-12" *ngFor="let area of city.viewAreas; let i=index">
+                        <div class="blog-item blog-item-3">
+                          <div class="blog-img">
+                            <a
+                              href="Pages/Projects/النرجس-الجديدة.html"
+                            >
+                              <img [src]="ImageUrl+area.imageName" alt="{{ area.name }}" />
+                            </a>
+                          </div>
+                          <div class="blog-brief">
+                            <h3 class="blog-title animated fadeIn">
+                              <a
+                              href="Pages/Projects/النرجس-الجديدة.html"
+                                >{{ area.name }}</a
+                              >
+                            </h3>
+                            <div class="blog-meta-btn">
+                              <div class="blog-meta">
+                                <ul></ul>
+                              </div>
+                              <div class="blog-btn">
+                                <a
+                                href="Pages/Projects/النرجس-الجديدة.html"
+                                >مشاهدة</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="tab-pane fade active show" id="liton_tab_3_1">
+              <div class="TabCotent">
+                <div class="mb-100">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="blog-item blog-item-3">
+                          <div class="blog-img">
+                            <a
+                              href="Pages/Projects/النرجس-الجديدة.html"
+                            >
+                              <img src="../../assets/Images/s3.jpeg" alt="#" />
+                            </a>
+                          </div>
+                          <div class="blog-brief">
+                            <h3 class="blog-title animated fadeIn">
+                              <a
+                              href="Pages/Projects/النرجس-الجديدة.html"
+                                >النرجس الجديدة</a
+                              >
+                            </h3>
+                            <div class="blog-meta-btn">
+                              <div class="blog-meta">
+                                <ul></ul>
+                              </div>
+                              <div class="blog-btn">
+                                <a
+                                href="Pages/Projects/النرجس-الجديدة.html"
+                                >مشاهدة</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="blog-item blog-item-3">
+                          <div class="blog-img">
+                            <a
+                              href="Pages/Projects/بيت-الوطن.html"
+                            >
+                              <img src="../../assets/Images/s2.jpeg" alt="#" />
+                            </a>
+                          </div>
+                          <div class="blog-brief">
+                            <h3 class="blog-title animated fadeIn">
+                              <a
+                              href="Pages/Projects/بيت-الوطن.html"
+                                >بيت الوطن</a
+                              >
+                            </h3>
+                            <div class="blog-meta-btn">
+                              <div class="blog-meta">
+                                <ul></ul>
+                              </div>
+                              <div class="blog-btn">
+                                <a
+                                href="Pages/Projects/بيت-الوطن.html"
+                                >مشاهدة</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="blog-item blog-item-3">
+                          <div class="blog-img">
+                            <a
+                              href="Pages/Projects/نورث-هاوس.html"
+                            >
+                              <img src="../../assets/Images/s1.jpeg" alt="#" />
+                            </a>
+                          </div>
+                          <div class="blog-brief">
+                            <h3 class="blog-title animated fadeIn">
+                              <a
+                              href="Pages/Projects/نورث-هاوس.html"
+                                >نورث هاوس</a
+                              >
+                            </h3>
+                            <div class="blog-meta-btn">
+                              <div class="blog-meta">
+                                <ul></ul>
+                              </div>
+                              <div class="blog-btn">
+                                <a
+                                href="Pages/Projects/نورث-هاوس.html"                                      >مشاهدة</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="liton_tab_3_2">
+              <div class="TabCotent">
+                <div class="mb-100">
+                  <div class="container">
+                    <div class="row">
+                     
+                        
+                          
+                            <div class="col-lg-4 col-sm-6 col-12">
+                              <div class="blog-item blog-item-3">
+                                <div class="blog-img">
+                                  <a
+                                    href="Pages/Projects/المنطقة-الرابعه-عمارات.html"
+                                    tabindex="0"
+                                  >
+                                    <img src="../../assets/Images/s4.jpg" alt="#" />
+                                  </a>
+                                </div>
+                                <div class="blog-brief">
+                                  <h3 class="blog-title animated fadeIn">
+                                    <a
+                                    href="Pages/Projects/المنطقة-الرابعه-عمارات.html"
+                                      tabindex="0"
+                                      >المنطقة الرابعه عمارات</a
+                                    >
+                                  </h3>
+                                  <div class="blog-meta-btn">
+                                    <div class="blog-meta">
+                                      <ul></ul>
+                                    </div>
+                                    <div class="blog-btn">
+                                      <a
+                                      href="Pages/Projects/المنطقة-الرابعه-عمارات.html"
+                                      >مشاهدة</a
+                                      >
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="tab-pane fade" id="liton_tab_3_3">
+              <div class="TabCotent">
+                <div class="mb-100">
+                  <div class="container">
+                    <div class="row">
+                      
+                            <div class="col-lg-4 col-sm-6 col-12">
+                              <div class="blog-item blog-item-3">
+                                <div class="blog-img">
+                                  <a
+                                    href="Pages/Interiorfinishes.html"
+                                    tabindex="0"
+                                  >
+                                    <img src="../../assets/Images/s5.jpg" alt="#" />
+                                  </a>
+                                </div>
+                                <div class="blog-brief">
+                                  <h3 class="blog-title animated fadeIn">
+                                    <a
+                                      href="Pages/Interiorfinishes.html"
+                                      tabindex="0"
+                                      >تشطيبات داخلية</a
+                                    >
+                                  </h3>
+                                  <div class="blog-meta-btn">
+                                    <div class="blog-meta">
+                                      <ul></ul>
+                                    </div>
+                                    <div class="blog-btn">
+                                      <a
+                                        href="Pages/Interiorfinishes.html"
+                                        >مشاهدة</a
+                                      >
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Showing All Project Section -->
+<!--Video-->
+<section class="VideoArea">
+  <div class="container">
+    <iframe
+      class="youtube-video"
+      src="https://www.youtube.com/embed/Shk0ovDJsXA?loop=1&amp;controls=1&amp;showinfo=0&amp;autoplay=1&amp;mute=1"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen=""
+      __idm_id__="2269185"
+    ></iframe>
+  </div>
+</section>
+<!--Video-->
+<!--Counter Animation -->
+<section class="Numbers">
+  <div class="container">
+    <div class="row">
+      <div class="ContainerNumber col-lg-3 col-sm-6 col-12">
+        <div class="NumberText">
+          + <span class="number" appIncreaseNumber  [dataValue]="1000">0</span>
+        </div>
+        <p class="Text">مشروع</p>
+      </div>
+      <div class="ContainerNumber col-lg-3 col-sm-6 col-12">
+        <div class="NumberText">
+          + <span class="number" appIncreaseNumber  [dataValue]="750">0</span>
+        </div>
+        <p class="Text">إجمالي الوحدات</p>
+      </div>
+      <div class="ContainerNumber col-lg-3 col-sm-6 col-12">
+        <div class="NumberText">
+          + <span class="number" appIncreaseNumber  [dataValue]="100">0</span>
+        </div>
+        <p class="Text">تحت الإنشاء</p>
+      </div>
+      <div class="ContainerNumber col-lg-3 col-sm-6 col-12">
+        <div class="NumberText">
+          + <span class="number" appIncreaseNumber  [dataValue]="360">0</span>
+        </div>
+        <p class="Text">وحدة تم تسليمها</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Counter Animation -->
+<!--Start Showing All Units Section -->
+
+<section class="ProductArea" style="overflow: hidden;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="TitleProductAraa text-center">
+          <h6 class="SubTitleProductAraa">وحدات للبيع</h6>
+          <h1 class="section-title">جديد وحدات للبيع</h1>
+        </div>
+      </div>
+      <div class="slick-slider" style="overflow: hidden;"
+      >
+        
+      <ng-container *ngFor="let item of units">
+        <app-unit [unitData]="item"></app-unit>
+      </ng-container>       
+        
+       
+        </div>
+    </div>
+    <style>
+      .product-item{
+        margin-left: 10px;
+      }
+      .product-item:not(:last-child){
+        margin-left: 0;
+      }
+      @media (max-width:1200px) {
+        section.ProductArea .product-item .product-info {
+            padding: 20px 5px 5px;
+        }
+      }
+    </style>
+    <div class="row justify-content-center"> 
+    
+    </div>
+  </div>
+     
+    
+</section>
+<!--End Showing All Project Section -->
+

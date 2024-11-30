@@ -1,0 +1,222 @@
+<app-title-navigation title=" اتصل بنا"  ></app-title-navigation>
+<p-toast position="top-left" />
+
+
+<section class="AllProject">
+  <div class="container">
+    <h1 style="text-align: center;">قنديل للاستثمار العقاري وإدارة المشروعات</h1>
+    <h4 style="text-align: center;margin-bottom: 40px;">مواعيد العمل : طوال أيام الأسبوع من الساعة 10:00 صباحاً حتى الساعة 06:00 مساءً</h4>
+    
+    <div class="row">
+      <div class="col-lg-4" style="cursor: pointer;">
+        <a style="color: rgba(0, 0, 0, 0.521);" href="mailto:info@kandil-realestate.com" > 
+        <div class="contact-address-item contact-address-item-3 box-shadow">
+            <div class="contact-address-icon">
+                <img src="https://kandil-realestate.com/wp-content/themes/kandil/img/icons/10.png">
+            </div>
+            <h3 class="animated fadeIn">البريد الإلكتروني</h3>
+             <p>{{"info@kandil-realestate.com"}} <br><br></p>
+            
+        </div>
+      </a>
+      </div>
+      <div class="col-lg-4" style="cursor: pointer;">
+        <div class="contact-address-item contact-address-item-3 box-shadow">
+            <div class="contact-address-icon">
+              <img src="https://kandil-realestate.com/wp-content/themes/kandil/img/icons/11.png">
+            </div>
+            <h3 class="animated fadeIn">رقم الهاتف</h3>
+            <p>19473<br>01010099116</p>
+            
+        </div>
+      </div>
+      <div class="col-lg-4" style="cursor: pointer;">
+        <div class="contact-address-item contact-address-item-3 box-shadow">
+            <div class="contact-address-icon">
+                <img src="https://kandil-realestate.com/wp-content/themes/kandil/img/icons/12.png">
+            </div>
+            <h3 class="animated fadeIn">العنوان</h3>
+            <p>مكرم عبيد , مدينة نصر <br>
+                القاهرة</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+</section>
+
+
+<section class="FormContact">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ltn__form-box contact-form-box box-shadow white-bg">
+          <h4 class="title-2">إرسل رسالة</h4>
+          <style>
+          .wpcf7 input[type=text],
+          .wpcf7 input[type=email],
+          .wpcf7 input[type=url],
+          .wpcf7 input[type=tel],
+          .wpcf7 input[type=number],
+          .buttonClick  button,
+          .wpcf7 .wpcf7-select,
+          .wpcf7 textarea {
+          width: 100%;
+          }
+          .wpcf7 input,
+          .wpcf7 textarea,select {
+          padding: 20px;
+          margin-bottom: 6px;
+          border: none;
+          background-color: whitesmoke;
+          font-weight: 600;
+          transition: 0.3s ease background, color;
+          color: black;
+          }
+
+          .nice-select {
+          padding-left:0 !important;
+          padding-right:0 !important;
+          padding:20px !important;
+          height:64px;
+          border-radius:0 !important;
+          background:whitesmoke !important;
+          line-height:20px !important;
+
+          }
+          .wpcf7 ::placeholder {
+          color: black;
+          }
+          .wpcf7 :focus {
+          color: red;
+          background-color: #ddd;
+          outline: 0;
+          }
+          .wpcf7 :focus::placeholder {
+          color: black;
+          }
+          .wpcf7 textarea {
+          height: 150px;
+          resize: none;
+          }
+          .buttonClick button{
+            background-color: #d61c23;
+            color: white;
+            cursor: pointer;
+            padding: 20px;
+            margin-bottom: 6px;
+            border: none;
+            transition: all 0.3s ease-in-out;
+          }
+          .buttonClick button:hover {
+          background-color: black;
+          color: white;
+          }
+          .wpcf7 span.wpcf7-list-item {
+          margin: 0 0 10px 0;
+          }
+          .wpcf7 .wpcf7-validation-errors,
+          .wpcf7 .wpcf7-acceptance-missing {
+          border: 5px solid red;
+          margin-top: -30px;
+          }
+          .wpcf7 span.wpcf7-not-valid-tip {
+          background-color: black;
+          color: white;
+          font-size: 12px;
+          padding: 5px;
+          }
+          .wpcf7 .wpcf7-mail-sent-ok {
+          border: 5px solid white;
+          margin-top: -30px;
+          }
+          select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+          min-height: 50px !important;
+          }
+          .buttonClick  button:disabled{
+            cursor: not-allowed;
+          }
+          </style>                  
+          <div class="wpcf7 js" id="wpcf7-f222-o1" lang="ar" dir="rtl">
+            
+
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="wpcf7-form init">
+              <div class="row">
+                <div class="col-lg-6">
+                  <p>
+                    <label class="w-100">الأسم<br>
+                      <input
+                        formControlName="name"
+                        type="text"
+                        class="wpcf7-form-control wpcf7-text"
+                        placeholder="الأسم بالكامل"
+                        aria-required="true"
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <label class="w-100">رقم الهاتف<br>
+                      <input
+                        formControlName="phone"
+                        type="tel"
+                        class="wpcf7-form-control wpcf7-tel"
+                        placeholder="01201234567"
+                        aria-required="true"
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <label class="w-100">البريد الإلكترونى<br>
+                      <input
+                        formControlName="email"
+                        type="email"
+                        class="wpcf7-form-control wpcf7-email"
+                        placeholder="email@gmail.com"
+                        aria-required="true"
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>المشروع<br>
+                    <select formControlName="project" class="wpcf7-form-control wpcf7-select">
+                      <option value="">— الرجاء تحديد اختيار —</option>
+                      <option value="التجمع الخامس">التجمع الخامس</option>
+                      <option value="الشروق">الشروق</option>
+                      <option value="التشطيب">التشطيب</option>
+                    </select>
+                  </p>
+                </div>
+                <div class="col-12">
+                  <p>
+                    <label class="w-100">الرسالة<br>
+                      <textarea
+                        formControlName="message"
+                        rows="4"
+                        class="wpcf7-form-control wpcf7-textarea"
+                        placeholder="رسالتك"
+                        aria-required="true"
+                      ></textarea>
+                    </label>
+                  </p>
+                </div>
+              </div>
+              <p class="buttonClick">
+                <button type="submit" class="wpcf7-form-control wpcf7-submit" [disabled]="contactForm.invalid">إرسل</button>
+              </p>
+            </form>
+            
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

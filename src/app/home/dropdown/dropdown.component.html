@@ -1,0 +1,21 @@
+<div class="row">
+
+  <div class="custom-select col-lg-3 col-md-4" *ngFor="let dropdown of dropdowns;let i = index" >
+    <div class="select-selected" [ngClass]="dropdown.disabled?'Disabled':''" (click)="ToggleShow(i)">{{dropdown.label}}
+      <app-arrow [isActive]="dropdown.hide"></app-arrow>
+    </div>
+    <div #div class="select-items " [ngClass]="dropdown.hide?'select-hide':''">
+      <div class="select-option" *ngFor="let option of dropdown.options" [ngClass]="option.active?'active-option':''" (click)="selectOption(i,option.option)" (click)="ToggleShow(i)">{{option.option}}</div>
+      
+    </div>
+  </div>
+
+  
+  <button class="FadeInAnimation col-lg-3 col-md-8" type="button">
+    بحث
+    <i
+      class="fa-solid fa-arrow-right"
+      style="transform: translateY(2px) translateX(-5px)"
+    ></i>
+  </button>
+</div>

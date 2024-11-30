@@ -1,0 +1,263 @@
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ProjectService } from '../../../../shared/Services/project.service';
+import { ActivatedRoute } from '@angular/router';
+import { UnitManageService } from '../../../../shared/Services/unit-manage.service';
+import { AddUnitsDTO, AdvantageUnit, ServiceUnit, ShowUnitsDTO, UnitImageDTO, UpdateUnitsDTO } from '../../../../shared/Models/model';
+import { CommonModule } from '@angular/common';
+import { EditorComponent } from '@tinymce/tinymce-angular';
+import { ImageUploadComponent } from '../../../../shared/image-upload/image-upload.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { environment } from '../../../../environments/environment';
+
+@Component({
+  selector: 'app-edit-unit',
+  standalone: true,
+  imports: [CommonModule,ReactiveFormsModule,GoogleMapsModule,EditorComponent,ImageUploadComponent],
+  templateUrl: './edit-unit.component.html',
+  styleUrl: './edit-unit.component.css'
+})
+export class EditUnitComponent {
+  init: EditorComponent['init'] = {
+    plugins: [
+      // Core editing features
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      // Your account includes a free trial of TinyMCE premium features
+      // Try the most popular premium features until Dec 4, 2024:
+      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate',  'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss',
+      // // Early access to document converters
+      // 'importword', 'exportword', 'exportpdf'
+    ],
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
+    exportword_converter_options: { 'document': { 'size': 'Letter' } },
+    importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
+  };
+
+  center: google.maps.LatLngLiteral = {
+    lat: 0,
+    lng: 0
+  };
+  zoom = 6;
+  markerPosition!: google.maps.LatLngLiteral;
+  moveMap(event: google.maps.MapMouseEvent): void {
+    if (event.latLng != null) {
+      this.center = event.latLng.toJSON();
+      this.markerPosition = event.latLng.toJSON();
+
+    }
+  }
+
+  unitId:number=0;
+  unitForm!: FormGroup;
+  unit!:ShowUnitsDTO;
+  isFormInit:boolean=false;
+  isMainImageChange:boolean=false;
+  AdvantageIdRemoved:Array<number>=[];
+  ServiceIdRemoved:Array<number>=[];
+  ImagesIdRemoved:Array<number>=[];
+  ImageUrl:string=environment.apiImage
+  apiUrl:string=environment.apiUrl
+  constructor(private fb: FormBuilder,private unitService:UnitManageService,private UnitService:UnitManageService , private route :ActivatedRoute) {
+  }
+  ngOnInit(): void {
+    this.unitForm = this.fb.group({
+      title: ['', [Validators.required, Validators.maxLength(150)]],
+      description: ['', [Validators.required, Validators.maxLength(1000)]],
+      NameLocation: ['', [Validators.required, Validators.maxLength(500)]],
+      image: [null, Validators.required],
+      status: ['', [Validators.required, Validators.pattern(/^(Available|Sold)$/)]],
+      typePrice: ['', [Validators.required, Validators.pattern(/^(Available|Sold)$/)]],
+      codeUnit: ['', [Validators.required, Validators.maxLength(20)]],
+      area: [null, [Validators.required, Validators.min(1)]],
+      numberBathroom: [null, [Validators.required, Validators.min(1)]],
+      numberRoom: [null, [Validators.required, Validators.min(1)]],
+      yearOfBuild: [null, [Validators.required, Validators.min(1800), Validators.max(2100)]],
+      price: [null, [Validators.required, Validators.min(1)]],
+      videoUrl: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+$/)]],
+      advantages: this.fb.array([]),
+      services: this.fb.array([]),
+      detailImages: this.fb.array([])
+    });
+    this.route.params.subscribe(params => {
+      this.unitId = +params['unitId'] 
+    });
+    this.unitService.fetchUpdate(this.unitId).subscribe((data)=>{
+      this.unit=data
+      this.unitForm.patchValue({
+        title: data.title,
+      description:data.description,
+      image: data.imageName,
+      status: data.status,
+      codeUnit: data.codeUnit,
+      NameLocation:data.nameLocation,
+      area: data.area,
+      typePrice:data.typePrice=="مقدم"?"Available":"Sold",
+      numberBathroom: data.numberBathroom,
+      numberRoom:data.numberRoom,
+      yearOfBuild: data.yearOfBuild,
+      price: data.price,
+      videoUrl: data.videoUrl,
+      })
+
+      const  center1: google.maps.LatLngLiteral = {
+        lat: data.latitude,
+        lng: data.longitude
+      };
+      this.markerPosition=center1
+      this.center=center1
+      data.advantageUnits.forEach((e)=>{
+        this.addInitAdvantage(e.text,e.id)
+      })
+      data.serviceUnits.forEach((e)=>{
+        this.addInitService(e.text,e.id)
+      })
+      data.unitImages.forEach((e)=>{
+        this.addInitDetailImage(e.imageName,e.id)
+        
+      })
+
+      this.isFormInit=true
+    },(error)=>{
+      console.log("erorr",error)
+    })
+  }
+  get advantages(): FormArray {
+    return this.unitForm.get('advantages') as FormArray;
+  }
+  get services(): FormArray {
+    return this.unitForm.get('services') as FormArray;
+  }
+  get detailImages(): FormArray {
+    return this.unitForm.get('detailImages') as FormArray;
+  }
+  addInitAdvantage(advantage:string,id:number): void {
+    const advantageGroup = this.fb.group({
+      advantage: [advantage, Validators.required],
+      id:[id]
+    });
+    this.advantages.push(advantageGroup);
+  }
+  addAdvantage(): void {
+    const advantageGroup = this.fb.group({
+      advantage: ['', Validators.required],
+      id:[0]
+    });
+    this.advantages.push(advantageGroup);
+  }
+  removeAdvantage(index: number): void {
+    if(this.advantages.at(index).value.id>0){
+      this.AdvantageIdRemoved.push(this.advantages.at(index).value.id)
+    }
+    this.advantages.removeAt(index);
+  }
+  addService(): void {
+    const serviceGroup = this.fb.group({
+      service: ['', Validators.required],
+      id:[0]
+    });
+    this.services.push(serviceGroup);
+  }
+  addInitService(service:string,id:number): void {
+    const serviceGroup = this.fb.group({
+      service: [service, Validators.required],
+      id:[id]
+    });
+    this.services.push(serviceGroup);
+  }
+  removeService(index: number): void {
+    if(this.services.at(index).value.id>0){
+      this.ServiceIdRemoved.push(this.services.at(index).value.id)
+    }
+      this.services.removeAt(index);
+  }
+  addInitDetailImage(image:string,id:number): void {
+    const ImageGroup = this.fb.group({
+      image: [image, Validators.required],
+      id:[id]
+    });
+    this.detailImages.push(ImageGroup);
+  }
+  addDetailImage(): void {
+    const ImageGroup = this.fb.group({
+      image: [null, Validators.required],
+      id:[0]
+    });
+    this.detailImages.push(ImageGroup);
+  }
+  removeDetailImage(index: number): void {
+    if(this.detailImages.at(index).value.id>0){
+      this.ImagesIdRemoved.push(this.detailImages.at(index).value.id)
+    }
+    this.detailImages.removeAt(index);
+  }
+
+
+  onFileChange(event: { file: File | null}, index: number) {
+    
+    if (event.file && index>-1) {
+      
+      this.detailImages.at(index).get('image')?.setValue(event.file);
+      this.detailImages.at(index).get('image')?.markAsTouched()
+    }else if(event.file && index===-1){
+      if (this.unitForm.get('image')?.value !== null && 
+      typeof this.unitForm.get('image')?.value === 'object' && !Array.isArray(this.unitForm.get('image')?.value)) {
+        this.isMainImageChange=true;
+      }
+      this.unitForm.get("image")?.setValue(event.file)
+
+    }
+
+   
+  }
+  onSubmit(): void {
+
+    if (this.unitForm.valid) {
+      const valueForm=this.unitForm.value
+      const NewUnit:UpdateUnitsDTO={
+        id:this.unitId,
+        serviceUnits:this.services.value.map((e:any)=>({
+          id:e.id,
+          text:e.service
+        })) as ServiceUnit[],
+        status:valueForm.status,
+        Longitude:this.center.lng,
+        latitude:this.center.lat,
+        nameLocation:valueForm.NameLocation,
+        projectId:this.unitId,
+        title:valueForm.title,
+        description:valueForm.description,
+        image:this.isMainImageChange?valueForm.image:null,
+        codeUnit:valueForm.codeUnit,
+        area: valueForm.area,
+        numberBathroom:valueForm.numberBathroom,
+        numberRoom:valueForm.numberRoom,
+        yearOfBuild:valueForm.yearOfBuild,
+        price:valueForm.price,
+        videoUrl:valueForm.videoUrl,
+        typePrice:valueForm.typePrice=="Available"?'مقدم':'تقسيط',
+        unitImages: this.detailImages.value
+            .filter((e: UnitImageDTO) => e.id <= 0)
+            .map((e: UnitImageDTO) => ({
+              id: e.id,
+              image: e.image
+            })) as UnitImageDTO[],
+        advantageUnits:this.advantages.value.map((e:any)=>({
+          id:e.id,
+          text:e.advantage
+        })) as AdvantageUnit[],
+        AllRemovedAdvantage:this.AdvantageIdRemoved,
+        AllRemovedServices:this.ServiceIdRemoved,
+        AllRemovedImages:this.ImagesIdRemoved
+      }
+     
+      this.UnitService.UpdateUnit(NewUnit)
+    }
+  }
+}

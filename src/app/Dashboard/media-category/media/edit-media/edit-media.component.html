@@ -1,0 +1,116 @@
+<div class="container mt-5 text-end" dir="rtl">
+  <h2 class="mb-4">تعديل الوسائط</h2>
+  <form [formGroup]="mediaForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="title" class="form-label">عنوان الوسائط</label>
+      <input
+        id="title"
+        type="text"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': mediaForm.get('title')?.invalid && mediaForm.get('title')?.touched
+        }"
+        formControlName="title"
+        placeholder="أدخل عنوان الوسائط"
+      />
+      <div
+        *ngIf="mediaForm.get('title')?.invalid && mediaForm.get('title')?.touched"
+        class="text-danger"
+      >
+        <small *ngIf="mediaForm.get('title')?.errors?.['required']">العنوان مطلوب.</small>
+        <small *ngIf="mediaForm.get('title')?.errors?.['maxlength']">
+          يجب ألا يتجاوز العنوان 100 حرف.
+        </small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">الوصف</label>
+      <editor
+            
+      formControlName="aboutProject"
+      apiKey="qzrowtc3pocptuko571bzuu8j4csx9q9z6qcj2ptythonm7u"
+      
+      formControlName="description"
+      [init]="init"
+    ></editor>
+      <div
+        *ngIf="mediaForm.get('description')?.invalid && mediaForm.get('description')?.touched"
+        class="text-danger"
+      >
+        <small>الوصف مطلوب.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="videoUrl" class="form-label">رابط الفيديو</label>
+      <input
+        id="videoUrl"
+        type="url"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': mediaForm.get('videoUrl')?.invalid && mediaForm.get('videoUrl')?.touched
+        }"
+        formControlName="videoUrl"
+        placeholder="أدخل رابط الفيديو"
+      />
+      <div
+        *ngIf="mediaForm.get('videoUrl')?.invalid && mediaForm.get('videoUrl')?.touched"
+        class="text-danger"
+      >
+        <small *ngIf="mediaForm.get('videoUrl')?.errors?.['required']">الرابط مطلوب.</small>
+        <small *ngIf="mediaForm.get('videoUrl')?.errors?.['pattern']">صيغة الرابط غير صحيحة.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="created" class="form-label">تاريخ الإنشاء</label>
+      <input
+        id="created"
+        type="date"
+        class="form-control"
+        formControlName="created"
+      />
+      <div
+        *ngIf="mediaForm.get('created')?.invalid && mediaForm.get('created')?.touched"
+        class="text-danger"
+      >
+        <small>تاريخ الإنشاء مطلوب.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">تحميل صورة</label>
+      <!-- <input
+        id="image"
+        type="file"
+        class="form-control"
+        (change)="onImageSelected($event)"
+      /> -->
+      <ng-container *ngIf="isInitForm">
+        <app-image-upload  nameImage="{{previewNameImage}}" 
+        Url="{{previewImage}}"  
+          (imageSelected)="onImageSelected($event)" ></app-image-upload>
+      </ng-container>
+      
+      
+      <!-- <div class="mt-2">
+        <img
+          *ngIf="previewImage"
+          [src]="previewImage"
+          alt="الصورة المختارة"
+          class="img-thumbnail"
+          width="200"
+        />
+      </div> -->
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="mediaForm.invalid"
+    >
+      تحديث الوسائط
+    </button>
+  </form>
+</div>

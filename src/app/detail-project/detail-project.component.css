@@ -1,0 +1,371 @@
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  display: block;
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-container:hover img {
+  transform: scale(1.1); /* Zoom effect on hover */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.image-container:hover .overlay {
+  opacity: 1; /* Show overlay on hover */
+}
+
+.overlay a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: 1px solid white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.overlay a:hover {
+  background-color: white;
+  color: black;
+}
+
+
+
+
+section.DetailProject{
+  margin-bottom: 3rem;
+}
+section.DetailProject .TabMenu .nav{
+  display: inline-block;
+}
+section.DetailProject .TabMenu{
+  margin-bottom: 50px;
+  text-align: center;
+}
+section.DetailProject .TabMenu a{
+  position: relative;
+  display: inline-block;
+  padding: 15px 40px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  color:#071c1f;
+  background-color: #f2f6f7;
+  font-weight: 700;
+  box-shadow: none;
+  border-color: transparent;
+  z-index: 1;
+}
+section.DetailProject .TabMenu a:hover, section.DetailProject .HeaderMenu a:hover {
+  color: white;
+}
+.btn-effect-4:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  width: 0%;
+  height: 100%;
+  top: 0;
+  background: var(--mainColor);
+  transition: all 0.3s;
+}
+.btn-effect-4:hover::after {
+  width: 100%;
+  left: 0;
+  right: auto;
+}
+section.DetailProject .TabMenu a.active{
+  color:white;
+  background-color: var(--mainColor);
+  border-color: var(--mainColor);
+}
+section.DetailProject .TabMenu  a:hover,
+section.DetailProject .HeaderMenu  a:hover {
+  color: white;
+}
+section.DetailProject .HeaderMenu  a{
+  box-shadow: none;
+} 
+
+.tab-content {
+  width: 100%;
+}
+.tab-content .tab-pane {
+  display: block;
+  height: 0;
+  max-width: 100%;
+  visibility: hidden;
+  overflow: hidden;
+  opacity: 0;
+}
+.tab-content .tab-pane.active {
+  height: auto;
+  visibility: visible;
+  opacity: 1;
+  overflow: visible;
+}
+.LocationInfo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.LocationInfo .boxLocation{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  padding: 20px !important;
+  border: 2px solid var(--mainColor);
+  border-radius: 15px ;
+  margin: 10px;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+.LocationInfo .boxLocation:hover{
+  background-color: #eaeaea;
+}
+.LocationInfo .boxLocation .icon{
+  color: var(--mainColor);
+  font-weight: bolder;
+  font-size: 1.5em;
+
+}
+.LocationInfo .text {
+  font-size: 0.5em;
+}
+@media (max-width:992px){
+  .LocationInfo{
+    margin: 40px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media (max-width:992px) and (min-width:637) {
+
+  .LocationInfo .boxLocation{
+    width: 48%;
+    margin: 2px 20px;
+    margin-top: 20px;
+  }
+}
+
+.youtube-video {
+  aspect-ratio: 16 / 10;
+  width:100%;
+}
+.HeaderMenu .nav{
+  background-color: #f2f2f2;
+  justify-content: center;
+}
+.HeaderMenu .nav a{
+  padding: 10px !important;
+  margin-right:5px;
+}
+/*Custom Style*/
+.slider-container{
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.slider-images{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+
+}
+.slider-images img{
+  width: 100%;
+  height: 100%;
+  object-position: initial !important;
+  object-fit: cover;
+}
+.slider-img{
+  border-radius: 25px;
+  overflow: hidden;
+  width: calc(100% / 9);
+  height: 100%;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.7s ease;
+}
+.slider-img h1{
+  font-family: "Jost", sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: rotate(270deg);
+  transition: 0.7s ease;
+}
+.slider-img .details{
+  position: absolute;
+  bottom: 43px;
+  left: 43px;
+  text-align: center;
+  width: 100%;
+}
+.slider-img .details h2{
+  font-family: "Jost", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: left;
+  line-height: 44px;
+  text-align: left;
+  color: #fff;
+  text-transform: uppercase;
+  transition: 0.7s ease;
+  display: none;
+}
+
+.slider-img.active{
+  width: 50%;
+  border-radius:15px;
+  
+}
+.slider-img.active h1{
+   display: none;
+}
+.slider-img.active .details h2{
+  display: block;
+}
+@media (max-width:1600px) and (min-width:1200px) {
+  .slider-container{
+    width: 1190px;
+  }
+}
+@media (max-width:1200px) and (min-width:1000px) {
+  .slider-container{
+    width: 990px;
+  }
+}
+@media (max-width:1000px) and (min-width:800px) {
+  .slider-container{
+    width: 790px;
+  }
+  .slider-img h1{
+    font-size: 25px !important;
+    
+  }
+}
+@media (max-width:800px) and (min-width:600px) {
+  .slider-container{
+    width: 590px;
+  }
+  .slider-img h1{
+    font-size: 20px !important;
+    
+  }
+}
+.slider-container-slick{
+  width: 100%;
+  height: 80vh;
+  display: none;
+}
+.slider-images-slick{
+  height: 100%;
+  height: 70%;
+}
+.slider-img-slick{
+  height: 80vh;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.slider-img-slick .details{
+  background-color: #eaeaea;
+  height: 10vh;
+  text-align: center;
+  padding: 15px;
+}
+.slider-img-slick img{
+  height:45vh;
+  width: 100%;
+  object-fit: cover;
+}
+@media (max-width:800px){
+  .slider-container{
+    width:0px;
+    display: none;
+  }
+  .slider-container-slick{
+    display: block;
+  }
+  .LocationInfo{
+    margin: 0;
+  }
+} 
+@media (max-width:985px) {
+  .LocationInfo .boxLocation {
+    width: 49% ;
+    margin-left: 0;
+    margin-right: 2px;
+  }
+}
+@media (max-width:550px) {
+  .LocationInfo .boxLocation {
+    width: 80% ;
+    margin-left: 0;
+    margin-right: 0px;
+  }
+}
+.slider-container-slick,.ImageSlider{
+  overflow: hidden;
+}
+
+iframe{
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  max-height: 87vh;
+}
+.btn {
+  border-radius: 0;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--ltn__heading-font);
+  padding: 17px 40px;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  position: relative;
+  z-index: 1;
+  margin-right: 15px;
+}
+section.DetailProject .TabMenu a.active {
+  color: white;
+  background-color: var(--mainColor);
+  border-color: var(--mainColor);
+}

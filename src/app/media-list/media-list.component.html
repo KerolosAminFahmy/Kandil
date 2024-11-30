@@ -1,0 +1,13 @@
+<app-title-navigation title={{Title}} [breadcrumbs]="breadcrumbs"></app-title-navigation>
+<section class="AllProject">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-sm-6 col-12" *ngFor="let Project of LoadedData">
+        <app-card title={{Project.title}} [Url]='"media/"+Project.id'  [imgUrl]='ImageUrl+"Media/"+Project.imageName' [isMedia]="true"
+        date={{Project.created}}
+        ></app-card>
+      </div>
+    </div>
+  </div>
+</section>
+

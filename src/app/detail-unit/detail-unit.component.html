@@ -1,0 +1,234 @@
+<app-title-navigation [isUnit]="true" [statusUnit]="unit.status" title={{unit.title}}></app-title-navigation>
+<app-slider-image *ngIf="imagesName!==[]" [listImage]="imagesName"></app-slider-image>
+
+
+<section class="DetailUnit">
+  <div class="shop-details-area pb-10">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <div class="shop-details-inner page-details-inner mb-60">
+            <div class="blog-meta">
+            </div>
+            <h1>
+              {{unit.title}}
+            </h1>
+
+            <label>
+              <a class="secondary-color" [href]="'https://www.google.com/maps?q='+unit.latitude+','+unit.longitude" 
+              target="_blank">
+                <i class="fa-solid fa-location-dot"></i>
+                {{unit.nameLocation}}
+              </a>
+              
+            </label>
+            <h4 class="title-2">الوصف</h4>
+            <div [innerHTML]="safeContent"></div>
+
+
+              <h4 class="title-2">تفاصيل الوحدة</h4>
+              <div class="property-detail-info-list section-bg-1 clearfix mb-60">
+                <ul>
+                  <li><label>كود العقار:</label> <span> {{unit.codeUnit}}</span></li>
+                  <li><label>المساحة: </label> <span> {{unit.area}} متر</span></li>
+                  <li><label>عدد الغرف:</label> <span>{{unit.numberRoom}}</span></li>
+                  <li><label>عدد الحمامات:</label> <span>{{unit.numberBathroom}}</span></li>
+                </ul>
+                <ul>
+                  <li><label>سنه البناء:</label> <span>{{unit.yearOfBuild}}</span></li>
+                  <li><label>السعر:</label> <span>{{unit.price}}</span></li>
+                  <li><label>حالة العقار:</label> <span>{{unit.status | statusTranslate }}</span></li>
+                </ul>
+              </div>
+
+              <h4 class="title-2">المميزات</h4>
+              <div class="property-detail-feature-list clearfix mb-45">
+                <ul>
+                  <li *ngFor="let item of unit.advantageUnits">
+                    <div class="property-detail-feature-list-item">
+                      <i class="fas fa-star" style="line-height: 38px;"></i>
+                      <div>
+                        <h6>{{item.text}}</h6>
+                      </div>
+                    </div>
+                  </li>
+                 
+                  
+                </ul>
+                
+              </div>
+              
+              <h4 class="title-2">الخدمات</h4>
+              <div class="property-details-amenities mb-60 " >
+                <div class="row">
+                  
+                  <div class="col-lg-4 col-md-6" *ngFor="let items of service">
+                    <div class="menu-widget">
+                      <ul>
+                        <li *ngFor="let item of items">
+                          <i class="fa-sharp fa-solid fa-square-check chxc fa-lg"></i>&nbsp;&nbsp;
+                          {{item}}
+
+                      
+                      </ul>
+                    </div>
+                  </div>
+                 
+                  <h4 class="title-2">الفيديو</h4>
+                  <iframe title="إزاي تختار مكان شقتك ؟؟" width="100%" height="590"
+                    [src]="safeUrl" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+                </div>
+              </div>
+              <h4 class="title-2">موقع الوحدة</h4>
+              <div class="container">
+                <div class="row">
+                  <a 
+                    [href]="'https://www.google.com/maps?q=' + unit.latitude + ',' + unit.longitude"
+                    class="card-location"
+                    target="_blank">
+                    <div class="card-content">
+                      <i class="fa fa-map-marker-alt"></i>
+                      <span>فتح في الخريطة</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              
+              <h4 class="title-2">وحدات ذات صله</h4>
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="product-item product-item-4 text-center---">
+                      <div class="product-img">
+                        <a
+                          href="https://kandil-realestate.com/unit/%d8%b4%d9%82%d8%a9-%d8%a8%d9%85%d8%b4%d8%b1%d9%88%d8%b9-b-106/">
+                          <img src="https://kandil-realestate.com/wp-content/uploads/2023/09/1-1.png"
+                            alt="شقة بمشروع  ( B 106 ) | الحي الرابع – بيت الوطن | القاهرة الجديدة"></a>
+                        <div class="product-badge">
+                          <ul>
+                            <li class="sale-badge bg-green">متاح</li>
+                          </ul>
+                        </div>
+                        <div class="product-img-location-gallery">
+                          <div class="product-img-location">
+                            <ul>
+                              <li>
+                                <a href="#" tabindex="0"><i class="fa-solid fa-location-dot"></i> - التجمع الخامس</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="product-info">
+
+                        <h2 class="product-title">
+                          <a
+                            href="https://kandil-realestate.com/unit/%d8%b4%d9%82%d8%a9-%d8%a8%d9%85%d8%b4%d8%b1%d9%88%d8%b9-b-106/">شقة
+                            بمشروع ( B 106 ) | الحي الرابع – بيت الوطن | القاهرة الجديدة</a>
+                        </h2>
+                        <div class="product-description"
+                          title="مميزات المشروع قربها من شارع النوادي: يسهل الوصول إلى العديد من النوادي الرياضية المرموقة مثل النادي الأهلي ونادي الجزيرة ونادي الشرطة. قربها من الفيوزون: يوفر بيئة ترفيهية مميزة للسكان. قربها من شارع التسعين الشمالي: يسهل الوصول إلى جميع أنحاء القاهرة الجديدة. قربها من كبرى الكمبوندات: تقع بالقرب من بالم هيلز ومراسيم وماونتن فيو، مما يجعلها">
+                          مميزات المشروع قربها من شارع النوادي: يسهل الوصول إلى العديد من النوادي الرياضية المرموقة مثل
+                          النادي الأهلي ونادي الجزيرة ونادي الشرطة. قربها من الفيوزون: يوفر بيئة ترفيهية مميزة للسكان.
+                          قربها من شارع التسعين الشمالي: يسهل الوصول إلى جميع أنحاء القاهرة الجديدة. قربها من كبرى
+                          الكمبوندات: تقع بالقرب من بالم هيلز ومراسيم وماونتن فيو، مما يجعلها
+                        </div>
+                        <ul class="list-item-2 list-item-2-before">
+                          <li><span>3 <i class="flaticon-bed"></i></span>
+                            غرف
+                          </li>
+                          <li><span>3 <i class="flaticon-clean"></i></span>
+                            حمام
+                          </li>
+                          <li><span>235 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
+                            متر
+                          </li>
+                          <li style="color: #d61c23"><span>6335000 <i class="fa-solid fa-sterling-sign"></i></span>
+                            جنيه
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="product-info-bottom">
+                        <div class="real-estate-agent">
+
+
+                          <div class="agent-brief">
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="product-item product-item-4 text-center---">
+                      <div class="product-img">
+                        <a href="https://kandil-realestate.com/unit/%d8%b4%d9%82%d9%87-%d8%a8%d9%80%d9%85%d9%8a%d9%86%d9%8a-%d9%83%d9%85%d8%a8%d9%88%d9%86%d8%af-%d8%a7%d9%84%d9%81%d8%b1%d9%8a%d8%af%d8%a9/"
+                          tabindex="0"><img
+                            src="https://kandil-realestate.com/wp-content/uploads/2023/09/timthumb-1.jpeg"
+                            alt="شقه بـميني كمبوند الفريدة"></a>
+                        <div class="product-badge">
+                          <ul>
+                            <li class="sale-badge bg-green">متاح</li>
+                          </ul>
+                        </div>
+                        <div class="product-img-location-gallery">
+                          <div class="product-img-location">
+                            <ul>
+                              <li>
+                                <a href="#" tabindex="0"><i class="fa-solid fa-location-dot"></i> - الشروق</a>
+                              </li>
+                            </ul>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="product-info">
+
+                        <h2 class="product-title"><a
+                            href="https://kandil-realestate.com/unit/%d8%b4%d9%82%d9%87-%d8%a8%d9%80%d9%85%d9%8a%d9%86%d9%8a-%d9%83%d9%85%d8%a8%d9%88%d9%86%d8%af-%d8%a7%d9%84%d9%81%d8%b1%d9%8a%d8%af%d8%a9/">شقه
+                            بـميني كمبوند الفريدة</a></h2>
+                        <div class="product-description">
+                          مقدم 35% بالتقسيط علي 48 شهر </div>
+                        <ul class="list-item-2 list-item-2-before">
+                          <li><span>3 <i class="flaticon-bed"></i></span>
+                            غرف
+                          </li>
+                          <li><span>3 <i class="flaticon-clean"></i></span>
+                            حمام
+                          </li>
+                          <li><span>173 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
+                            متر
+                          </li>
+                          <li style="color: #d61c23"><span>726600 <i class="fa-solid fa-sterling-sign"></i></span>
+                            جنيه
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="product-info-bottom">
+                        <div class="real-estate-agent">
+
+
+                          <div class="agent-brief">
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+</section>

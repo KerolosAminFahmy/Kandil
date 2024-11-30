@@ -1,0 +1,56 @@
+<div class="product-item text-center" style="margin-left: auto; margin-right:auto ;">
+  <div class="product-img">
+    <a
+      [routerLink]="['/unit/',unit.id]"
+  
+      ><img
+        src={{unit.imageName}}
+        alt={{unit.title}}
+    /></a>
+    <div class="product-badge">
+      <ul>
+        <li class="sale-badge bg-green" [ngClass]="unit.status.toLowerCase()=='available'?'bg-green':'bg-red'">{{unit.status |statusTranslate}}</li>
+      </ul>
+    </div>
+    <div class="product-img-location-gallery">
+      <div class="product-img-location">
+        <ul>
+          <li>
+            <a [href]="'https://www.google.com/maps?q='+unit.latitude+','+unit.longitude"
+              ><i class="fa-solid fa-location-dot"></i> {{unit.nameLocation}}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="product-info">
+    <h2 class="product-title">
+      <a
+        href="Pages/DetailUnit1.html"
+        > {{unit.title}}</a
+      >
+    </h2>
+
+    <ul class="list-item">
+      <li>
+        <span>{{unit.numberRoom}} <i class="fa-solid fa-bed"></i></span>
+        غرف
+      </li>
+      <li>
+        <span>{{unit.numberBathroom}} <i class="fa-solid fa-bath"></i></span>
+        حمام
+      </li>
+      <li>
+        <span>{{unit.area}} <i class="fa-solid fa-vector-square"></i></span>
+        متر
+      </li>
+      <li style="color: var(--mainColor)">
+        <span style="position: relative;margin-bottom: 1px;top:10px;text-align: center;"
+          > <p style="width: inherit;position:absolute; top:3px; right:25%;">{{unit.typePrice}}</p>  <br> {{unit.price}} <i class="fa-solid fa-sterling-sign"></i
+        ></span >
+           <p style="margin: 0; font-weight: 700;">جنيه</p>
+      </li>
+    </ul>
+  </div>
+</div>
