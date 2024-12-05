@@ -12,7 +12,7 @@
         <div class="Image" *ngIf="item.mediaType==='image'">
           <img [src]="ImageUrl+'Slider/'+item.mediaPath" alt="Image" srcset="" />
         </div>
-        <video [src]="ImageUrl+'Slider/'+item.mediaPath"  *ngIf="item.mediaType==='video'" autoplay loop muted crossorigin="anonymous">
+        <video [src]="ImageUrl+'Slider/'+item.mediaPath"  *ngIf="item.mediaType==='video'" muted autoplay="true" loop  crossorigin="anonymous">
         </video>
       </div>
     </div>
