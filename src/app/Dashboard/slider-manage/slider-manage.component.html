@@ -1,0 +1,39 @@
+
+<div class="card-container">
+  <div class="card" *ngFor="let item of AllSliderItem">
+    <img *ngIf="item.mediaType==='image'" [src]="imgPath+item.mediaPath" alt="Image" class="card-image" />
+    <video
+    *ngIf="item.mediaType === 'video'"
+    autoplay
+    loop
+    muted
+    [src]="imgPath+item.mediaPath"
+  ></video>    
+  <button (click)="onDelete(item.id)"  class="btn btn-delete">حذف</button>
+
+  </div>
+  <div class="card add-card" (click)="openPopup()">
+    <span class="plus-icon">+</span>
+  </div>
+
+
+<div class="popup-modal" *ngIf="isPopupOpen">
+  <div class="popup-content" dir="rtl">
+    <h3>إضافة عنصر إلى السلايدر</h3>
+    <form [formGroup]="sliderForm" (ngSubmit)="addSliderItem()">
+      <label for="mediaType">اختر نوع الوسائط:</label>
+      <select formControlName="mediaType" name="mediaType" required>
+        <option value="image">صورة</option>
+        <option value="video">فيديو</option>
+      </select>
+
+      <label for="media">اختر الوسائط:</label>
+      <input type="file" (change)="onFileSelected($event)" required />
+
+      <div class="popup-actions">
+        <button type="submit" [disabled]="sliderForm.invalid">رفع</button>
+        <button type="button" (click)="closePopup()">إلغاء</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,3 +1,5 @@
+@import "../../../../../node_modules/primeng/resources/primeng.min.css";
+@import "../../../../../node_modules/primeng/resources/themes/aura-light-blue/theme.css";
 .container {
   max-width: 800px;
 }
@@ -12,5 +14,3 @@
 .ql-toolbar.ql-snow {
   direction: ltr;
 }
-@import "../../../../node_modules/primeng/resources/primeng.min.css";
-@import "../../../../node_modules/primeng/resources/themes/aura-light-blue/theme.css";

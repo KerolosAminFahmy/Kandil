@@ -6,6 +6,7 @@ import { AdvantageProjectDTO, LocationProjectDTO, ProjectDTO } from '../../../..
 import { ProjectService } from '../../../../shared/Services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-add-project',
@@ -20,15 +21,11 @@ export class AddProjectComponent {
   projectForm: FormGroup;
   areaId:number=0;
   maxLocations = 3;
+  apikey:string=environment.apiKey;
   init: EditorComponent['init'] = {
     plugins: [
-      // Core editing features
       'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-      // Your account includes a free trial of TinyMCE premium features
-      // Try the most popular premium features until Dec 4, 2024:
-      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate',  'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss',
-      // // Early access to document converters
-      // 'importword', 'exportword', 'exportpdf'
+
     ],
     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
     tinycomments_mode: 'embedded',

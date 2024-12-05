@@ -20,6 +20,7 @@ export const authGuard: CanActivateFn = (route, state) => {
       'warn',
       'غير مصرح به',
      'يجب عليك تسجيل الدخول للوصول إلى هذا المورد.',
+     6000
      );
     return false;
   }

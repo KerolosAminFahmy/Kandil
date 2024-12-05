@@ -24,7 +24,7 @@
           <a class="LinkA" routerLink="/projectcategory">المشروعات +</a>
           <ul class="SubmenuLinkNavigator">
             <li>
-              <a class="LinkB" href="Pages/units.html"> عروض للبيع </a>
+              <a class="LinkB" routerLink="/unit"> عروض للبيع </a>
             </li>
             <li>
               <a class="LinkB" routerLink="/projectcategory">
@@ -42,7 +42,7 @@
                     <li *ngFor="let project of item.viewAreas; let j=index">
                       <a
                         class="LinkD"
-                        [routerLink]="['/projectcategory/{{item.id}}/project/',project.id]"
+                        [routerLink]="['/projectcategory/'+item.id+'/project/',project.id]"
                       >
                       {{project.name}}</a
                       >

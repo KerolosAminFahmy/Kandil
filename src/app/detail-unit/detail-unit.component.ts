@@ -18,6 +18,7 @@ import { environment } from '../../environments/environment';
 })
 export class DetailUnitComponent {
   ImageUrl:string=environment.apiImage
+  breadcrumbs: { name: string; url: string }[] = [];
 
   unitId:number=0;
   unit!:ShowUnitsDTO;
@@ -29,6 +30,9 @@ export class DetailUnitComponent {
     
   }
   ngOnInit(): void {
+    this.breadcrumbs.push(
+      {name:"وحدات",url:"/unit"}
+    )
     this.route.params.subscribe((params) => {
       this.unitId = +params['unitId'];
       this.unitService.fetchUpdate(this.unitId).subscribe((data)=>{

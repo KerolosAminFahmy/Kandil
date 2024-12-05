@@ -16,7 +16,11 @@ export class UnitManageService {
   public units$ = this.UnitSubject.asObservable();
   constructor(private http: HttpClient) { }
   Massege = inject(ToastService) 
-  router = inject(Router) 
+  router = inject(Router)
+  GetAllUnits():Observable<Units[]>{
+    return this.http.get<Units[]>(this.apiUrl+"GetAllUnits")
+
+  } 
   FetchAllUnit(id:number){
     this.http.get<Units[]>(this.apiUrl+id).subscribe(data => {
       this.UnitSubject.next(data);

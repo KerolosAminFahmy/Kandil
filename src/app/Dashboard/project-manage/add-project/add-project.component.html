@@ -11,13 +11,12 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="aboutProject" class="form-label">About Project</label>
+      <label for="aboutProject" class="form-label">عن المشروع</label>
       <editor
         
       formControlName="aboutProject"
-        apiKey="qzrowtc3pocptuko571bzuu8j4csx9q9z6qcj2ptythonm7u
+      apiKey={{apikey}}
 
-        "
         [init]="init"
       ></editor>
       <div 
@@ -79,7 +78,9 @@
     </div>
 
     <div class="mb-3">
-      <label for="locationImage" class="form-label">صوره الاساسيه للمشروع</label>
+      <label for="locationImage" class="form-label">صوره الوكيشن
+        
+      </label>
       <input id="locationImage" type="file" (change)="onFileChange($event, -2)" (click)="onclickInputFile(-2)" class="form-control"  
       [ngClass]="{'is-invalid':projectForm.get('locationImage')?.invalid && projectForm.get('locationImage')?.touched,
       'is-valid':projectForm.get('locationImage')?.valid && projectForm.get('locationImage')?.touched,

@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditorComponent } from '@tinymce/tinymce-angular';
 import { MediaService } from '../../../../../shared/Services/media.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaDTO } from '../../../../../shared/Models/model';
+import { MediaDTO, MediaImage } from '../../../../../shared/Models/model';
 import { ImageUploadComponent } from '../../../../../shared/image-upload/image-upload.component';
 import { environment } from '../../../../../environments/environment';
 
@@ -18,13 +18,8 @@ import { environment } from '../../../../../environments/environment';
 export class EditMediaComponent {
   init: EditorComponent['init'] = {
     plugins: [
-      // Core editing features
       'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-      // Your account includes a free trial of TinyMCE premium features
-      // Try the most popular premium features until Dec 4, 2024:
-      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate',  'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss',
-      // // Early access to document converters
-      // 'importword', 'exportword', 'exportpdf'
+
     ],
     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
     tinycomments_mode: 'embedded',
@@ -43,7 +38,10 @@ export class EditMediaComponent {
   previewImage: string | null = null;
   previewNameImage: string | undefined = "";
   mediaId!: number;
-
+  apikey:string=environment.apiKey;
+  ImagesIdRemoved:Array<number>=[];
+  apiUrl:string=`${environment.apiUrl}/Media/GetImage/`;
+  isFormInit:boolean=false;
   constructor(
     private fb: FormBuilder,
     private mediaService: MediaService,
@@ -63,9 +61,44 @@ export class EditMediaComponent {
       videoUrl: ['', [Validators.required, Validators.pattern(/https?:\/\/.*/)]],
       created: ['', [Validators.required]],
       image: [null],
+      detailImages: this.fb.array([])
+
     });
   }
 
+  get detailImages(): FormArray {
+    return this.mediaForm.get('detailImages') as FormArray;
+  }
+  addInitDetailImage(image:string,id:number): void {
+    const ImageGroup = this.fb.group({
+      image: [image, Validators.required],
+      id:[id]
+    });
+    this.detailImages.push(ImageGroup);
+  }
+  addDetailImage(): void {
+    const ImageGroup = this.fb.group({
+      image: [null, Validators.required],
+      id:[0]
+    });
+    this.detailImages.push(ImageGroup);
+  }
+  removeDetailImage(index: number): void {
+    if(this.detailImages.at(index).value.id>0){
+      this.ImagesIdRemoved.push(this.detailImages.at(index).value.id)
+    }
+    this.detailImages.removeAt(index);
+  }
+  onFileChange(event: { file: File | null}, index: number) {
+    
+    if (event.file) {
+      
+      this.detailImages.at(index).get('image')?.setValue(event.file);
+      this.detailImages.at(index).get('image')?.markAsTouched()
+    }
+
+   
+  }
   loadMedia(): void {
     this.mediaService.getById(this.mediaId).subscribe((media) => {
       this.mediaForm.patchValue({
@@ -75,6 +108,12 @@ export class EditMediaComponent {
         created: new Date(media.created).toISOString().split('T')[0],
         
       });
+      this.mediaService.GetAllImages(this.mediaId).subscribe((data)=>{
+        data.forEach((e)=>{
+          this.addInitDetailImage(e.imageName,e.id)
+        })
+        this.isFormInit=true;
+      })
       this.previewImage = `${environment.apiUrl}/Media/GetImage/${media.imageName}`;
       this.previewNameImage = media.imageName;
       this.isInitForm=true
@@ -92,10 +131,17 @@ export class EditMediaComponent {
     if (this.mediaForm.valid) {
       const formData: MediaDTO = {
         ...this.mediaForm.value,
+        detailImages: this.detailImages.value
+            .filter((e:any) => e.id <= 0)
+            .map((e:any) => {
+              console.log(e)
+               return e.image
+          }) as File[],
         image: this.selectedImage || undefined,
         id: this.mediaId,
+        AllRemovedImages:this.ImagesIdRemoved,
       };
-
+      console.log(formData)
       this.mediaService.update(this.mediaId, formData);
     } else {
       console.error('Form is invalid');

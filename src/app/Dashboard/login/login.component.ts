@@ -19,12 +19,11 @@ export class LoginComponent {
   onSubmit() {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
-        this.authService.saveTokens(response.accessToken,response.refreshToken); // Save JWT token
-        this.router.navigate(['/dashboard']); // Navigate to the dashboard or another secure page
+        this.authService.saveTokens(response.accessToken,response.refreshToken); 
+        this.router.navigate(['/dashboard/Cities']);
       },
       error: (err) => {
         console.error('Login failed:', err);
-        alert('Invalid username or password');
       }
     });
   }

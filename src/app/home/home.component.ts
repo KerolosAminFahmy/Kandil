@@ -2,13 +2,14 @@ import { AfterViewInit, Component } from '@angular/core';
 
 import { DropdownComponent } from "./dropdown/dropdown.component";
 import { UnitComponent } from "../unit/unit.component";
-import { AllAreaDTO, unit, Units } from '../../shared/Models/model';
+import { AllAreaDTO, Slider, unit, Units } from '../../shared/Models/model';
 import { CommonModule } from '@angular/common';
 import { IncreaseNumberDirective } from './directive/increase-number.directive';
 import { RouterLink } from '@angular/router';
 import { AreaService } from '../../shared/Services/area.service';
 import { UnitManageService } from '../../shared/Services/unit-manage.service';
 import { environment } from '../../environments/environment';
+import { SliderService } from '../../shared/Services/slider.service';
 declare var $: any;
 
 @Component({
@@ -20,7 +21,6 @@ declare var $: any;
 })
 export class HomeComponent implements AfterViewInit  {
   ImageUrl:string=environment.apiImage
-
   unitData: Array<unit> = [
     {
       title: "شقه بـميني كمبوند الفريدة",
@@ -60,13 +60,17 @@ export class HomeComponent implements AfterViewInit  {
     }
   ];
   AllArea!:AllAreaDTO[];
+  AllSliderItem:Slider[]=[];
   units:Units[]=[];
 
-  constructor(private AreaService:AreaService,private unitService:UnitManageService){
+  constructor(private AreaService:AreaService,private SliderService:SliderService,private unitService:UnitManageService){
 
   }
   ngOnInit(): void {
-    
+    this.SliderService.getSliders();
+    this.SliderService.sliders$.subscribe((item)=>{
+      this.AllSliderItem=item
+    })
     this.AreaService.fetchArea();
     this.AreaService.areas$.subscribe((data)=>{
       this.AllArea=data
@@ -144,7 +148,7 @@ export class HomeComponent implements AfterViewInit  {
               }
           ]
         });
-      },1000)
+      },2500)
   
     
   

@@ -13,24 +13,29 @@ import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { ToastService } from '../../../shared/Services/toast.service';
 import { AuthService } from '../../../shared/Services/auth.service';
+import { LoaderComponent } from '../../../shared/Component/loader/loader.component';
+import { LoaderService } from '../../../shared/Services/loader.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 registerLocaleData(localeAr, 'ar');
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [ToastModule, ButtonModule, RippleModule,RouterOutlet,CommonModule , IonicModule ,RouterLinkActive ,RouterLink],
+  imports: [ToastModule, ButtonModule, RippleModule,RouterOutlet,CommonModule ,LoaderComponent, IonicModule ,RouterLinkActive ,RouterLink],
   
-  providers: [],
+  providers:  [
+   
+  ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css',
  
 })
 export class MainLayoutComponent {
   isMenuActive = false;
-  constructor(private messageService: MessageService,private auth:AuthService,private toast:ToastService) {}
+  constructor(private loaderService:LoaderService,  private messageService: MessageService,private auth:AuthService,private toast:ToastService) {}
   ngOnInit(): void {
     this.toast.MassegeToast.subscribe((data)=>{
-      this.messageService.add({ severity: data.severity, summary: data.summary, detail: data.detail ,life: 4000  });
+      this.messageService.add({ severity: data.severity, summary: data.summary, detail: data.detail ,life: data.life  });
 
     })
   }

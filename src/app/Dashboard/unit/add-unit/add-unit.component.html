@@ -18,8 +18,7 @@
     >
         <map-marker [position]="markerPosition"></map-marker>
     </google-map>
-    <!-- <div>Latitude: {{ display?.lat }}</div>
-    <div>Longitude: {{ display?.lng }}</div> -->
+
     <a *ngIf="mapsUrl" [href]="mapsUrl" target="_blank" class="btn btn-primary mt-3">
       Open in Google Maps
     </a>
@@ -51,9 +50,8 @@
     <editor
         
         formControlName="aboutProject"
-        apiKey="qzrowtc3pocptuko571bzuu8j4csx9q9z6qcj2ptythonm7u
+        apiKey={{apikey}}
 
-        "
         [ngClass]="{
           'is-invalid': unitForm.get('description')?.invalid && unitForm.get('description')?.touched,
           'is-valid': unitForm.get('description')?.valid && unitForm.get('description')?.touched

@@ -11,13 +11,12 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="aboutProject" class="form-label">About Project</label>
+      <label for="aboutProject" class="form-label">عن المشروع</label>
       <editor
         
       formControlName="aboutProject"
-        apiKey="qzrowtc3pocptuko571bzuu8j4csx9q9z6qcj2ptythonm7u
+        apiKey={{apikey}}
 
-        "
         [init]="init"
       ></editor>
       <div 
@@ -183,6 +182,6 @@
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-success mt-3" [disabled]="projectForm.invalid">اضافه تفاصيل مشروع</button>
+    <button type="submit" class="btn btn-success mt-3" [disabled]="projectForm.invalid">تعديل تفاصيل مشروع</button>
   </form>
 </div>

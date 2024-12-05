@@ -26,7 +26,7 @@
       <editor
             
       formControlName="aboutProject"
-      apiKey="qzrowtc3pocptuko571bzuu8j4csx9q9z6qcj2ptythonm7u"
+      apiKey={{apikey}}
       
       formControlName="description"
       [init]="init"
@@ -82,6 +82,18 @@
         class="form-control"
         (change)="onImageSelected($event)"
       />
+    </div>
+    <div class="mb-3" formArrayName="detailImages">
+      <label class="form-label">صور تفصيلية</label>
+      <div *ngFor="let detailImage of detailImages.controls; let i = index" class="mb-2">
+        <input
+          type="file"
+          class="form-control"
+          (change)="onFileSelect($event, i)"
+        />
+        <button type="button" class="btn btn-danger mt-1" (click)="removeDetailImage(i)">حذف</button>
+      </div>
+      <button type="button" class="btn btn-primary mt-2" (click)="addDetailImage()">إضافة صورة</button>
     </div>
 
     <div class="text-end">

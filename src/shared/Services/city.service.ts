@@ -9,10 +9,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class CityService {
-  //private apiUrl = 'https://localhost:7289/api/Cities/'; // Replace with your API's base URL
   private apiUrl = environment.apiUrl+"/Cities/"; // Replace with your API's base URL
   Massege = inject(ToastService) 
-  // BehaviorSubject to store and share city data
   private citiesSubject = new BehaviorSubject<City[]>([]);
   public cities$ = this.citiesSubject.asObservable();
 

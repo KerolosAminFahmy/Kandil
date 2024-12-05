@@ -18,6 +18,7 @@ import { environment } from '../../../../environments/environment';
   styleUrl: './edit-project.component.css'
 })
 export class EditProjectComponent {
+  apikey:string=environment.apiKey;
   projectForm: FormGroup;
   maxLocations = 3;
   areaId:number=0;
@@ -33,13 +34,8 @@ export class EditProjectComponent {
   PdfUrl:string="";
   init: EditorComponent['init'] = {
     plugins: [
-      // Core editing features
       'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-      // Your account includes a free trial of TinyMCE premium features
-      // Try the most popular premium features until Dec 4, 2024:
-      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate',  'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss',
-      // // Early access to document converters
-      // 'importword', 'exportword', 'exportpdf'
+
     ],
     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
     tinycomments_mode: 'embedded',

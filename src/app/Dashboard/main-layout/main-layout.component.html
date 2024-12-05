@@ -73,6 +73,14 @@
                 <span class="title">عرض رسائل</span>
             </a>
         </li>
+        <li routerLinkActive="hovered" >
+            <a routerLink="/dashboard/Slider" >
+                <span class="icon">
+                    <ion-icon name="chatbubble-outline"></ion-icon>
+                </span>
+                <span class="title">تحكم في سلايدر</span>
+            </a>
+        </li>
           <li>
               <a href="#" (click)="Signout()">
                   <span class="icon">
@@ -86,6 +94,7 @@
 
   <!-- ========================= Main ==================== -->
   <div class="main" [ngClass]="{ 'active': isMenuActive }">
+    <app-loader></app-loader>
       <div class="topbar">
           <div class="toggle"  (click)="toggleMenu()">
               <ion-icon name="menu-outline"></ion-icon>

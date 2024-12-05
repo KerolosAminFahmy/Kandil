@@ -8,22 +8,11 @@
   </div>
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <div class="Image">
-          <img src="../../assets/Images/download.png" alt="" srcset="" />
+      <div class="swiper-slide" *ngFor="let item of AllSliderItem">
+        <div class="Image" *ngIf="item.mediaType==='image'">
+          <img [src]="ImageUrl+'Slider/'+item.mediaPath" alt="Image" srcset="" />
         </div>
-      </div>
-      <div class="swiper-slide">
-        <video autoplay loop muted crossorigin="anonymous">
-          <source
-            src="../../assets/Images/No Copyright Video, Background, Green Screen, Motion Graphics, Animated Background, Copyright Free.mp4"
-            type="video/mp4"
-          />
-        </video>
-      </div>
-      <div class="swiper-slide">
-        <video autoplay loop muted crossorigin="anonymous">
-          <source src="../../assets/Images/videoplayback.mp4" type="video/mp4" />
+        <video [src]="ImageUrl+'Slider/'+item.mediaPath"  *ngIf="item.mediaType==='video'" autoplay loop muted crossorigin="anonymous">
         </video>
       </div>
     </div>
@@ -142,18 +131,7 @@
                 href="#liton_tab_3_{{i}}"
                 >{{item.city}}</a
               >
-              <!-- <a
-                class="show btn theme-btn-4 btn-effect-4 active"
-                data-bs-toggle="tab"
-                href="#liton_tab_3_1"
-                >التجمع الخامس</a
-              >
-              <a
-                data-bs-toggle="tab"
-                href="#liton_tab_3_2"
-                class="btn theme-btn-4 btn-effect-4"
-                >مدينة الشروق</a
-              >-->
+             
               <a
                 data-bs-toggle="tab"
                 href="#liton_tab_3_3"
@@ -172,7 +150,7 @@
                         <div class="blog-item blog-item-3">
                           <div class="blog-img">
                             <a
-                              href="Pages/Projects/النرجس-الجديدة.html"
+                            [routerLink]="['/projectcategory/'+city.id+'/project/',area.id]"
                             >
                               <img [src]="ImageUrl+area.imageName" alt="{{ area.name }}" />
                             </a>
@@ -180,8 +158,8 @@
                           <div class="blog-brief">
                             <h3 class="blog-title animated fadeIn">
                               <a
-                              href="Pages/Projects/النرجس-الجديدة.html"
-                                >{{ area.name }}</a
+                              [routerLink]="['/projectcategory/'+city.id+'/project/',area.id]"
+                              >{{ area.name }}</a
                               >
                             </h3>
                             <div class="blog-meta-btn">
@@ -190,7 +168,7 @@
                               </div>
                               <div class="blog-btn">
                                 <a
-                                href="Pages/Projects/النرجس-الجديدة.html"
+                                [routerLink]="['/projectcategory/'+city.id+'/project/',area.id]"
                                 >مشاهدة</a
                                 >
                               </div>

@@ -34,8 +34,11 @@ export class MediaCategoryService {
     formData.append('id', "0"); 
     formData.append('ImageName', "0"); 
     formData.append('Image', MediaCategory.image);
-    this.http.post<MediaCategory>(this.apiUrl, formData,
-
+    this.http.post<MediaCategory>(this.apiUrl, formData, {
+      headers: {
+        'enctype': 'multipart/form-data'
+      }
+    }
     ).subscribe(
      data =>{
       const currentMediaCategory = this.MediaCategorySubject.getValue();

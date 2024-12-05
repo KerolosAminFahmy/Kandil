@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { MediaDTO } from '../Models/model';
+import { MediaDTO, MediaImage } from '../Models/model';
 import { HttpClient } from '@angular/common/http';
 import { ToastService } from './toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,6 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class MediaService {
-  //private apiUrl = 'https://localhost:7289/api/Media/'; 
   private apiUrl =  environment.apiUrl+'/Media/'; 
   Massege = inject(ToastService) 
   router = inject(Router) 
@@ -79,7 +78,9 @@ export class MediaService {
       error: (err) => console.error(`Error deleting media with ID ${id}:`, err),
     });
   }
-
+  GetAllImages(id:number) :Observable<MediaImage[]>{
+    return this.http.get<MediaImage[]>(`${this.apiUrl}ImagesMedia/${id}`);
+  }
   private createFormData(mediaDTO: MediaDTO): FormData {
     const formData = new FormData();
     
@@ -96,9 +97,18 @@ export class MediaService {
     if(mediaDTO.mediaId !== undefined){
       formData.append('MediaId', mediaDTO.mediaId.toString());
     }
-    
+    if(mediaDTO.AllRemovedImages){
+      mediaDTO.AllRemovedImages.forEach((id, index) => {
+        formData.append(`allRemovedImages[${index}]`, id.toString());
+      });
+    }
     if (mediaDTO.image) {
       formData.append('Image', mediaDTO.image);
+    }
+    if (mediaDTO.detailImages) {
+      mediaDTO.detailImages.forEach((image) => {
+        formData.append('detailImage', image, image.name);
+      });
     }
     return formData;
   }

@@ -31,6 +31,8 @@ import { authGuard } from '../shared/Guards/auth.guard';
 import { CallUsComponent } from './call-us/call-us.component';
 import { ContactManageComponent } from './Dashboard/contact-manage/contact-manage.component';
 import { WhyUsManageComponent } from './Dashboard/why-us/why-us.component';
+import { SliderManageComponent } from './Dashboard/slider-manage/slider-manage.component';
+import { AllUnitComponent } from './all-unit/all-unit.component';
 
 export const routes: Routes = [
   
@@ -39,10 +41,11 @@ export const routes: Routes = [
     path: 'dashboard',
     component: MainLayoutComponent,
     children: [
-      { path: '', component: HomeDashboardComponent },
+      { path: '', redirectTo:"Cities" , pathMatch:"full" },
       { path: 'Login',component:LoginComponent},
       { path: 'Cities', component: CityComponent  ,canActivate: [authGuard]   },
       { path: 'WhyUs', component: WhyUsManageComponent  ,canActivate: [authGuard]   },
+      { path: 'Slider', component: SliderManageComponent  ,canActivate: [authGuard]   },
       { path: 'ContactManage', component: ContactManageComponent  ,canActivate: [authGuard]   },
       { path: 'Projects', component: ProjectManageComponent,canActivate: [authGuard] },
       { path:'Projects/:areaId/add' , component:AddProjectComponent,canActivate: [authGuard]},
@@ -56,7 +59,7 @@ export const routes: Routes = [
 
       { path: 'MediaCategory' , component:MediaCategoriesComponent,canActivate: [authGuard]},
       { path: 'allarea', component: AreaComponent , canActivate: [authGuard] },
-      { path: '**', redirectTo:"" , pathMatch:"full" },
+      { path: '**', redirectTo:"Cities" , pathMatch:"full" },
     ],
   },
   {
@@ -83,6 +86,7 @@ export const routes: Routes = [
       {path:'mediaCategories',component:MediaCategoryComponent},
       {path:"project",component:DetailProjectComponent},
       {path:"unit/:unitId",component:DetailUnitComponent},
+      {path:"unit",component:AllUnitComponent},
       {path: '', redirectTo:"home" , pathMatch:"full"},
       {path: '**', redirectTo:"home" , pathMatch:"full"},
     ],

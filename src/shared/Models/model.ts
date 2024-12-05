@@ -275,6 +275,10 @@ export interface MediaCategoryDto {
   title: string;
   imageName: string;
 }
+export interface MediaImage{
+  id:number;
+  imageName:string;
+}
 export interface MediaDTO {
   id?: number;
   title: string;
@@ -285,6 +289,8 @@ export interface MediaDTO {
   videoURl: string; 
   mediaId: number;
   image?: File; 
+  detailImages?: File[];
+  AllRemovedImages?:Array<number>; 
 }
 export interface Contact {
   id: number;
@@ -293,4 +299,10 @@ export interface Contact {
   email: string;
   project: string;
   message: string;
+}
+
+export interface Slider{
+  id:number,
+  mediaPath:string,
+  mediaType:string,
 }

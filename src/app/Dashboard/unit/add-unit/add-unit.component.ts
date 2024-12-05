@@ -8,6 +8,7 @@ import { AddUnitsDTO } from '../../../../shared/Models/model';
 import { ActivatedRoute } from '@angular/router';
 import { UnitManageService } from '../../../../shared/Services/unit-manage.service';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-add-unit',
@@ -17,12 +18,13 @@ import { GoogleMapsModule } from '@angular/google-maps';
   styleUrl: './add-unit.component.css'
 })
 export class AddUnitComponent {
+  apikey:string=environment.apiKey;
   unitForm!: FormGroup;
   projectId:number=0;
   init: EditorComponent['init'] = {
     plugins: [
       'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate',  'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss',
+
     ],
     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
     tinycomments_mode: 'embedded',

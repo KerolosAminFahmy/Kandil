@@ -1,4 +1,4 @@
-<app-title-navigation [isUnit]="true" [statusUnit]="unit.status" title={{unit.title}}></app-title-navigation>
+<app-title-navigation [isUnit]="true" [statusUnit]="unit.status" title={{unit.title}}  [breadcrumbs]="breadcrumbs" ></app-title-navigation>
 <app-slider-image *ngIf="imagesName!==[]" [listImage]="imagesName"></app-slider-image>
 
 
@@ -97,7 +97,7 @@
               </div>
               
               <h4 class="title-2">وحدات ذات صله</h4>
-              <div class="container">
+              <!-- <div class="container">
                 <div class="row">
                   <div class="col-lg-4 col-sm-6 col-12">
                     <div class="product-item product-item-4 text-center---">
@@ -223,7 +223,7 @@
 
 
                 </div>
-              </div>
+              </div> -->
 
             </div>
           </div>

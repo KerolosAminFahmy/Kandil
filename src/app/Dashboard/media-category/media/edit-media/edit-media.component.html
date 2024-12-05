@@ -29,7 +29,8 @@
       <editor
             
       formControlName="aboutProject"
-      apiKey="qzrowtc3pocptuko571bzuu8j4csx9q9z6qcj2ptythonm7u"
+      apiKey={{apikey}}
+
       
       formControlName="description"
       [init]="init"
@@ -104,6 +105,23 @@
         />
       </div> -->
     </div>
+
+    <div class="mb-3" formArrayName="detailImages">
+      <label class="form-label">صور تفصيلية</label>
+      <div *ngFor="let detailImage of detailImages.controls; let i = index" class="mb-2">
+        <div style="width: 50%;">
+  
+          <ng-container *ngIf="isFormInit">
+            <app-image-upload IsUpdate="{{detailImages.at(i).get('image')?.value==null?'':'true'}}"  nameImage="{{detailImage.get('image')?.value!=null?detailImage.get('image')?.value :''}}" 
+            Url="{{detailImage.get('image')?.value!=null?apiUrl+detailImage.get('image')?.value:''}}"   (imageSelected)="onFileChange($event, i)" ></app-image-upload>
+          
+          </ng-container>
+        </div>
+        <button type="button" class="btn btn-danger mt-1" (click)="removeDetailImage(i)">حذف</button>
+      </div>
+      <button type="button" class="btn btn-primary mt-2" (click)="addDetailImage()">إضافة صورة</button>
+    </div>
+
 
     <button
       type="submit"
