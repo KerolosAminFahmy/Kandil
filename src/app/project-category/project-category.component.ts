@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { CityService } from '../../shared/Services/city.service';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
 
 @Component({
   selector: 'app-project-category',
   standalone: true,
-  imports: [TitleNavigationComponent, CardComponent,CommonModule],
+  imports: [TitleNavigationComponent, CardComponent, CommonModule, PageNotFoundComponent],
   templateUrl: './project-category.component.html',
   styleUrl: './project-category.component.css'
 })

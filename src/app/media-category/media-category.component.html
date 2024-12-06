@@ -6,6 +6,9 @@
       <div class="col-lg-3 col-sm-6 col-12" *ngFor="let media of AllMediaCategory">
         <app-card title={{media.title}}  [imgUrl]='ImageUrl+"Media/"+media.imageName' Url={{media.id}}  ></app-card>
       </div>
+      <app-page-not-found *ngIf="AllMediaCategory==[] || AllMediaCategory==null || AllMediaCategory==undefined || AllMediaCategory.length==0"></app-page-not-found>
+
     </div>
+
   </div>
 </section>

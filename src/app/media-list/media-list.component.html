@@ -7,6 +7,8 @@
         date={{Project.created}}
         ></app-card>
       </div>
+      <app-page-not-found *ngIf="LoadedData==[] || LoadedData==null || LoadedData==undefined || LoadedData.length==0"></app-page-not-found>
+
     </div>
   </div>
 </section>

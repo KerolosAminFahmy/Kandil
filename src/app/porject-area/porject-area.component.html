@@ -5,6 +5,7 @@
       <div class="col-lg-4 col-sm-6 col-12" *ngFor="let Project of LoadedData">
         <app-card title={{Project.name}} [Url]='"project/"+Project.id' imgUrl={{Project.imageName}}></app-card>
       </div>
+      <app-page-not-found *ngIf="LoadedData==[] || LoadedData==null || LoadedData==undefined || LoadedData.length==0"></app-page-not-found>
     </div>
   </div>
 </section>

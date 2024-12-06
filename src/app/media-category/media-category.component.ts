@@ -5,11 +5,12 @@ import { TitleNavigationComponent } from '../../shared/Component/title-navigatio
 import { CommonModule } from '@angular/common';
 import { MediaCategoryService } from '../../shared/Services/media-category.service';
 import { environment } from '../../environments/environment';
+import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
 
 @Component({
   selector: 'app-media-category',
   standalone: true,
-  imports: [CardComponent, TitleNavigationComponent,CommonModule],
+  imports: [CardComponent, TitleNavigationComponent, CommonModule, PageNotFoundComponent],
   templateUrl: './media-category.component.html',
   styleUrl: './media-category.component.css'
 })

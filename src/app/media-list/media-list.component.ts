@@ -8,11 +8,12 @@ import { LoadMediaContentService } from '../../shared/Services/load-media-conten
 import { MediaService } from '../../shared/Services/media.service';
 import { MediaCategoryService } from '../../shared/Services/media-category.service';
 import { environment } from '../../environments/environment';
+import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
 
 @Component({
   selector: 'app-media-list',
   standalone: true,
-  imports: [TitleNavigationComponent,CardComponent,CommonModule],
+  imports: [TitleNavigationComponent, CardComponent, CommonModule, PageNotFoundComponent],
   templateUrl: './media-list.component.html',
   styleUrl: './media-list.component.css'
 })

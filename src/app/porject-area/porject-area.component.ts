@@ -6,11 +6,12 @@ import { CardComponent } from '../../shared/Component/card/card.component';
 import { TitleNavigationComponent } from '../../shared/Component/title-navigation/title-navigation.component';
 import { AreaService } from '../../shared/Services/area.service';
 import { environment } from '../../environments/environment';
+import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
 
 @Component({
   selector: 'app-porject-area',
   standalone: true,
-  imports: [CommonModule , CardComponent , TitleNavigationComponent],
+  imports: [CommonModule, CardComponent, TitleNavigationComponent, PageNotFoundComponent],
   templateUrl: './porject-area.component.html',
   styleUrl: './porject-area.component.css'
 })

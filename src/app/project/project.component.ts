@@ -8,11 +8,12 @@ import { ProjectContentService } from '../../shared/Services/project-content.ser
 import { AreaService } from '../../shared/Services/area.service';
 import { ProjectService } from '../../shared/Services/project.service';
 import { environment } from '../../environments/environment';
+import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [CommonModule,TitleNavigationComponent,CardComponent],
+  imports: [CommonModule, TitleNavigationComponent, CardComponent, PageNotFoundComponent],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css'
 })
