@@ -42,7 +42,8 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: '', redirectTo:"Cities" , pathMatch:"full" },
-      { path: 'Login',component:LoginComponent},
+      { path: 'Login', loadComponent: () =>
+        import('./Dashboard/login/login.component').then((m) => m.LoginComponent)},
       { path: 'Cities', component: CityComponent  ,canActivate: [authGuard]   },
       { path: 'WhyUs', component: WhyUsManageComponent  ,canActivate: [authGuard]   },
       { path: 'Slider', component: SliderManageComponent  ,canActivate: [authGuard]   },
@@ -66,14 +67,20 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutProjectComponent,
     children: [
-      {path:"home",component:HomeComponent,
+      {path:"home", loadComponent: () =>
+        import('./home/home.component').then((m) => m.HomeComponent),
         data: { headerImageUrl: '../../assets/Images/k1.png', customClass: 'home' }
       },
-      {path:"callus",component:CallUsComponent},
-      {path:"whyus",component:WhyUsComponent},
-      {path: 'info/:id', component: InfoContentComponent },
-      { path: 'projectcategory/:categoryId/project/:projectId/detail/:DetailProject', component: DetailProjectComponent },
-      { path: 'projectcategory/:categoryId/project/:projectId', component: ProjectComponent },
+      {path:"callus", loadComponent: () =>
+        import('./call-us/call-us.component').then((m) => m.CallUsComponent)},
+      {path:"whyus", loadComponent: () =>
+        import('./why-us/why-us.component').then((m) => m.WhyUsComponent)},
+      {path: 'info/:id',  loadComponent: () =>
+        import('./info-content/info-content.component').then((m) => m.InfoContentComponent)},
+      { path: 'projectcategory/:categoryId/project/:projectId/detail/:DetailProject',  loadComponent: () =>
+        import('./detail-project/detail-project.component').then((m) => m.DetailProjectComponent),},
+      { path: 'projectcategory/:categoryId/project/:projectId', loadComponent: () =>
+        import('./project/project.component').then((m) => m.ProjectComponent), },
       { path: 'projectcategory/:categoryId', component: PorjectAreaComponent },
      
       {
