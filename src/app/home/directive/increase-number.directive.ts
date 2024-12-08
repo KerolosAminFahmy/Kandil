@@ -18,7 +18,7 @@ export class IncreaseNumberDirective implements OnInit {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           this.increaseNumberAnimation();
-          observer.unobserve(this.el.nativeElement); // Stop observing after animation starts
+          observer.unobserve(this.el.nativeElement);
         }
       });
     });
