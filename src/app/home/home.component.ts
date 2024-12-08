@@ -90,7 +90,7 @@ ngAfterContentChecked(): void {
 ngAfterViewChecked() {
   if (this.AllSliderItem.length > 0 && !this.sliderInitialized) {
     this.initializeSlider();
-    this.sliderInitialized = true; 
+    // this.sliderInitialized = true; 
   }
 }
   initializeSlider() {
