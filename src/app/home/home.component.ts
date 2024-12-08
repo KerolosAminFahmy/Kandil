@@ -62,7 +62,6 @@ export class HomeComponent implements AfterViewInit  {
   AllArea!:AllAreaDTO[];
   AllSliderItem:Slider[]=[];
   units:Units[]=[];
-  sliderInitialized:boolean=false;
   constructor(private AreaService:AreaService,private SliderService:SliderService,private unitService:UnitManageService){
 
   }
@@ -83,83 +82,75 @@ export class HomeComponent implements AfterViewInit  {
     })
   
   }
-ngAfterContentChecked(): void {
-  
-}
 
-ngAfterViewChecked() {
-  if (this.AllSliderItem.length > 0 && !this.sliderInitialized) {
-    this.initializeSlider();
-    // this.sliderInitialized = true; 
-  }
-}
-  initializeSlider() {
-    setTimeout(()=>{
-      $('.slick-slider').slick({
-        rtl: true,
-        infinite: true,       
-        slidesToShow:3,       
-        slidesToScroll: 1,     
-        autoplay: false,        
-        autoplaySpeed: 5000,   
-        arrows: false,          
-        dots: true ,  
-        prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="display: flex;align-content: center;justify-content: center;align-items: center;"></button>' ,         
-        nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style="display: flex;align-content: center;justify-content: center;align-items: center;"></button>',
-        responsive: [
-        {
-                breakpoint: 992,  
-                settings: {
-    
-                    slidesToScroll: 1,
-                    slidesToShow: 2
-                }
-            },
-            {
-                breakpoint: 768,  
-                settings: {
-                  arrows: false,
-                  dots: true,
-                  slidesToScroll: 1,
-                  slidesToShow: 2
-                }
-            },
-            {
-                breakpoint: 640,    
-                settings: {
-                  arrows: false,
-                  dots: true,
-                  slidesToScroll: 1,
-                  slidesToShow: 1
-                }
-            }
-          ]
-      });
-      $('.swiper-wrapper').slick({ 
-        rtl: true,
-        autoplay: true,
-        autoplaySpeed: 8000,
-        arrows: true,
-        dots: false,
-        fade: true,
-        cssEase: 'linear',
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
+
+
+    ngAfterViewInit(): void {
+
+      setTimeout(()=>{
+        $('.slick-slider').slick({
+          rtl: true,
+          infinite: true,       
+          slidesToShow:3,       
+          slidesToScroll: 1,     
+          autoplay: false,        
+          autoplaySpeed: 5000,   
+          arrows: false,          
+          dots: true ,  
+          prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="display: flex;align-content: center;justify-content: center;align-items: center;"></button>' ,         
+          nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style="display: flex;align-content: center;justify-content: center;align-items: center;"></button>',
+          responsive: [
+          {
+                  breakpoint: 992,  
+                  settings: {
+      
+                      slidesToScroll: 1,
+                      slidesToShow: 2
+                  }
+              },
+              {
+                  breakpoint: 768,  
+                  settings: {
                     arrows: false,
                     dots: true,
-                }
-            }
-        ]
-      });
-    },0)  }
-    ngAfterViewInit(): void {
-    
+                    slidesToScroll: 1,
+                    slidesToShow: 2
+                  }
+              },
+              {
+                  breakpoint: 640,    
+                  settings: {
+                    arrows: false,
+                    dots: true,
+                    slidesToScroll: 1,
+                    slidesToShow: 1
+                  }
+              }
+            ]
+        });
+        $('.swiper-wrapper').slick({ 
+          rtl: true,
+          autoplay: true,
+          autoplaySpeed: 8000,
+          arrows: true,
+          dots: false,
+          fade: true,
+          cssEase: 'linear',
+          infinite: true,
+          speed: 300,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          responsive: [
+              {
+                  breakpoint: 1200,
+                  settings: {
+                      arrows: false,
+                      dots: true,
+                  }
+              }
+          ]
+        });
+      },2900) 
   
     
   
