@@ -1,5 +1,5 @@
 <!--Start Image And Video For Company And Search Section-->
-<section class="FirstSection">
+<section class="FirstSection"  >
   <div class="container">
     <div class="SearchContianer">
       <h3 class="TitleSearch">دوّر على أي وحدات عندنا</h3>
@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
+    <div class="swiper-wrapper" style="overflow:hidden;height: 100vh;"  >
       <div class="swiper-slide" *ngFor="let item of AllSliderItem">
         <div class="Image" *ngIf="item.mediaType==='image'">
           <img [src]="ImageUrl+'Slider/'+item.mediaPath" alt="Image" srcset="" />
