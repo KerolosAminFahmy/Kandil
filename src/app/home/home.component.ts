@@ -2,7 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 
 import { DropdownComponent } from "./dropdown/dropdown.component";
 import { UnitComponent } from "../unit/unit.component";
-import { AllAreaDTO, Slider, unit, Units } from '../../shared/Models/model';
+import { AllAreaDTO, FinishCategoryDTO, Slider, unit, Units } from '../../shared/Models/model';
 import { CommonModule } from '@angular/common';
 import { IncreaseNumberDirective } from './directive/increase-number.directive';
 import { RouterLink } from '@angular/router';
@@ -10,6 +10,7 @@ import { AreaService } from '../../shared/Services/area.service';
 import { UnitManageService } from '../../shared/Services/unit-manage.service';
 import { environment } from '../../environments/environment';
 import { SliderService } from '../../shared/Services/slider.service';
+import { FinishCategoryService } from '../../shared/Services/finish-category.service';
 declare var $: any;
 
 @Component({
@@ -59,10 +60,14 @@ export class HomeComponent implements AfterViewInit  {
       imgPath: "https://kandil-realestate.com/wp-content/uploads/2023/09/timthumb-1.jpeg"
     }
   ];
+  FinishCategoryList:FinishCategoryDTO[]=[];
   AllArea!:AllAreaDTO[];
   AllSliderItem:Slider[]=[];
   units:Units[]=[];
-  constructor(private AreaService:AreaService,private SliderService:SliderService,private unitService:UnitManageService){
+  constructor(private AreaService:AreaService,
+    private SliderService:SliderService,
+    private unitService:UnitManageService,
+    private FinishCategory:FinishCategoryService){
 
   }
   ngOnInit(): void {
@@ -80,7 +85,9 @@ export class HomeComponent implements AfterViewInit  {
         e.imageName=this.ImageUrl+"Units/"+e.imageName
       })
     })
-  
+    this.FinishCategory.getAllFinishCategories().subscribe((data)=>{
+      this.FinishCategoryList=data
+    })
   }
 
 
