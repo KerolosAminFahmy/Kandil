@@ -4,8 +4,8 @@
 <section class="AllProject">
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 col-sm-6 col-12">
-        <app-card title="تشطيبات داخلية" imgUrl="../../../assets/Images/s5.jpg" url="/pages/interiorfinishes"  ></app-card>
+      <div class="col-lg-4 col-sm-6 col-12" *ngFor="let item of items; let i=index">
+        <app-card title={{item.title}} [imgUrl]="imageApi+'Finish/'+item.imageName" Url={{item.id}}  ></app-card>
       </div>
     </div>
   </div>

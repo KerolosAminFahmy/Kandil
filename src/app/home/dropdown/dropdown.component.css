@@ -33,7 +33,7 @@
   border-radius: 5px;
   margin-top: 5px;
   opacity: 1;
-  max-height: 120px ;
+  max-height: 300px ;
   transform: translateY(0);
   overflow-y: scroll;
   transition: all 300ms ease-in-out;

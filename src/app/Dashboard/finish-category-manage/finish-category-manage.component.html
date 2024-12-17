@@ -1,0 +1,41 @@
+<div class="card-container">
+  <div class="card" *ngFor="let finish of items">
+    <img [src]="ImageUrl+'Finish/'+finish.imageName" alt="Image" class="card-image" />
+    <h3 class="card-title">{{ finish.title }}</h3>
+    <div class="card-buttons">
+      <button class="btn btn-edit"  (click)="onEdit(finish.id)">Edit</button>
+      <a class="btn btn-info"  [routerLink]="['/dashboard/FinishCategory/', finish.id]">كل التشطبيات</a>
+      <button class="btn btn-delete" (click)="onDelete(finish.id)">Delete</button>
+    </div>
+  </div>
+  
+  <div class="card add-card" (click)="openAddCityModal()" >
+    <span class="plus-icon">+</span>
+  </div>
+</div>
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <span class="close-btn" (click)="closeModal()">×</span>
+    @if(isEditMode){
+      <h2>تعديل تشطبيات</h2>
+    }@else {
+      <h2>اضافه تشطبيات جديد</h2>
+    }
+    
+    <form [formGroup]="FinishForm" (ngSubmit)="onSubmit()">
+      <label for="name">اسم تشطبيات</label>
+      <input id="name" formControlName="title" type="text" placeholder="ادخل اسم المدينه" />
+
+      <label for="image">صوره تشطبيات</label>
+      <app-image-upload nameImage="{{NameImage}}" Url="{{UrlEdit}}" (imageSelected)="onImageSelected($event)"></app-image-upload>
+      <button type="submit" [disabled]="FinishForm.invalid" class="btn btn-submit">
+        @if(isEditMode){
+          تعديل
+        }@else{
+          اضافه
+        }
+
+      </button>
+    </form>
+  </div>
+</div>

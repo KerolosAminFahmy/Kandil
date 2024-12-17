@@ -30,12 +30,10 @@ export class PorjectAreaComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.areaId= +params['categoryId'];
-     
-
     });
     this.areaService.fetchAreaByCity(this.areaId).subscribe((data)=>{
-      this.Title=data[0].city?.name
-      this.LoadedData=data
+      this.Title=data.title
+      this.LoadedData=data.data
       this.LoadedData.forEach((e)=>{
         e.imageName=this.ImageUrl+e.imageName
       })

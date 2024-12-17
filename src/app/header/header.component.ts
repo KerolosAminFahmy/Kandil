@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component , ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AllAreaDTO, MediaCategory } from '../../shared/Models/model';
+import { AllAreaDTO, FinishCategoryDTO, MediaCategory } from '../../shared/Models/model';
 import { AreaService } from '../../shared/Services/area.service';
 import { MediaCategoryService } from '../../shared/Services/media-category.service';
+import { FinishCategoryService } from '../../shared/Services/finish-category.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() customClass: string = 'home';
   isSidebarOpen = false;
   isOverlayVisible = false;
-  constructor(private AreaService:AreaService,private MediaCategory:MediaCategoryService){}
+  FinisCategoryList:FinishCategoryDTO[]=[];
+  constructor(private AreaService:AreaService,private FinishCategory:FinishCategoryService,private MediaCategory:MediaCategoryService){}
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
     this.isOverlayVisible = !this.isOverlayVisible;
@@ -39,6 +41,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.MediaCategory.fetchCities();
     this.MediaCategory.MediaCategory$.subscribe((data)=>{
       this.AllMediaCategory=data
+    })
+    this.FinishCategory.getAllFinishCategories().subscribe((data)=>{
+      this.FinisCategoryList=data
     })
   }
   ngAfterViewInit(): void {

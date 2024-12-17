@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  private baseUrl = "https://kandil.runasp.net/";
-  //private baseUrl = "https://localhost:7289/";
+  //private baseUrl = "https://kandil.runasp.net/";
+  private baseUrl = environment.authApi;
   private tokenKey = 'authToken';
   private refreshTokenKey = 'refreshToken';
   private isLoginvar=false;

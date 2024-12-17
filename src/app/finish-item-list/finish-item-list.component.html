@@ -1,0 +1,145 @@
+<app-title-navigation title={{title}} [breadcrumbs]="breadcrumbs"></app-title-navigation>
+<section class="ProductArea">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-sm-6 col-12" *ngFor="let item of items; let i=index" data-target="p-1">
+        <div class="product-item text-center">
+        <div class="product-img">
+          <a
+            [routerLink]="['detail',item.id]" 
+            tabindex="-1"
+            ><img
+            src={{item.imageName}}
+            alt={{item.title}}
+          /></a>
+          <div class="product-badge">
+            <ul>
+              <li class="sale-badge bg-silver">سيلفر</li>
+            </ul>
+          </div>
+          <div class="product-img-location-gallery">
+            <div class="product-img-location">
+              <ul>
+                <li>
+                  <a [href]="'https://www.google.com/maps?q='+item.latitude+','+item.longitude"
+                    ><i class="fa-solid fa-location-dot"></i> {{item.nameLocation}}</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <h2 class="product-title">
+            <a
+            [routerLink]="['detail',item.id]" 
+
+              >{{item.title}}</a
+            >
+          </h2>
+
+        
+        </div>
+        <div class="product-info-bottom">
+          <div class="real-estate-agent">
+            <div class="agent-brief">
+            
+            </div>
+          </div>
+          <div class="product-hover-action">
+            <ul>
+              <li>
+                <a (click)="openPreview(item.id)" title="Quick View" data-target="p-1" class="Preview">
+                  <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                </a>
+              </li>
+              <li>
+                <a             [routerLink]="['detail',item.id]" 
+                title="Product Details" tabindex="0">
+                  <i class="fa-solid fa-circle-plus"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+</section>
+
+
+
+<div class="AllPreviewProduct">
+
+  <div class="modal fade" data-target="p-1" [ngClass]="isOpen?'show':''">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button  type="button" class="close" data-bs-dismiss="modal"  (click)="removePreview()" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    <!-- <i class="fas fa-times"></i> -->
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="quick-view-modal-inner">
+                    <div class="modal-product-item">
+                        <div class="row">
+                            <div class="col-lg-6 col-12">
+                                <div class="modal-product-img">
+                                    <img src={{selectedItem.imageName}} alt={{selectedItem.title}}>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="modal-product-info">
+                                    
+                                    <h3 class="animated fadeIn">
+                                      <a [routerLink]="['detail',selectedItem.id]" >{{selectedItem.title}}</a></h3>
+                                    <div class="product-price">
+                                        <span></span>
+                                        <!--<del>$36,500</del>-->
+                                    </div>
+                                    <hr>
+                                    <div class="modal-product-brief">
+                                        <p>&nbsp; شطب شقتك بالكامل على يد فريق كامل من المهندسين المختصين.&nbsp; &nbsp;هتقدر تشوف بيتك بكل تفاصيله قبل التشطيب &nbsp;خامات عالية الجودة وتصميمات عالمية تناسب ذوقك &nbsp; &nbsp;.</p>
+                                    </div>
+                                    
+                                    <hr>
+                                    <div class="social-media">
+                                      <ul>
+                                          <li>شارك:</li>
+                                          <li>
+                                              <a [href]="facebookShareUrl" target="_blank" title="Facebook">
+                                                  <i class="fab fa-facebook-f"></i>
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a [href]="twitterShareUrl" target="_blank" title="Twitter">
+                                                  <i class="fab fa-twitter"></i>
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a [href]="linkedinShareUrl" target="_blank" title="LinkedIn">
+                                                  <i class="fab fa-linkedin"></i>
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a [href]="whatsappShareUrl" target="_blank" title="WhatsApp">
+                                                  <i class="fab fa-whatsapp"></i>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                    <label class="float-end mb-0">
+                                      <a class="text-decoration"[routerLink]="['detail',selectedItem.id]" ><small>التفاصيل</small></a></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -20,8 +20,8 @@ export class AreaService {
       this.AreaSubject.next(data);
     });
   }
-  fetchAreaByCity(id:number):Observable<ViewAreaDTO[]>{
-    return this.http.get<ViewAreaDTO[]>(this.apiUrl+"GetAreaByCity/"+id).pipe(
+  fetchAreaByCity(id:number):Observable<{title:string,data:ViewAreaDTO[]}>{
+    return this.http.get<{title:string,data:ViewAreaDTO[]}>(this.apiUrl+"GetAreaByCity/"+id).pipe(
       tap(() => {
         
       })

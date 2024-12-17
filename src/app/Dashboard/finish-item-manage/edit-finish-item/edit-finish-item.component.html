@@ -1,0 +1,132 @@
+<form [formGroup]="finishForm" (ngSubmit)="onSubmit()" style="width: 90%; margin-left: auto; margin-right: auto;">
+  <!-- Title -->
+  <div class="mb-3" *ngIf="center.lat!=0">
+    <input 
+        id="search-bar" 
+        type="text" 
+        placeholder="اسم لوكيشن" 
+        formControlName="NameLocation"
+        class="form-control mb-3" 
+    />
+    <google-map
+        height="450px"
+        width="1000px"
+        [center]="center"
+        [zoom]="zoom"
+        (mapClick)="moveMap($event)"
+        (mapMousemove)="move($event)"
+    >
+        <map-marker [position]="markerPosition"></map-marker>
+    </google-map>
+
+    <a *ngIf="mapsUrl" [href]="mapsUrl" target="_blank" class="btn btn-primary mt-3">
+      مراجعه لوكيشن
+    </a>
+  </div>
+
+
+  
+  <div class="mb-3">
+    <label for="title" class="form-label">اسم تشطيب</label>
+    <input
+      id="title"
+      type="text"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': finishForm.get('title')?.invalid && finishForm.get('title')?.touched,
+        'is-valid': finishForm.get('title')?.valid && finishForm.get('title')?.touched
+      }"
+      formControlName="title"
+      placeholder="اسم تشطيب"    />
+    <div *ngIf="finishForm.get('title')?.invalid && finishForm.get('title')?.touched" class="text-danger">
+      <small *ngIf="finishForm.get('title')?.errors?.['required']">هذا الحقل مطلوب</small>
+      <small *ngIf="finishForm.get('title')?.errors?.['maxlength']">يجب ألا يزيد عن 150 حرفًا</small>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="mb-3">
+    <label for="description" class="form-label">الوصف</label>
+    <editor
+        
+        formControlName="aboutProject"
+        apiKey={{apikey}}
+
+        [ngClass]="{
+          'is-invalid': finishForm.get('description')?.invalid && finishForm.get('description')?.touched,
+          'is-valid': finishForm.get('description')?.valid && finishForm.get('description')?.touched
+        }"
+        formControlName="description"
+        [init]="init"
+      ></editor>
+    
+    <div *ngIf="finishForm.get('description')?.invalid && finishForm.get('description')?.touched" class="text-danger">
+      <small *ngIf="finishForm.get('description')?.errors?.['required']">هذا الحقل مطلوب</small>
+      <small *ngIf="finishForm.get('description')?.errors?.['maxlength']">يجب ألا يزيد عن 1000 حرف</small>
+    </div>
+  </div>
+
+  <!-- Image -->
+  <div class="mb-3">
+    <label for="image" class="form-label">الصورة</label>
+    <!-- <input
+      id="image"
+      type="file"
+      class="form-control"
+      (change)="onFileSelect($event, -1)"
+    /> -->
+    <ng-container *ngIf="finishForm.get('image')?.value!=='' && isFormInit">
+      <app-image-upload  nameImage="{{finishForm.get('image')?.value}}" 
+      Url="{{apiUrl+'/FinishItem/'+finishForm.get('image')?.value}}"  
+        (imageSelected)="onFileChange($event,-1)" ></app-image-upload>
+    </ng-container>
+    
+    <div *ngIf="finishForm.get('image')?.invalid && finishForm.get('image')?.touched" class="text-danger">
+      <small>هذا الحقل مطلوب</small>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- Video URL -->
+  <div class="mb-3">
+    <label for="videoUrl" class="form-label">رابط الفيديو</label>
+    <input
+      id="videoUrl"
+      type="url"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': finishForm.get('videoUrl')?.invalid && finishForm.get('videoUrl')?.touched,
+        'is-valid': finishForm.get('videoUrl')?.valid && finishForm.get('videoUrl')?.touched
+      }"
+      formControlName="videoUrl"
+      placeholder="أدخل رابط الفيديو"
+    />
+    <div *ngIf="finishForm.get('videoUrl')?.invalid && finishForm.get('videoUrl')?.touched" class="text-danger">
+      <small>هذا الحقل مطلوب</small>
+      <small *ngIf="finishForm.get('videoUrl')?.errors?.['pattern']">يجب أن يكون رابط صالح</small>
+    </div>
+  </div>
+
+
+
+  <!-- Detail Images -->
+  <div class="mb-3" formArrayName="detailImages">
+    <label class="form-label">صور تفصيلية</label>
+    <div *ngFor="let detailImage of detailImages.controls; let i = index" class="mb-2">
+      <ng-container *ngIf="isFormInit">
+        <app-image-upload IsUpdate="{{detailImages.at(i).get('image')?.value==null?'':'true'}}"  nameImage="{{detailImage.get('image')?.value!=null?detailImage.get('image')?.value :''}}" 
+        Url="{{detailImage.get('image')?.value!=null?apiUrl+'/FinishItem/'+detailImage.get('image')?.value:''}}"   (imageSelected)="onFileChange($event, i)" ></app-image-upload>
+      
+      </ng-container>
+      <button type="button" class="btn btn-danger mt-1" (click)="removeDetailImage(i)">حذف</button>
+    </div>
+    <button type="button" class="btn btn-primary mt-2" (click)="addDetailImage()">إضافة صورة</button>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-success" [disabled]="finishForm.invalid">إرسال</button>
+</form>

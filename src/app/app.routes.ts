@@ -33,6 +33,14 @@ import { ContactManageComponent } from './Dashboard/contact-manage/contact-manag
 import { WhyUsManageComponent } from './Dashboard/why-us/why-us.component';
 import { SliderManageComponent } from './Dashboard/slider-manage/slider-manage.component';
 import { AllUnitComponent } from './all-unit/all-unit.component';
+import { SearchComponent } from './search/search.component';
+import { FinishCategoryManageComponent } from './Dashboard/finish-category-manage/finish-category-manage.component';
+import { FinishItemManageComponent } from './Dashboard/finish-item-manage/finish-item-manage.component';
+import { AddFinishItemComponent } from './Dashboard/finish-item-manage/add-finish-item/add-finish-item.component';
+import { EditFinishItemComponent } from './Dashboard/finish-item-manage/edit-finish-item/edit-finish-item.component';
+import { FinishItemListComponent } from './finish-item-list/finish-item-list.component';
+import { FinishItemDetailComponent } from './finish-item-detail/finish-item-detail.component';
+import { AllPaidUnitComponent } from './all-paid-unit/all-paid-unit.component';
 
 export const routes: Routes = [
   
@@ -60,6 +68,11 @@ export const routes: Routes = [
 
       { path: 'MediaCategory' , component:MediaCategoriesComponent,canActivate: [authGuard]},
       { path: 'allarea', component: AreaComponent , canActivate: [authGuard] },
+      { path: "FinishCategory" , component:FinishCategoryManageComponent},
+      { path: "FinishCategory/:FinishCategory" , component:FinishItemManageComponent},
+      { path: "FinishCategory/:FinishCategory/add" , component:AddFinishItemComponent},
+      { path: "FinishCategory/:FinishCategory/edit/:finishItem" , component:EditFinishItemComponent},
+
       { path: '**', redirectTo:"Cities" , pathMatch:"full" },
     ],
   },
@@ -82,16 +95,21 @@ export const routes: Routes = [
       { path: 'projectcategory/:categoryId/project/:projectId', loadComponent: () =>
         import('./project/project.component').then((m) => m.ProjectComponent), },
       { path: 'projectcategory/:categoryId', component: PorjectAreaComponent },
-     
+      {
+        path: 'search', component:SearchComponent,
+      },
       {
         path: 'projectcategory', component:ProjectCategoryComponent,
       },
       
       {path:'finishcategory',component:FinishCategoryComponent},
+      {path:'finishcategory/:finishCategoryId',component:FinishItemListComponent},
+      {path:'finishcategory/:finishCategoryId/detail/:FinishItemDetail',component:FinishItemDetailComponent},
       {path:'mediaCategories/:mediaId/media/:DetailId',component:DetailMediaComponent},
       {path:'mediaCategories/:mediaId',component:MediaListComponent},
       {path:'mediaCategories',component:MediaCategoryComponent},
       {path:"project",component:DetailProjectComponent},
+      {path:"unit/paid",component:AllPaidUnitComponent},
       {path:"unit/:unitId",component:DetailUnitComponent},
       {path:"unit",component:AllUnitComponent},
       {path: '', redirectTo:"home" , pathMatch:"full"},

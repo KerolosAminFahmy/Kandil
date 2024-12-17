@@ -1,11 +1,14 @@
 <header id="Header" #header [ngClass]="customClass">
   <div class="container HeaderContent">
     <div class="LeftContainer">
-      <img
-      [src]="headerImageUrl|| '../../assets/Images/k1.png'"
-        alt="Logo Company of Kandil"
-        class="LogoCompany"
-      />
+      <a routerLink="/home">
+        <img
+        [src]="headerImageUrl|| '../../assets/Images/k1.png'"
+          alt="Logo Company of Kandil"
+          class="LogoCompany"
+        />
+      </a>
+    
     </div>
     <div class="RightContainer">
       <div class="toggle-btn" [ngClass]="{ 'ActiveMenu': isOverlayVisible }" (click)="toggleSidebar()">
@@ -27,7 +30,7 @@
               <a class="LinkB" routerLink="/unit"> عروض للبيع </a>
             </li>
             <li>
-              <a class="LinkB" routerLink="/projectcategory">
+              <a class="LinkB" routerLink="/unit/paid">
                 سابقة الاعمال
               </a>
             </li>
@@ -56,8 +59,8 @@
         <li class="LinkNavigator">
           <a class="LinkA" routerLink="/finishcategory"> التشطيبات + </a>
           <ul class="SubmenuLinkNavigator">
-            <li>
-              <a class="LinkB" href="Pages/Interiorfinishes.html"> التشطيبات داخليه </a>
+            <li *ngFor="let item of FinisCategoryList">
+              <a class="LinkB" [routerLink]="['finishcategory',item.id]"> {{item.title}} </a>
             </li>
           </ul>
         </li>
@@ -103,19 +106,19 @@
   </div>
   <div class="AllLinkList">
     <ul class="LinkList">
-      <li><a routerLink="/home">الرئيسية</a></li>
+      <li><a (click)="toggleSidebar()" routerLink="/home">الرئيسية</a></li>
         <li>
-          <a routerLink="/whyus"
+          <a (click)="toggleSidebar()" routerLink="/whyus"
             >لماذا قنديل</a
           >
         </li>
 
         <li>
-          <a href="Pages/units.html">وحدات للبيع</a>
+          <a (click)="toggleSidebar()" routerLink="/unit">عروض للبيع </a>
         </li>
 
         <li>
-          <a routerLink="/projectcategory"
+          <a (click)="toggleSidebar()" routerLink="/unit/paid"
             >سابقة الاعمال
           </a>
         </li>
@@ -125,7 +128,7 @@
             <span class="ArrowLine"></span>
             <span class="ArrowLine"></span>
           </div>
-            <a routerLink="/projectcategory"
+            <a (click)="toggleSidebar()" routerLink="/projectcategory"
             >المشروعات</a
           >
           @for (city of AllArea; track city.id) {
@@ -136,14 +139,14 @@
                   <span class="ArrowLine"></span>
                 </div>
               
-                  <a
+                  <a (click)="toggleSidebar()"
                   [routerLink]="['/projectcategory/',city.id]"
                   >
                   {{city.city}}
                 </a>
                 <ul class="sub-menu">
                   <li *ngFor="let area of city.viewAreas">
-                    <a
+                    <a (click)="toggleSidebar()"
                     [routerLink]="['/projectcategory/{{city.id}}/project/',area.id]"
                       >{{area.name}}</a
                     >
@@ -166,14 +169,14 @@
             <span class="ArrowLine "></span>
             <span class="ArrowLine "></span>
           </div>
-          <a routerLink="/finishcategory">
+          <a (click)="toggleSidebar()" routerLink="/finishcategory">
             التشطيبات</a
           >
           <ul class="sub-menu">
-            <li>
-              <a
-                href="Pages/Interiorfinishes.html"
-                >تشطيبات داخلية</a
+            <li *ngFor="let item of FinisCategoryList">
+              <a (click)="toggleSidebar()" [routerLink]="['finishcategory',item.id]"
+                
+                >{{item.title}}</a
               >
             </li>
           </ul>
@@ -183,17 +186,17 @@
             <span class="ArrowLine "></span>
             <span class="ArrowLine "></span>
           </div>
-          <a routerLink="/mediaCategories">
+          <a (click)="toggleSidebar()"routerLink="/mediaCategories">
             المركز الإعلامي </a
           >
           <ul class="sub-menu">
             <li *ngFor="let item of AllMediaCategory; let i=index">
-              <a  [routerLink]="['mediaCategories/', item.id]"> {{item.title}} </a>
+              <a (click)="toggleSidebar()" [routerLink]="['mediaCategories/', item.id]"> {{item.title}} </a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="Pages/callUs.html">اتصل بنا</a>
+          <a (click)="toggleSidebar()" routerLink="/callus">اتصل بنا</a>
         </li>
     </ul>
   </div>

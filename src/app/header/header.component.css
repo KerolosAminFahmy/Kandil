@@ -16,9 +16,7 @@ header.ColorBlack{
 }
 header.FixedAtTop{
   position: fixed;
-
   box-shadow: 0px 22px 14px 1px rgba(0,0,0,0.44);
-
   top: 0;
   width: 100%;
 }
@@ -38,7 +36,7 @@ header .RightContainer ul.LinksNavigator{
 }
 header .RightContainer ul.LinksNavigator li.LinkNavigator{
   padding:20px 10px;
-  margin-left: 5px;
+  margin-left: 30px;
   position: relative;
 } 
 header .RightContainer ul.LinksNavigator li.LinkNavigator::before{
@@ -458,9 +456,15 @@ header .toggle-btn span {
   display: block;
 }
 
-
-
+@media (max-width:995px) {
+  header .RightContainer ul.LinksNavigator li.LinkNavigator{
+    margin-left: 5px !important;
+  }
+}
 @media (max-width:960px) {
+  header .RightContainer ul.LinksNavigator li.LinkNavigator{
+    margin-left: 5px !important;
+  }
   header .RightContainer ul.LinksNavigator{
     display: none;
   }
@@ -484,6 +488,7 @@ header#Header.header-page{
 header#Header.header-page li.LinkNavigator a.LinkA{
   color: black;
   transition: all 0.3s ease;
+  margin-left: 10px;
 }
 header#Header.header-page li.LinkNavigator:hover a.LinkA{
   color:var(--mainColor);

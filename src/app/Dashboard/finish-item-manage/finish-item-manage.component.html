@@ -1,0 +1,14 @@
+<div class="card-container">
+  <div class="card" *ngFor="let finish of items">
+    <img [src]="ImageUrl+'Finish/'+finish.imageName" alt="Image" class="card-image" />
+    <h3 class="card-title">{{ finish.title }}</h3>
+    <div class="card-buttons">
+      <button class="btn btn-edit"  (click)="onEdit(finish.id)">Edit</button>
+      <button class="btn btn-delete" (click)="onDelete(finish.id)">Delete</button>
+    </div>
+  </div>
+  
+  <div class="card add-card" (click)="AddFinishItem()" >
+    <span class="plus-icon">+</span>
+  </div>
+</div>

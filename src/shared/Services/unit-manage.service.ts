@@ -34,6 +34,9 @@ export class UnitManageService {
     return this.http.get<Units[]>(this.apiUrl+"GetAllUnitHome")
    
   }
+  FetchAllPaid():Observable<Units[]>{
+    return this.http.get<Units[]>(this.apiUrl+"GetAllPaidUnit")
+  }
   AddUnit(NewUnit:AddUnitsDTO){
     const formData=new FormData();
     // Append fields from NewUnit to formData

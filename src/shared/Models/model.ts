@@ -306,3 +306,47 @@ export interface Slider{
   mediaPath:string,
   mediaType:string,
 }
+
+export interface FinishItemDTO {
+  id?: number; // Corresponds to nullable int in C#
+  title: string;
+  description: string;
+  imageName?: string; // Corresponds to nullable string in C#
+  image?: File; // Angular uses File type for single file uploads
+
+  latitude: number;
+  longitude: number;
+  nameLocation: string;
+  videoUrl: string;
+  finishCategoryId: number;
+  detailImage?: File[]; // For multiple file uploads, an array of File is used
+
+  allRemovedImages?: number[]; // Corresponds to List<int> in C#
+}
+export interface FinishCategoryDTO {
+  id?: number; // Corresponds to nullable int in C#
+  title: string;
+  imageName?: string; // Corresponds to nullable string in C#
+  image?: File | null; // Angular uses File type for file uploads
+}
+export interface FinishItem {
+  id: number;
+  title: string;
+  description: string;
+  imageName: string;
+  latitude: number;
+  longitude: number;
+  nameLocation: string;
+  videoUrl: string;
+  finishCategoryId: number;
+}
+export interface FinishImage {
+  id: number;
+  imageName: string;
+  finishItemId: number;
+  finishItem: FinishItem;
+}
+export interface FinishItemDetailDTO {
+  finishItem: FinishItem;
+  finishImages: FinishImage[];
+}
