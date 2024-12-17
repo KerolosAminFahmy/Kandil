@@ -343,16 +343,16 @@
                               <div class="blog-item blog-item-3">
                                 <div class="blog-img">
                                   <a
-                                  [routerLink]="['finishcategory',item.id]"
+                                  [routerLink]="['/finishcategory',item.id]"
                                     tabindex="0"
                                   >
-                                    <img [src]="ImageUrl+'Finish/'+item.imageName" alt="#" />
+                                    <img [src]="ImageUrl+'Finish/'+item.imageName" alt={{item.title}} />
                                   </a>
                                 </div>
                                 <div class="blog-brief">
                                   <h3 class="blog-title animated fadeIn">
                                     <a
-                                    [routerLink]="['finishcategory',item.id]"
+                                    [routerLink]="['/finishcategory',item.id]"
                                       tabindex="0"
                                       > {{item.title}}</a
                                     >
@@ -363,7 +363,7 @@
                                     </div>
                                     <div class="blog-btn">
                                       <a
-                                      [routerLink]="['finishcategory',item.id]"
+                                      [routerLink]="['/finishcategory',item.id]"
                                         >مشاهدة</a
                                       >
                                     </div>
