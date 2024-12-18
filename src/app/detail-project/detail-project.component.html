@@ -109,7 +109,7 @@
                 <div class="slider-images">
                   <div class="slider-img" *ngFor="let item of project.advantageProjects;let i=index"  [ngClass]="{'active': selectedIndex === i}" 
                   (click)="setActiveImage(i)" >
-                    <img [src]="ImageUrl+'Projects/'+item.imageUrl" alt="1" />
+                    <img [src]="ImageUrl+'Projects/'+item.imageUrl" alt={{item.text}} />
                     <h1>{{item.text}}</h1>
                     <div class="details">
                       <h2>{{item.text}}</h2>
@@ -185,7 +185,8 @@
                 <div class="row">
                   <div class="col-lg-12">
                     
-                    <div *ngIf="project.pdfFile" style="height: 60vh;">
+                    <div *ngIf="project.pdfFile" style="height: 80vh;    width: 95%;
+    overflow-x: hidden;">
                       <ngx-extended-pdf-viewer [src]="ImageUrl+'Projects/'+project.pdfFile" [showDownloadButton]="true"></ngx-extended-pdf-viewer>
                     </div>
                   </div>

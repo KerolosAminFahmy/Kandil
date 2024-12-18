@@ -147,7 +147,7 @@
                 <ul class="sub-menu">
                   <li *ngFor="let area of city.viewAreas">
                     <a (click)="toggleSidebar()"
-                    [routerLink]="['/projectcategory/{{city.id}}/project/',area.id]"
+                    [routerLink]="['/projectcategory/'+city.id+'/project',area.id]"
                       >{{area.name}}</a
                     >
                   </li>

@@ -32,25 +32,25 @@ export class ProjectComponent {
     this.route.params.subscribe(params => {
       this.areaId= +params['projectId'];
       this.projectId= +params['categoryId'];
-
-
-    });
-    this.projectService.GetAllProjectByArea(this.areaId).subscribe((data)=>{
-      this.LoadedData=data
-     
-    })
-    this.breadcrumbs.push(
-      {name:"اقسام المشاريع",url:"/projectcategory"}
-    )
-    this.projectService.getById(this.projectId).subscribe(data=>{
-      this.Title = data.message
+      this.projectService.GetAllProjectByArea(this.areaId).subscribe((data)=>{
+        this.LoadedData=data
+       
+      })
       this.breadcrumbs.push(
-        {name:data.message,url:"/projectcategory/"+this.projectId.toString()}
+        {name:"اقسام المشاريع",url:"/projectcategory"}
       )
-    })
-    this.projectService.getNameById(this.areaId).subscribe(data=>{
-      this.Title = data.message
-
-    })
+      this.projectService.getById(this.projectId).subscribe(data=>{
+        this.Title = data.message
+        this.breadcrumbs.push(
+          {name:data.message,url:"/projectcategory/"+this.projectId.toString()}
+        )
+      })
+      this.projectService.getNameById(this.areaId).subscribe(data=>{
+        this.Title = data.message
+  
+      })
+    });
+    
+    
   }
 }

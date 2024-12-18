@@ -71,8 +71,8 @@ export class SliderImageComponent implements AfterViewInit{
             }
         ]
       });
-      $('a[data-rel^=lightcase]').lightcase();
+     
     },1000)
-   
+    $('a[data-rel^=lightcase]').lightcase();
   }
 }

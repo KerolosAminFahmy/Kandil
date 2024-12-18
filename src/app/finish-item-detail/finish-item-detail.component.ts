@@ -49,18 +49,19 @@ export class FinishItemDetailComponent {
     this.route.params.subscribe((params) => {
       this.FinishCategoryId=+params['finishCategoryId']
       this.FinishId= +params['FinishItemDetail']
-    })
-    this.finishItemService.getFinishItem(this.FinishId).subscribe((data)=>{
-      data.finishImages.forEach((e)=>{
-        this.imagesName.push(this.ImageUrl+"Finish/"+e.imageName)
+      this.finishItemService.getFinishItem(this.FinishId).subscribe((data)=>{
+        data.finishImages.forEach((e)=>{
+          this.imagesName.push(this.ImageUrl+"Finish/"+e.imageName)
+        })
+        this.items=data
+        this.title=data.finishItem.title
+  
+        this.SafeContent(this.items.finishItem.videoUrl,this.items.finishItem.description)
+        this.adjustIframeHeight();
+        this.isReady=true
       })
-      this.items=data
-      this.title=data.finishItem.title
-
-      this.SafeContent(this.items.finishItem.videoUrl,this.items.finishItem.description)
-      this.adjustIframeHeight();
-      this.isReady=true
     })
+    
     
   }
   SafeContent(url:string,description:string){

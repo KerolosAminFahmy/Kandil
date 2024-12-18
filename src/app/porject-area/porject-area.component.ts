@@ -19,7 +19,7 @@ export class PorjectAreaComponent implements OnInit {
   ImageUrl:string=environment.apiImage
 
   LoadedData!:ViewAreaDTO[];
-  Title:string|undefined="12";
+  Title:string|undefined="";
   areaId:number=0;
   breadcrumbs: { name: string; url: string }[] = [];
 
@@ -30,17 +30,18 @@ export class PorjectAreaComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.areaId= +params['categoryId'];
-    });
-    this.areaService.fetchAreaByCity(this.areaId).subscribe((data)=>{
-      this.Title=data.title
-      this.LoadedData=data.data
-      this.LoadedData.forEach((e)=>{
-        e.imageName=this.ImageUrl+e.imageName
+      this.areaService.fetchAreaByCity(this.areaId).subscribe((data)=>{
+        this.Title=data.title
+        this.LoadedData=data.data
+        this.LoadedData.forEach((e)=>{
+          e.imageName=this.ImageUrl+e.imageName
+        })
       })
-    })
-    this.breadcrumbs.push(
-      {name:"اقسام المشاريع",url:"/projectcategory"}
-    )
-    this.dataTitle.emit(this.Title)
+      this.breadcrumbs.push(
+        {name:"اقسام المشاريع",url:"/projectcategory"}
+      )
+      this.dataTitle.emit(this.Title)
+    });
+    
   }
 }

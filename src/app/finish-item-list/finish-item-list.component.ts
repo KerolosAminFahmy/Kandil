@@ -33,15 +33,16 @@ export class FinishItemListComponent {
     )
     this.route.params.subscribe((params) => {
       this.FinishCategoryId=+params['finishCategoryId']
-    })
-    this.finishItemService.getFinishItemWithName(this.FinishCategoryId).subscribe((data)=>{
-      this.items=data.data
-      this.title=data.name
-      this.selectedItem=data.data[0]
-      this.items.forEach((e)=>{
-        e.imageName=this.ImageUrl+"Finish/"+e.imageName
+      this.finishItemService.getFinishItemWithName(this.FinishCategoryId).subscribe((data)=>{
+        this.items=data.data
+        this.title=data.name
+        this.selectedItem=data.data[0]
+        this.items.forEach((e)=>{
+          e.imageName=this.ImageUrl+"Finish/"+e.imageName
+        })
       })
     })
+   
     
   }
   openPreview(id:number|undefined){

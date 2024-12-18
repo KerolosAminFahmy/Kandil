@@ -79,6 +79,7 @@ export class EditProjectComponent {
         locationImage:data.locationImage,
       })
       this.PdfUrl=data.pdfFile;
+      console.log(this.PdfUrl)
       data.advantageProjects.forEach((e)=>{
         
         this.ListImageAdv.push(e.imageUrl)
