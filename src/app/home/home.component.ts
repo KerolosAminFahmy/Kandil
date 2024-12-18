@@ -103,7 +103,8 @@ export class HomeComponent implements AfterViewInit  {
           autoplay: false,        
           autoplaySpeed: 5000,   
           arrows: false,          
-          dots: true ,  
+          dots: true , 
+          lazyLoad: 'ondemand', 
           prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="display: flex;align-content: center;justify-content: center;align-items: center;"></button>' ,         
           nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style="display: flex;align-content: center;justify-content: center;align-items: center;"></button>',
           responsive: [

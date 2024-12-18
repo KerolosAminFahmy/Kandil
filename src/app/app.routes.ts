@@ -91,7 +91,7 @@ export const routes: Routes = [
       {path: 'info/:id',  loadComponent: () =>
         import('./info-content/info-content.component').then((m) => m.InfoContentComponent)},
       { path: 'projectcategory/:categoryId/project/:projectId/detail/:DetailProject',  loadComponent: () =>
-        import('./detail-project/detail-project.component').then((m) => m.DetailProjectComponent),},
+        import('./detail-project/detail-project.component').then((m) => m.DetailProjectComponent)},
       { path: 'projectcategory/:categoryId/project/:projectId', loadComponent: () =>
         import('./project/project.component').then((m) => m.ProjectComponent), },
       { path: 'projectcategory/:categoryId', component: PorjectAreaComponent },

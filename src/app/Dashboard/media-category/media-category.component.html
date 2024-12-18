@@ -1,7 +1,7 @@
 <div class="card-container">
   <!-- Dynamic List of Cards -->
   <div class="card" *ngFor="let item of MediaCategory">
-    <img [src]="ImageUrl+'Media/'+item.imageName" alt="Image" class="card-image" />
+    <img [src]="ImageUrl+'Media/'+item.imageName" loading="lazy" alt="Image" class="card-image" />
     <h3 class="card-title">{{ item.title}}</h3>
     <div class="card-buttons">
       <button (click)="onEdit(item.id)" class="btn btn-edit">Edit</button>

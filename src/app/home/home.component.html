@@ -10,7 +10,7 @@
     <div class="swiper-wrapper" style="overflow:hidden;height: 100vh;"  >
       <div class="swiper-slide" *ngFor="let item of AllSliderItem">
         <div class="Image" *ngIf="item.mediaType==='image'">
-          <img [src]="ImageUrl+'Slider/'+item.mediaPath" alt="Image" srcset="" />
+          <img [src]="ImageUrl+'Slider/'+item.mediaPath" loading="lazy" alt="Image" srcset="" />
         </div>
         <video [src]="ImageUrl+'Slider/'+item.mediaPath"  *ngIf="item.mediaType==='video'" muted autoplay="true" loop  crossorigin="anonymous">
         </video>
@@ -25,7 +25,7 @@
     <div class="row">
       <div class="col-lg-6 align-self-center">
         <div class="AboutusImage">
-          <img src="../../assets/Images/11.png" alt="About Us Image" />
+          <img src="../../assets/Images/11.png" loading="lazy" alt="About Us Image" />
         </div>
       </div>
       <div class="col-lg-6 align-self-center">
@@ -152,7 +152,7 @@
                             <a
                             [routerLink]="['/projectcategory/'+city.id+'/project/',area.id]"
                             >
-                              <img [src]="ImageUrl+area.imageName" alt="{{ area.name }}" />
+                              <img [src]="ImageUrl+area.imageName" loading="lazy" alt="{{ area.name }}" />
                             </a>
                           </div>
                           <div class="blog-brief">
@@ -197,7 +197,7 @@
                                   [routerLink]="['/finishcategory',item.id]"
                                     tabindex="0"
                                   >
-                                    <img [src]="ImageUrl+'Finish/'+item.imageName" alt={{item.title}} />
+                                    <img [src]="ImageUrl+'Finish/'+item.imageName" loading="lazy" alt={{item.title}} />
                                   </a>
                                 </div>
                                 <div class="blog-brief">
@@ -245,8 +245,7 @@
       title="قنديل"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen=""
-      __idm_id__="2269185"
-      loading="lazy"
+            loading="lazy"
 
     ></iframe>
   </div>

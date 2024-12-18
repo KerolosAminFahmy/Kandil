@@ -78,7 +78,7 @@
                   </div>
                   <div class="col-lg-8">
                     <div class="ImageLocation">
-                      <img [src]="ImageUrl+'Projects/'+project.locationImage" alt="LocationImage" width="100%" height="100%">
+                      <img [src]="ImageUrl+'Projects/'+project.locationImage" loading="lazy" alt="LocationImage" width="100%" height="100%">
                     </div>
                   </div>
                  
@@ -109,7 +109,7 @@
                 <div class="slider-images">
                   <div class="slider-img" *ngFor="let item of project.advantageProjects;let i=index"  [ngClass]="{'active': selectedIndex === i}" 
                   (click)="setActiveImage(i)" >
-                    <img [src]="ImageUrl+'Projects/'+item.imageUrl" alt={{item.text}} />
+                    <img [src]="ImageUrl+'Projects/'+item.imageUrl" loading="lazy" alt={{item.text}} />
                     <h1>{{item.text}}</h1>
                     <div class="details">
                       <h2>{{item.text}}</h2>
@@ -121,7 +121,7 @@
               <div class="slider-container-slick">
                 <div class="slider-images-slick ">
                   <div class="slider-img-slick" *ngFor="let item of project.advantageProjects">
-                    <img [src]="ImageUrl+'Projects/'+item.imageUrl" alt="1" />
+                    <img [src]="ImageUrl+'Projects/'+item.imageUrl" loading="lazy" alt={{item.text}} />
                     <div class="details">
                       <h2>{{item.text}}</h2>
                       
@@ -162,6 +162,7 @@
                                   <img
                                     [src]="ImageUrl+'Units/' + item.imageName"
                                     alt="{{item.title}}"
+                                    loading="lazy"
                                     width="100%"
                                     height="100%"
                                   />

@@ -1,6 +1,6 @@
 <div class="card-container">
   <div class="card" *ngFor="let finish of items">
-    <img [src]="ImageUrl+'Finish/'+finish.imageName" alt="Image" class="card-image" />
+    <img [src]="ImageUrl+'Finish/'+finish.imageName" loading="lazy" alt={{finish.title}} class="card-image" />
     <h3 class="card-title">{{ finish.title }}</h3>
     <div class="card-buttons">
       <button class="btn btn-edit"  (click)="onEdit(finish.id)">Edit</button>

@@ -20,7 +20,7 @@
       <div class="accordion-body">
         <div class="card-container">
           <div class="card" *ngFor="let area of item.viewAreas">
-            <img [src]="ImageUrl+area.imageName" alt="Image" class="card-image" />
+            <img [src]="ImageUrl+area.imageName" alt={{area.name}} loading="lazy" class="card-image" />
             <h3 class="card-title">{{ area.name }}</h3>
             <div class="card-buttons">
               <button class="btn btn-edit" (click)="onEdit(area.id,item.id)">Edit</button>

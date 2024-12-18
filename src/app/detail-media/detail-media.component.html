@@ -23,7 +23,7 @@
                   </li>
                 </ul>
               </div>
-             <img [src]='ImageUrl+"Media/"+LoadedData.imageName' alt={{LoadedData.title}}>
+             <img [src]='ImageUrl+"Media/"+LoadedData.imageName' loading="lazy" alt={{LoadedData.title}}>
              <div style="margin: 1.5rem 0;" [innerHTML]="LoadedData.description"></div>
               <p>
                 <iframe
