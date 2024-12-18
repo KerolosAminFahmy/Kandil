@@ -82,7 +82,7 @@ export const routes: Routes = [
     children: [
       {path:"home", loadComponent: () =>
         import('./home/home.component').then((m) => m.HomeComponent),
-        data: { headerImageUrl: '../../assets/Images/k1.png', customClass: 'home' }
+        data: { headerImageUrl: '../../assets/Images/k1.webp', customClass: 'home' }
       },
       {path:"callus", loadComponent: () =>
         import('./call-us/call-us.component').then((m) => m.CallUsComponent)},

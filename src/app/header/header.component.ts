@@ -16,7 +16,7 @@ import { FinishCategoryService } from '../../shared/Services/finish-category.ser
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('header') header!: ElementRef;
   @ViewChild('buttonUp') buttonUp!: ElementRef;
-  @Input() headerImageUrl: string = '../assets/Images/k1.png';
+  @Input() headerImageUrl: string = '../assets/Images/k1.webp';
   @Input() customClass: string = 'home';
   isSidebarOpen = false;
   isOverlayVisible = false;
