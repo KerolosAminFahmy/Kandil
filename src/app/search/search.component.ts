@@ -5,11 +5,12 @@ import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UnitManageService } from '../../shared/Services/unit-manage.service';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [TitleNavigationComponent,CommonModule,RouterLink],
+  imports: [TitleNavigationComponent,CommonModule,RouterLink,PageNotFoundComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -23,7 +24,6 @@ AllUnit:Units[]=[];
       this.areaId = +params['AreaId'];
       console.log(this.areaId)
       this.unitService.search(this.areaId).subscribe((data)=>{
-        console.log(data)
         this.AllUnit=data
       })
     });
