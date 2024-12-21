@@ -11,7 +11,7 @@ export class WhyusService {
 
   constructor(private http: HttpClient) {}
 
-  getAll() {
+  getAll() :any {
     return this.http.get(this.apiUrl);
   }
 

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 import { DropdownComponent } from "./dropdown/dropdown.component";
 import { UnitComponent } from "../unit/unit.component";
@@ -11,6 +11,8 @@ import { UnitManageService } from '../../shared/Services/unit-manage.service';
 import { environment } from '../../environments/environment';
 import { SliderService } from '../../shared/Services/slider.service';
 import { FinishCategoryService } from '../../shared/Services/finish-category.service';
+import { WhyusService } from '../../shared/Services/whyus.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 declare var $: any;
 
 @Component({
@@ -21,6 +23,8 @@ declare var $: any;
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements AfterViewInit  {
+  @ViewChild('tri', { static: false }) tri!: ElementRef;
+
   ImageUrl:string=environment.apiImage
   unitData: Array<unit> = [
     {
@@ -64,16 +68,25 @@ export class HomeComponent implements AfterViewInit  {
   AllArea!:AllAreaDTO[];
   AllSliderItem:Slider[]=[];
   units:Units[]=[];
+  whyUsItem:SafeHtml[]=[];
   constructor(private AreaService:AreaService,
     private SliderService:SliderService,
     private unitService:UnitManageService,
-    private FinishCategory:FinishCategoryService){
+    private FinishCategory:FinishCategoryService,
+    private WhyusService:WhyusService,
+    private sanitizer: DomSanitizer){
 
   }
   ngOnInit(): void {
+    
     this.SliderService.getSliders();
     this.SliderService.sliders$.subscribe((item)=>{
       this.AllSliderItem=item
+    })
+    this.WhyusService.getAll().subscribe((data: any[])=>{
+      data.forEach(e => {
+        this.whyUsItem.push(this.SafeContent(e.description))
+      });
     })
     this.AreaService.fetchArea();
     this.AreaService.areas$.subscribe((data)=>{
@@ -88,12 +101,16 @@ export class HomeComponent implements AfterViewInit  {
     this.FinishCategory.getAllFinishCategories().subscribe((data)=>{
       this.FinishCategoryList=data
     })
+    
   }
 
 
+  SafeContent(description:string):SafeHtml{
+    return this.sanitizer.bypassSecurityTrustHtml(description);
 
+  }
     ngAfterViewInit(): void {
-
+      
       setTimeout(()=>{
         $('.slick-slider').slick({
           rtl: true,
@@ -158,6 +175,23 @@ export class HomeComponent implements AfterViewInit  {
               }
           ]
         });
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const video = entry.target as HTMLVideoElement;
+              if (entry.isIntersecting) {
+                video.play();
+              } else {
+                video.pause();
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+      
+        const videos = this.tri.nativeElement.querySelectorAll('video');
+        videos.forEach((video: HTMLVideoElement) => observer.observe(video));
+      
       },3500) 
   
     

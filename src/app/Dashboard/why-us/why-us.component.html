@@ -9,25 +9,28 @@
     <button type="submit">تعديل</button>
 
   </form>
-  <form *ngFor="let form of forms; let i = index" [formGroup]="form" (ngSubmit)="saveChanges(i)" class="form-card">
-    <div>
-      <label>Title:</label>
-      <input formControlName="title" [disabled]="true" />
-    </div>
-    <div>
-      <label>وصف:</label>
-        <editor
-          
-          formControlName="description"
-          apiKey={{apikey}}
-  
-          
-          [init]="init"
-        ></editor>
-      
+  <div *ngIf="forms.length > 0">
+    <form  *ngFor="let form of forms; let i = index" [formGroup]="form" (ngSubmit)="saveChanges(i)" class="form-card">
+      <div>
+        <label>Title:</label>
+        <input formControlName="title" [disabled]="true" />
       </div>
-   
-    <button type="submit">تعديل</button>
-  </form>
+      <div>
+        <label>وصف:</label>
+          <editor
+            
+            formControlName="description"
+            apiKey={{apikey}}
+    
+            
+            [init]="init"
+          ></editor>
+        
+        </div>
+     
+      <button type="submit">تعديل</button>
+    </form>
+  </div>
+  
 </div>
 

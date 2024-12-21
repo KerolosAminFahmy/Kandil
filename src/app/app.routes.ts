@@ -90,18 +90,16 @@ export const routes: Routes = [
         import('./why-us/why-us.component').then((m) => m.WhyUsComponent)},
       {path: 'info/:id',  loadComponent: () =>
         import('./info-content/info-content.component').then((m) => m.InfoContentComponent)},
+        {path:'search/:CityId/project/:AreaId',component:SearchComponent},
+
       { path: 'projectcategory/:categoryId/project/:projectId/detail/:DetailProject',  loadComponent: () =>
         import('./detail-project/detail-project.component').then((m) => m.DetailProjectComponent)},
       { path: 'projectcategory/:categoryId/project/:projectId', loadComponent: () =>
         import('./project/project.component').then((m) => m.ProjectComponent), },
       { path: 'projectcategory/:categoryId', component: PorjectAreaComponent },
       {
-        path: 'search', component:SearchComponent,
-      },
-      {
         path: 'projectcategory', component:ProjectCategoryComponent,
       },
-      
       {path:'finishcategory',component:FinishCategoryComponent},
       {path:'finishcategory/:finishCategoryId',component:FinishItemListComponent},
       {path:'finishcategory/:finishCategoryId/detail/:FinishItemDetail',component:FinishItemDetailComponent},

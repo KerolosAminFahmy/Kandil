@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
-import { AddCity, City, EditCity } from '../Models/model';
+import { AddCity, City, CityWithArea, EditCity } from '../Models/model';
 import { HttpClient } from '@angular/common/http';
 import { ToastService } from './toast.service';
 import { environment } from '../../environments/environment';
@@ -25,7 +25,9 @@ export class CityService {
       this.citiesSubject.next(data);
     });
   }
-
+  GetAllCitiesWithArea():Observable<CityWithArea[]>{
+    return this.http.get<CityWithArea[]>(this.apiUrl+"GetCityWithArea")  
+  }
   // Add a new city and update BehaviorSubject
   addCity(city: AddCity): void {
     const api=environment.apiUrl+"/Cities/AddCity"

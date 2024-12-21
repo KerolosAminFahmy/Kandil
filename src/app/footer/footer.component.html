@@ -122,7 +122,13 @@
             <h4 class="footer-title">المشاريع</h4>
             <div class="footer-menu">
               <ul>
-                <li>
+                <li *ngFor="let item of AllCity">
+                  <a
+                    [routerLink]="['projectcategory',item.id]"
+                    >{{item.name}}</a
+                  >
+                </li>
+                <!-- <li>
                   <a
                     href="Pages/Projects/التجمع-الخامس.html"
                     >التجمع الخامس</a
@@ -132,7 +138,7 @@
                   <a href="Pages/Projects/الشروق.html"
                     >مدينة الشروق</a
                   >
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -155,9 +161,9 @@
           <div class="footer-widget footer-newsletter-widget">
             <div class="footer-logo">
               <div class="site-logo">
-                <a routerLink="/home">
+                <a [routerLink]="['/home']">
                   <img
-                    src="../../assets/Images/k1.png"
+                    src="../../assets/Images/k1.webp"
                     width="80%"
                     alt="Logo"
                     loading="lazy"

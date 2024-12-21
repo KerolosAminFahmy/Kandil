@@ -350,3 +350,7 @@ export interface FinishItemDetailDTO {
   finishItem: FinishItem;
   finishImages: FinishImage[];
 }
+export interface CityWithArea{
+  city:City;
+  areas:Area[];
+}

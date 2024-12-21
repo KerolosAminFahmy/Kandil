@@ -1,3 +1,54 @@
 <app-title-navigation title="بحث"></app-title-navigation>
 
 
+<section class="AllProject">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-sm-6 col-12" *ngFor="let item of AllUnit">
+        <div class="blog-item blog-item-3">
+          <div class="blog-img">
+            <a
+              [routerLink]="['/unit/',item.id]" 
+            >
+              <img [src]="imageApi+'Units/'+item.imageName" loading="lazy" [alt]="item.title" />
+            </a>
+          </div>
+          <div class="blog-brief" style="width: calc(100% - 30px);margin-top: -50px;">
+            <h3 class="blog-title animated fadeIn">
+              <a
+              [routerLink]="['/unit/',item.id]" 
+                > 
+                 {{item.title}}
+                </a
+              >
+            </h3>
+            <div class="blog-meta-btn">
+              <div class="blog-meta">
+                <ul>
+                  <li class="blog-date">
+                      <i class="far fa-calendar-alt"></i>
+                      {{item.yearOfBuild}}
+                  </li>
+                  <li class="blog-tags">
+                    <a href="units.html">
+                      <i class="fas fa-tags"></i>
+                      وحدات 
+                    </a>
+                    
+                  
+                  </li>
+                </ul>
+              </div>
+              <div class="blog-btn">
+                <a
+                [routerLink]="['/unit/',item.id]" 
+                >مشاهدة</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+  </div>
+</section> 

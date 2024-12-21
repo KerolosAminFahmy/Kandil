@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, RequiredValidator, Validators } from '@angular/forms';
 import { WhyusService } from '../../../shared/Services/whyus.service';
 import { EditorComponent } from '@tinymce/tinymce-angular';
 import { ImageUploadComponent } from "../../../shared/image-upload/image-upload.component";
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../../../shared/Services/toast.service';
 
 @Component({
   selector: 'app-why-us',
@@ -31,6 +32,8 @@ export class WhyUsManageComponent {
     exportword_converter_options: { 'document': { 'size': 'Letter' } },
     importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
   };
+  Massege = inject(ToastService) 
+  
   whyUsItems: any[] = [];
   forms: FormGroup[] = [];
   imageForm!:FormGroup
@@ -72,6 +75,7 @@ export class WhyUsManageComponent {
 
   saveChanges(index: number) {
     const form = this.forms[index];
+    console.log(form.value)
     const formData = new FormData();
 
     formData.append('id', form.value.id);
@@ -79,6 +83,7 @@ export class WhyUsManageComponent {
     formData.append('description', form.value.description);
 
     this.whyUsService.update(form.value.id, formData).subscribe(() => {
+      this.Massege.showMessage("success","نجاح","تم اضافه الوصف بنجاح")
       this.loadItems();
     });
   }

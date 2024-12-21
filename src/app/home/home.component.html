@@ -1,19 +1,31 @@
 <!--Start Image And Video For Company And Search Section-->
-<section class="FirstSection" style="overflow-x: hidden;" >
+<section class="FirstSection"  >
   <div class="container">
     <div class="SearchContianer">
       <h3 class="TitleSearch">دوّر على أي وحدات عندنا</h3>
       <app-dropdown></app-dropdown>
     </div>
   </div>
-  <div class="swiper mySwiper" style="overflow: hidden;">
-    <div class="swiper-wrapper" style="overflow:hidden;height: 100vh;"  >
-      <div class="swiper-slide" *ngFor="let item of AllSliderItem">
-        <div class="Image" *ngIf="item.mediaType==='image'">
-          <img [src]="ImageUrl+'Slider/'+item.mediaPath" loading="lazy" alt="Image" srcset="" />
+  <div class="swiper mySwiper"  >
+    <div class="swiper-wrapper" style="overflow: hidden; height: 100vh;"  >
+      <div class="swiper-slide" #tri *ngFor="let item of AllSliderItem">
+        <div class="Image"  *ngIf="item.mediaType==='image'">
+          @defer (on viewport(tri)) {
+            <img [src]="ImageUrl+'Slider/'+item.mediaPath" loading="lazy" alt="Image" srcset="" />
+          }
         </div>
-        <video [src]="ImageUrl+'Slider/'+item.mediaPath"  *ngIf="item.mediaType==='video'" muted autoplay="true" loop  crossorigin="anonymous">
-        </video>
+          @defer () {
+            <video [src]="ImageUrl+'Slider/'+item.mediaPath" 
+             *ngIf="item.mediaType==='video'" 
+              width="100%"
+             muted
+              autoplay
+              loop
+              playsinline
+             crossorigin="anonymous">
+            </video>
+          }
+       
       </div>
     </div>
   </div>
@@ -35,12 +47,7 @@
           </div>
           <div class="LinkTitle">
             <h1 class="section-title"><a routerLink="/whyus">لماذا قنديل</a></h1>
-            <p>
-
-              الإنشاءات والعقارات والنمو الاقتصادي**: سأشرح كيف تسهم صناعة
-              الإنشاءات والعقارات في زيادة الناتج المحلي الإجمالي للدولة
-            
-            </p>
+            <p *ngIf="whyUsItem[0]!=undefined" [innerHTML]="whyUsItem[0]"></p>
           </div>
           <div class="cardItem cardItem3">
             <div class="CardIcon">
@@ -50,11 +57,8 @@
             <a routerLink="/info/2">
               <div class="CardBody">
                 <h4>الثقة</h4>
-                <p>
-                  الإنشاءات والعقارات والنمو الاقتصادي**: سأشرح كيف تسهم
-                  صناعة الإنشاءات والعقارات في زيادة الناتج المحلي الإجمالي
-                  للدولة
-                </p>
+                <p *ngIf="whyUsItem[1]!=undefined" [innerHTML]="whyUsItem[1]"></p>
+
               </div>
             </a>
           </div>
@@ -66,11 +70,8 @@
             <a routerLink="/info/3">
               <div class="CardBody">
                 <h4>الإلتزام</h4>
-                <p>
-                  الإنشاءات والعقارات والنمو الاقتصادي**: سأشرح كيف تسهم
-                  صناعة الإنشاءات والعقارات في زيادة الناتج المحلي الإجمالي
-                  للدولة
-                </p>
+                <p *ngIf="whyUsItem[2]!=undefined" [innerHTML]="whyUsItem[2]"></p>
+
               </div>
             </a>
           </div>
@@ -83,11 +84,8 @@
             <div class="CardBody">
               <a routerLink="/info/1">
                 <h4>الجودة</h4>
-                <p>
-                  الإنشاءات والعقارات والنمو الاقتصادي**: سأشرح كيف تسهم
-                  صناعة الإنشاءات والعقارات في زيادة الناتج المحلي الإجمالي
-                  للدولة
-                </p>
+                <p *ngIf="whyUsItem[3]!=undefined" [innerHTML]="whyUsItem[3]"></p>
+
               </a>
             </div>
           </div>
@@ -100,11 +98,8 @@
             <div class="CardBody">
               <a routerLink="/info/4">
                 <h4>المصداقية</h4>
-                <p>
-                  الإنشاءات والعقارات والنمو الاقتصادي**: سأشرح كيف تسهم
-                  صناعة الإنشاءات والعقارات في زيادة الناتج المحلي الإجمالي
-                  للدولة
-                </p>
+                <p *ngIf="whyUsItem[4]!=undefined" [innerHTML]="whyUsItem[4]"></p>
+
               </a>
             </div>
           </div>
@@ -140,41 +135,45 @@
               > 
             </div>
           </div>
-          <div class="tab-content">
+          <div class="tab-content" #trigger>
             <div class="tab-pane fade " *ngFor="let city of AllArea; let i=index" id="liton_tab_3_{{i}}" [ngClass]="i==0?'active show':''">
               <div class="TabCotent">
                 <div class="mb-100">
                   <div class="container">
                     <div class="row">
                       <div class="col-lg-4 col-sm-6 col-12" *ngFor="let area of city.viewAreas; let i=index">
-                        <div class="blog-item blog-item-3">
-                          <div class="blog-img">
-                            <a
-                            [routerLink]="['/projectcategory/'+city.id+'/project/',area.id]"
-                            >
-                              <img [src]="ImageUrl+area.imageName" loading="lazy" alt="{{ area.name }}" />
-                            </a>
-                          </div>
-                          <div class="blog-brief">
-                            <h3 class="blog-title animated fadeIn">
+                        @defer (on viewport(trigger)) {
+                          <div class="blog-item blog-item-3">
+                          
+                            <div class="blog-img">
                               <a
                               [routerLink]="['/projectcategory/'+city.id+'/project/',area.id]"
-                              >{{ area.name }}</a
                               >
-                            </h3>
-                            <div class="blog-meta-btn">
-                              <div class="blog-meta">
-                                <ul></ul>
-                              </div>
-                              <div class="blog-btn">
+                                <img [src]="ImageUrl+area.imageName" loading="lazy" alt="{{ area.name }}" />
+                              </a>
+                            </div>
+                            <div class="blog-brief">
+                              <h3 class="blog-title animated fadeIn">
                                 <a
                                 [routerLink]="['/projectcategory/'+city.id+'/project/',area.id]"
-                                >مشاهدة</a
+                                >{{ area.name }}</a
                                 >
+                              </h3>
+                              <div class="blog-meta-btn">
+                                <div class="blog-meta">
+                                  <ul></ul>
+                                </div>
+                                <div class="blog-btn">
+                                  <a
+                                  [routerLink]="['/projectcategory/'+city.id+'/project/',area.id]"
+                                  >مشاهدة</a
+                                  >
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        }
+                        
                       </div>
 
                      

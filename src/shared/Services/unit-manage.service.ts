@@ -30,6 +30,10 @@ export class UnitManageService {
       console.error('Error adding area:', error);
     })
   }
+  search(id:number):Observable<Units[]>{
+    console.log(id)
+    return this.http.get<Units[]>(this.apiUrl+"search/"+id);
+  }
   FetchAllUnitHome():Observable<Units[]>{
     return this.http.get<Units[]>(this.apiUrl+"GetAllUnitHome")
    

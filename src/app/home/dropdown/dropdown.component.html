@@ -5,17 +5,17 @@
       <app-arrow [isActive]="dropdown.hide"></app-arrow>
     </div>
     <div #div class="select-items " [ngClass]="dropdown.hide?'select-hide':''">
-      <div class="select-option" *ngFor="let option of dropdown.options" [ngClass]="option.active?'active-option':''" (click)="selectOption(i,option.option)" (click)="ToggleShow(i)">{{option.option}}</div>
+      <div class="select-option" *ngFor="let option of dropdown.options;let idx = index" [ngClass]="option.active?'active-option':''" (click)="selectOption(i,idx,option.option)" (click)="ToggleShow(i)">{{option.option}}</div>
       
     </div>
   </div>
 
   
-  <button class="FadeInAnimation col-lg-3 col-md-8" type="button">
+  <button (click)="showChosenOptions()" class="FadeInAnimation col-lg-3 col-md-8" type="button">
     بحث
     <i
       class="fa-solid fa-arrow-right"
-      style="transform: translateY(2px) translateX(-5px)"
+      style="transform: translateY(2px) translateX(-5px);color: #e80606;"
     ></i>
   </button>
 </div>
