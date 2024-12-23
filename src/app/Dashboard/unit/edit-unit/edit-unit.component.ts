@@ -9,6 +9,7 @@ import { EditorComponent } from '@tinymce/tinymce-angular';
 import { ImageUploadComponent } from '../../../../shared/image-upload/image-upload.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { environment } from '../../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-unit',
@@ -35,6 +36,7 @@ export class EditUnitComponent {
     exportword_converter_options: { 'document': { 'size': 'Letter' } },
     importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
   };
+  private subscriptions: Subscription = new Subscription();
 
   center: google.maps.LatLngLiteral = {
     lat: 0,
@@ -81,10 +83,10 @@ export class EditUnitComponent {
       services: this.fb.array([]),
       detailImages: this.fb.array([])
     });
-    this.route.params.subscribe(params => {
+    const paramSub = this.route.params.subscribe(params => {
       this.unitId = +params['unitId'] 
     });
-    this.unitService.fetchUpdate(this.unitId).subscribe((data)=>{
+    const Sub = this.unitService.fetchUpdate(this.unitId).subscribe((data)=>{
       this.unit=data
       this.unitForm.patchValue({
         title: data.title,
@@ -123,6 +125,9 @@ export class EditUnitComponent {
     },(error)=>{
       console.log("erorr",error)
     })
+    this.subscriptions.add(Sub);
+    this.subscriptions.add(paramSub);
+
   }
   get advantages(): FormArray {
     return this.unitForm.get('advantages') as FormArray;
@@ -255,5 +260,8 @@ export class EditUnitComponent {
      
       this.UnitService.UpdateUnit(NewUnit)
     }
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

@@ -1,10 +1,21 @@
 <div class="container">
-  <h2>Contact Dashboard</h2>
+  <h2>كل شكوي او الاقتراحات</h2>
+
+  <!-- Export Buttons -->
+  <div class="mb-3">
+    <button class="btn btn-primary" (click)="exportAll()">تصدير الكل</button>
+    <button class="btn btn-secondary" (click)="exportSelected()"  [disabled]="selectedRows.length === 0">
+      تصدير المحدد
+    </button>
+  </div>
 
   <!-- Contact Table -->
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>
+          <input type="checkbox" (change)="toggleAll($event)" />
+        </th>
         <th>#</th>
         <th>الاسم</th>
         <th>رقم التليفون</th>
@@ -16,6 +27,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let contact of contacts; let i = index">
+        <td>
+          <input type="checkbox" (change)="toggleRowSelection(contact, $event)" />
+        </td>
         <td>{{ i + 1 }}</td>
         <td>{{ contact.name }}</td>
         <td>{{ contact.phone }}</td>
@@ -23,13 +37,9 @@
         <td>{{ contact.project }}</td>
         <td>{{ contact.message }}</td>
         <td>
-          <!-- Remove Button -->
-          <button class="btn btn-danger" (click)="removeContact(contact.id)">
-            Remove
-          </button>
+          <button class="btn btn-danger" (click)="removeContact(contact.id)">حذف</button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-

@@ -354,3 +354,9 @@ export interface CityWithArea{
   city:City;
   areas:Area[];
 }
+export interface CoverImage {
+  id: number;
+  imageName: string;
+  imageType: string;
+  pageName: string;
+}

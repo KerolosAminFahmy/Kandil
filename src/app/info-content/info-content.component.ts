@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InfoContentService } from '../../shared/Services/info-content.service';
 import { TitleNavigationComponent } from '../../shared/Component/title-navigation/title-navigation.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-info-content',
@@ -17,14 +18,17 @@ export class InfoContentComponent {
   quoteText: string = '';
   mainText: string = '';
   listItems: { title: string, description: string }[] = [];
+  private subscriptions: Subscription = new Subscription();
 
   constructor(private route: ActivatedRoute, private infoContentService: InfoContentService) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    const paramSub = this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.loadContent(id);
     });
+    this.subscriptions.add(paramSub);
+
   }
 
   loadContent(id: string | null): void {
@@ -34,5 +38,8 @@ export class InfoContentComponent {
     this.quoteText = content.quoteText;
     this.mainText = content.mainText;
     this.listItems = content.listItems;
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

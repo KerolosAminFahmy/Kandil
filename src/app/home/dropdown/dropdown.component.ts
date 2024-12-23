@@ -7,6 +7,9 @@ import { CityService } from '../../../shared/Services/city.service';
 import { AreaService } from '../../../shared/Services/area.service';
 import { CityWithArea } from '../../../shared/Models/model';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { ToastService } from '../../../shared/Services/toast.service';
 
 
 @Component({
@@ -43,6 +46,8 @@ export class DropdownComponent {
   SelectedCityId:number=0;
   SelectedAreaId:number=0;
   AllCity:CityWithArea[]=[];
+  private subscriptions: Subscription = new Subscription();
+
   dropdowns: Array<{ label: string, options:  Array<{id:number, option: string, active: boolean }>, disabled: boolean,hide:boolean }> = [
     { label: "اختر المنطقة", options: [{id:0,option:"اختر المنطقة" ,active:true}], disabled: false , hide:true },
     { label: "اختر المشروع", options: [], disabled: true,hide:true },
@@ -53,9 +58,9 @@ export class DropdownComponent {
   ArrayArea: Array<Array<{id:number, option: string, active: boolean }>> = [];
   arrTemp: Array<{id:number, option: string, active: boolean }> = [];
   index: any;
-  constructor(private CityService:CityService,private router: Router){}
+  constructor(private messageService: MessageService,private CityService:CityService,private router: Router,private msg :ToastService){}
   ngOnInit(): void {
-    this.CityService.GetAllCitiesWithArea().subscribe((data)=>{
+    const Sub = this.CityService.GetAllCitiesWithArea().subscribe((data)=>{
       data.forEach(element => {
         this.dropdowns[0].options.push({id:element.city.id, option:element.city.name,active:false})
         this.arrTemp.push({id:0,option:'اختر المشروع',active:true})
@@ -66,7 +71,13 @@ export class DropdownComponent {
         this.arrTemp=[]
       });
     })
-    
+    const sub =  this.msg.MassegeToast.subscribe((data)=>{
+      this.messageService.add({ severity: data.severity, summary: data.summary, detail: data.detail ,life: 4000  });
+
+    })
+    this.subscriptions.add(Sub);
+    this.subscriptions.add(sub);
+
   }
   ToggleShow( dropdownIndex: number ){
     if(this.dropdowns[dropdownIndex].disabled){
@@ -116,6 +127,13 @@ export class DropdownComponent {
     dropdown.label = "اختر المشروع";
   }
   showChosenOptions(){
+    if(this.SelectedCityId == 0 || this.SelectedAreaId == 0){
+      this.msg.showMessage("warning","تحذير","يجب اختيار كل الاختيارات لاجل بحث فعال")
+      return
+    }
     this.router.navigate([`search/${this.SelectedCityId}/project/${this.SelectedAreaId}`])
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

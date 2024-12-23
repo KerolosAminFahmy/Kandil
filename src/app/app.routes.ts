@@ -41,6 +41,7 @@ import { EditFinishItemComponent } from './Dashboard/finish-item-manage/edit-fin
 import { FinishItemListComponent } from './finish-item-list/finish-item-list.component';
 import { FinishItemDetailComponent } from './finish-item-detail/finish-item-detail.component';
 import { AllPaidUnitComponent } from './all-paid-unit/all-paid-unit.component';
+import { CoverImageComponent } from './Dashboard/cover-image/cover-image.component';
 
 export const routes: Routes = [
   
@@ -65,13 +66,13 @@ export const routes: Routes = [
       { path: 'MediaCategory/:MediaCategoryId/edit/:mediaId' , component:EditMediaComponent,canActivate: [authGuard]},
       { path: 'MediaCategory/:MediaCategoryId/add' , component:AddMediaComponent,canActivate: [authGuard]},
       { path: 'MediaCategory/:MediaCategoryId' , component:MediaComponent,canActivate: [authGuard]},
-
+      { path: 'coverimage' , component: CoverImageComponent  },
       { path: 'MediaCategory' , component:MediaCategoriesComponent,canActivate: [authGuard]},
       { path: 'allarea', component: AreaComponent , canActivate: [authGuard] },
-      { path: "FinishCategory" , component:FinishCategoryManageComponent},
-      { path: "FinishCategory/:FinishCategory" , component:FinishItemManageComponent},
-      { path: "FinishCategory/:FinishCategory/add" , component:AddFinishItemComponent},
-      { path: "FinishCategory/:FinishCategory/edit/:finishItem" , component:EditFinishItemComponent},
+      { path: "FinishCategory" , component:FinishCategoryManageComponent , canActivate: [authGuard]},
+      { path: "FinishCategory/:FinishCategory" , component:FinishItemManageComponent , canActivate: [authGuard]},
+      { path: "FinishCategory/:FinishCategory/add" , component:AddFinishItemComponent , canActivate: [authGuard]},
+      { path: "FinishCategory/:FinishCategory/edit/:finishItem" , component:EditFinishItemComponent , canActivate: [authGuard]},
 
       { path: '**', redirectTo:"Cities" , pathMatch:"full" },
     ],

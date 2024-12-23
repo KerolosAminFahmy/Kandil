@@ -7,6 +7,7 @@ import { ProjectService } from '../../../../shared/Services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { environment } from '../../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-project',
@@ -38,6 +39,8 @@ export class AddProjectComponent {
     exportword_converter_options: { 'document': { 'size': 'Letter' } },
     importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
   };
+  private subscriptions: Subscription = new Subscription();
+
   constructor(private fb: FormBuilder,private projectService:ProjectService,private route :ActivatedRoute) {
     this.projectForm = this.fb.group({
       title: ['', [Validators.required]],
@@ -52,9 +55,11 @@ export class AddProjectComponent {
     });
   }
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    const paramSub = this.route.params.subscribe(params => {
       this.areaId = +params['areaId']; 
     });
+    this.subscriptions.add(paramSub);
+
   }
   // Getter for Advantage Projects
   get advantageProjects() {
@@ -184,5 +189,8 @@ export class AddProjectComponent {
       this.projectForm.get("pdfFile")?.markAsTouched()
      
     }
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

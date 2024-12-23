@@ -7,6 +7,7 @@ import { SliderImageComponent } from '../../shared/Component/slider-image/slider
 import { TitleNavigationComponent } from '../../shared/Component/title-navigation/title-navigation.component';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-finish-item-detail',
@@ -37,6 +38,8 @@ export class FinishItemDetailComponent {
   safeUrl:any="";
   safeContent:any="";
   title:string = "";
+  private subscriptions: Subscription = new Subscription();
+
   @ViewChild('richTextIframe') iframe!: ElementRef<HTMLIFrameElement>;
 
   imagesName:Array<string>=[];
@@ -46,7 +49,7 @@ export class FinishItemDetailComponent {
     this.breadcrumbs.push(
       {name:"اقسام تشطبيات",url:"/finishcategory"}
     )
-    this.route.params.subscribe((params) => {
+    const paramSub = this.route.params.subscribe((params) => {
       this.FinishCategoryId=+params['finishCategoryId']
       this.FinishId= +params['FinishItemDetail']
       this.finishItemService.getFinishItem(this.FinishId).subscribe((data)=>{
@@ -62,7 +65,8 @@ export class FinishItemDetailComponent {
       })
     })
     
-    
+    this.subscriptions.add(paramSub);
+
   }
   SafeContent(url:string,description:string){
 
@@ -97,5 +101,8 @@ export class FinishItemDetailComponent {
         iframe.style.height = `${iframeBody.scrollHeight}px`;
       }
     };
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

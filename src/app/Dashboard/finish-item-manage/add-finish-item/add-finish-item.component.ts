@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FinishItemDTO } from '../../../../shared/Models/model';
 import { FinisghItemService } from '../../../../shared/Services/finisgh-item.service';
 import { ToastService } from '../../../../shared/Services/toast.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-finish-item',
@@ -44,12 +45,14 @@ export class AddFinishItemComponent {
     lng: 31.2357
   };
   zoom = 6;
+  private subscriptions: Subscription = new Subscription();
+
   markerPosition: google.maps.LatLngLiteral = this.center;
   constructor(private fb: FormBuilder,private route : ActivatedRoute,
     private ServiceFinish:FinisghItemService,private router:Router,
     private Massege:ToastService){}
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    const Sub = this.route.params.subscribe(params => {
       this.finishCategoryId = +params['FinishCategory'] 
     });
     this.finishForm = this.fb.group({
@@ -60,7 +63,8 @@ export class AddFinishItemComponent {
       videoUrl: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+$/)]],
       detailImages: this.fb.array([])
     });
-    
+    this.subscriptions.add(Sub);
+
   }
   get detailImages(): FormArray {
     return this.finishForm.get('detailImages') as FormArray;
@@ -116,5 +120,8 @@ export class AddFinishItemComponent {
         this.Massege.showMessage("success","نجاح","تم اضافه تشطيب بنجاح")
       })
     }
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

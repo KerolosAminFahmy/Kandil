@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ImageUploadComponent } from '../../../shared/image-upload/image-upload.component';
 import { environment } from '../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-finish-category-manage',
@@ -22,6 +23,7 @@ export class FinishCategoryManageComponent {
   FinishForm!: FormGroup;
   UrlEdit:string=""
   ImageUrl:string=environment.apiImage
+  private subscriptions: Subscription = new Subscription();
 
   constructor(private ServiceCategory:FinishCategoryService , private fb :FormBuilder){}
   ngOnInit(): void {
@@ -30,9 +32,11 @@ export class FinishCategoryManageComponent {
           title: ['', Validators.required],
           image: [null, Validators.required],
         });
-    this.ServiceCategory.getAllFinishCategories().subscribe((data)=>{
+    const Sub = this.ServiceCategory.getAllFinishCategories().subscribe((data)=>{
       this.items=data
     })
+    this.subscriptions.add(Sub);
+
   }
   onEdit(id:number | undefined){
   this.items.forEach((ele)=>{
@@ -108,5 +112,8 @@ export class FinishCategoryManageComponent {
       this.ServiceCategory.addFinishCategory(AddCity).subscribe((data)=>{
         this.items.push(data)
       })
+    }
+    ngOnDestroy(): void {
+      this.subscriptions.unsubscribe();
     }
 }

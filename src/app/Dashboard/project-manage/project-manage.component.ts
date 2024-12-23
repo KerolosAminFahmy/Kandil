@@ -4,6 +4,7 @@ import { ProjectService } from '../../../shared/Services/project.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-project-manage',
@@ -15,6 +16,7 @@ import { environment } from '../../../environments/environment';
 export class ProjectManageComponent {
   Projects!:AllProjectDTO[];
   ImageUrl:string=environment.apiImage
+  private subscriptions: Subscription = new Subscription();
 
   constructor(private projectService:ProjectService,  private router: Router
 ){
@@ -22,11 +24,12 @@ export class ProjectManageComponent {
   }
   ngOnInit(): void {
     this.projectService.fetchArea()
-    this.projectService.areas$.subscribe((data)=>{
+    const Sub = this.projectService.areas$.subscribe((data)=>{
       this.Projects=data
 
     })
-    
+    this.subscriptions.add(Sub);
+
   }
   AddProject(id:number){
     this.router.navigate([`dashboard/Projects/${id}/add`]);
@@ -36,5 +39,8 @@ export class ProjectManageComponent {
   }
   onEdit(id:number,areaId:number){
     this.router.navigate([`dashboard/Projects/${areaId}/edit/${id}`])
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

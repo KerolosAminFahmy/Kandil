@@ -1,0 +1,39 @@
+<div class="card-container">
+  <div class="card" *ngFor="let item of AllCover">
+    <img *ngIf="item.imageType=='img'" [src]="imgPath+item.imageName" alt="Image" class="card-image" />
+    <video
+    *ngIf="item.imageType === 'video'"
+    autoplay
+    loop
+    muted
+    [src]="imgPath+item.imageName"
+  ></video>    
+  <p style="margin-top: 10px; margin-bottom: 10px;">
+    {{item.pageName}}
+  </p>
+  <button (click)="openPopup(item)"  class="btn btn-edit">تعديل</button>
+  </div>
+
+
+  <div class="popup-modal" *ngIf="isPopupOpen">
+    <div class="popup-content" dir="rtl">
+      <h3>تغيير صور او فيديو </h3>
+      <form [formGroup]="CoverForm" (ngSubmit)="EditCoverItem()">
+        <label for="mediaType">اختر نوع الوسائط:</label>
+        <select formControlName="mediaType" name="mediaType" required>
+          <option value="img">صورة</option>
+          <option value="video">فيديو</option>
+        </select>
+
+        <label for="media">اختر الوسائط:</label>
+         <input type="file" (change)="onFileSelected($event)" required />
+        <!-- <app-image-upload nameImage="{{NameImage}}" Url="{{UrlEdit}}" (imageSelected)="onImageSelected($event)"></app-image-upload> -->
+
+        <div class="popup-actions">
+          <button type="submit" [disabled]="CoverForm.invalid">رفع</button>
+          <button type="button" (click)="closePopup()">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

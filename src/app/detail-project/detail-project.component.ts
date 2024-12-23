@@ -9,6 +9,7 @@ import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-brows
 import { UnitManageService } from '../../shared/Services/unit-manage.service';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { environment } from '../../environments/environment';
+import { Subscription } from 'rxjs';
 declare var $: any;
 @Component({
   selector: 'app-detail-project',
@@ -19,6 +20,7 @@ declare var $: any;
 })
 export class DetailProjectComponent {
   ImageUrl:string=environment.apiImage
+  private subscriptions: Subscription = new Subscription();
 
   Title:string="";
   project!:ViewUpdateDTO;
@@ -35,28 +37,33 @@ export class DetailProjectComponent {
     
   ngOnInit(): void {
    
-    this.route.params.subscribe((params) => {
+    const paramSub = this.route.params.subscribe((params) => {
       this.projectId = +params['DetailProject'];
       this.categoryId = +params['categoryId'];
       this.areaId= +params['projectId'];
 
-      this.projectService.FetchProjectUpdate(this.projectId).subscribe((data)=>{
+      const Sub = this.projectService.FetchProjectUpdate(this.projectId).subscribe((data)=>{
         this.SafeContent(data.videoURL,data.aboutProject)
         this.project=data
         this.project.images.forEach((e,i)=>{
           this.project.images[i]=this.ImageUrl+"Projects/"+e
         })
+        this.subscriptions.add(Sub);
       })
+
       this.unitService.FetchAllUnit(this.projectId)
-      this.unitService.units$.subscribe((data)=>{
+      const Sub1 = this.unitService.units$.subscribe((data)=>{
       this.units=data
+      this.subscriptions.add(Sub1);
+
     })
     });
-   
+    this.subscriptions.add(paramSub);
+
     this.breadcrumbs.push(
       {name:"اقسام المشاريع",url:"/projectcategory"}
     )
-    this.projectService.getById(this.categoryId).subscribe(data=>{
+    const Sub = this.projectService.getById(this.categoryId).subscribe(data=>{
       this.breadcrumbs.push(
         {name:data.message,url:"/projectcategory/"+this.categoryId.toString()}
       )
@@ -67,9 +74,12 @@ export class DetailProjectComponent {
       })
     })
    
-    this.projectService.getNameProjectById(this.projectId).subscribe(data=>{
+    const Sub1 = this.projectService.getNameProjectById(this.projectId).subscribe(data=>{
       this.Title=data.message
     })
+    this.subscriptions.add(Sub);
+    this.subscriptions.add(Sub1);
+
   }
   SafeContent(url:string,description:string){
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -107,5 +117,8 @@ export class DetailProjectComponent {
         ]
     });
     
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

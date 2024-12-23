@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MediaCategoryService } from '../../shared/Services/media-category.service';
 import { environment } from '../../environments/environment';
 import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-media-category',
@@ -16,6 +17,7 @@ import { PageNotFoundComponent } from "../page-not-found/page-not-found.componen
 })
 export class MediaCategoryComponent {
   ImageUrl:string=environment.apiImage
+  private subscriptions: Subscription = new Subscription();
 
   AllMediaCategory: MediaCategory[] = [
     
@@ -24,9 +26,13 @@ export class MediaCategoryComponent {
 
   ngOnInit(): void {
     this.MediaCategory.fetchCities();
-    this.MediaCategory.MediaCategory$.subscribe((data)=>{
+    const Sub = this.MediaCategory.MediaCategory$.subscribe((data)=>{
       this.AllMediaCategory=data
     })
-    
+    this.subscriptions.add(Sub);
+
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

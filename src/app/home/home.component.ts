@@ -13,6 +13,7 @@ import { SliderService } from '../../shared/Services/slider.service';
 import { FinishCategoryService } from '../../shared/Services/finish-category.service';
 import { WhyusService } from '../../shared/Services/whyus.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -69,6 +70,9 @@ export class HomeComponent implements AfterViewInit  {
   AllSliderItem:Slider[]=[];
   units:Units[]=[];
   whyUsItem:SafeHtml[]=[];
+  private subscriptions: Subscription = new Subscription();
+
+  ImageWhyUs:string=this.ImageUrl+"WhyUs/"
   constructor(private AreaService:AreaService,
     private SliderService:SliderService,
     private unitService:UnitManageService,
@@ -80,28 +84,36 @@ export class HomeComponent implements AfterViewInit  {
   ngOnInit(): void {
     
     this.SliderService.getSliders();
-    this.SliderService.sliders$.subscribe((item)=>{
+    const Sub = this.SliderService.sliders$.subscribe((item)=>{
       this.AllSliderItem=item
     })
-    this.WhyusService.getAll().subscribe((data: any[])=>{
+    const Sub1 =  this.WhyusService.getAll().subscribe((data: any[])=>{
+      console.log(data)
       data.forEach(e => {
         this.whyUsItem.push(this.SafeContent(e.description))
       });
+      this.ImageWhyUs+=data[0].imageUrl
+      console.log(this.ImageWhyUs)
     })
     this.AreaService.fetchArea();
-    this.AreaService.areas$.subscribe((data)=>{
+    const Sub2 = this.AreaService.areas$.subscribe((data)=>{
       this.AllArea=data
     })
-    this.unitService.FetchAllUnitHome().subscribe((data)=>{
+    const Sub3 = this.unitService.FetchAllUnitHome().subscribe((data)=>{
       this.units=data
       this.units.forEach(e=>{
         e.imageName=this.ImageUrl+"Units/"+e.imageName
       })
     })
-    this.FinishCategory.getAllFinishCategories().subscribe((data)=>{
+    const Sub4 = this.FinishCategory.getAllFinishCategories().subscribe((data)=>{
       this.FinishCategoryList=data
     })
-    
+    this.subscriptions.add(Sub);
+    this.subscriptions.add(Sub1);
+    this.subscriptions.add(Sub2);
+    this.subscriptions.add(Sub3);
+    this.subscriptions.add(Sub4);
+
   }
 
 
@@ -197,5 +209,7 @@ export class HomeComponent implements AfterViewInit  {
     
   
   }
-
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

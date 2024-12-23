@@ -7,6 +7,7 @@ import { TitleNavigationComponent } from '../../shared/Component/title-navigatio
 import { AreaService } from '../../shared/Services/area.service';
 import { environment } from '../../environments/environment';
 import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-porject-area',
@@ -17,6 +18,7 @@ import { PageNotFoundComponent } from "../page-not-found/page-not-found.componen
 })
 export class PorjectAreaComponent implements OnInit {
   ImageUrl:string=environment.apiImage
+  private subscriptions: Subscription = new Subscription();
 
   LoadedData!:ViewAreaDTO[];
   Title:string|undefined="";
@@ -28,20 +30,26 @@ export class PorjectAreaComponent implements OnInit {
   constructor(private route: ActivatedRoute, private areaService: AreaService) {}
   ngOnInit(): void {
 
-    this.route.params.subscribe(params => {
+    const paramSub = this.route.params.subscribe(params => {
       this.areaId= +params['categoryId'];
-      this.areaService.fetchAreaByCity(this.areaId).subscribe((data)=>{
+      const Sub = this.areaService.fetchAreaByCity(this.areaId).subscribe((data)=>{
         this.Title=data.title
         this.LoadedData=data.data
         this.LoadedData.forEach((e)=>{
           e.imageName=this.ImageUrl+e.imageName
         })
+        this.subscriptions.add(Sub);
+
       })
+      this.subscriptions.add(paramSub);
       this.breadcrumbs.push(
         {name:"اقسام المشاريع",url:"/projectcategory"}
       )
       this.dataTitle.emit(this.Title)
     });
     
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

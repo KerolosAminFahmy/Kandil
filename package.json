@@ -24,6 +24,7 @@
     "@ionic/angular": "^8.4.0",
     "@tinymce/tinymce-angular": "^8.0.1",
     "bootstrap": "^5.3.3",
+    "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
     "jquery": "^3.7.1",
     "lightcase": "^2.5.0",
@@ -34,6 +35,7 @@
     "rxjs": "~7.8.0",
     "slick-carousel": "^1.8.1",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {

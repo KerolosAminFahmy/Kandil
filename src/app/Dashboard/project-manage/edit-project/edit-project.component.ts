@@ -9,6 +9,7 @@ import { ImageUploadComponent } from "../../../../shared/image-upload/image-uplo
 import { AdvantageProject, AdvantageUpdateProject, LocationProject, ProjectUpdateDto } from '../../../../shared/Models/model';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { environment } from '../../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-project',
@@ -31,6 +32,8 @@ export class EditProjectComponent {
   ListRemovedImageSlider:Array<string>=[];
   isMainImageChange:boolean=false;
   isLocationImageChange:boolean=false;
+  private subscriptions: Subscription = new Subscription();
+
   PdfUrl:string="";
   init: EditorComponent['init'] = {
     plugins: [
@@ -65,12 +68,12 @@ export class EditProjectComponent {
     });
   }
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    const paramSub = this.route.params.subscribe(params => {
       this.areaId = +params['areaId'];
       this.projectId = +params['projectId'] 
     });
   
-    this.projectService.FetchProjectUpdate(this.projectId).subscribe((data)=>{
+    const Sub = this.projectService.FetchProjectUpdate(this.projectId).subscribe((data)=>{
       this.projectForm.patchValue({
         title:data.title,
         mainImage:data.mainImage,
@@ -97,7 +100,9 @@ export class EditProjectComponent {
         }) )
       })
     })
-    
+    this.subscriptions.add(Sub);
+    this.subscriptions.add(paramSub);
+
   }
    get advantageProjects() {
     return this.projectForm.get('advantageProjects') as FormArray;
@@ -269,5 +274,8 @@ export class EditProjectComponent {
       this.projectForm.get("pdfFile")?.markAsTouched()
      
     }
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

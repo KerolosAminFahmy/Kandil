@@ -1,4 +1,17 @@
-<section class="TitleAndNavigation">
+<section class="TitleAndNavigation" [style.background-image]="'url(' + ImageName + ')'">
+  <div class="video-background">
+    <video *ngIf="type==='video'" 
+    [src]="ImageName"
+    width="100%"
+     muted
+     autoplay
+     loop
+     playsinline
+     crossorigin="anonymous"
+     class="video-element"
+    ></video>
+  </div>
+  
   <div class="container">
       <div class="row">
           <div class="col-lg-12 breadcrumb-area">

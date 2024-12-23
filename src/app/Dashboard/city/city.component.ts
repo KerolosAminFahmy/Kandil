@@ -7,6 +7,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AddCity, City } from '../../../shared/Models/model';
 import { Title } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-city',
@@ -24,6 +25,7 @@ export class CityComponent {
   @ViewChild('Form') header!: ElementRef;
   UrlEdit:string=""
   ImageUrl:string=environment.apiImage
+  private subscriptions: Subscription = new Subscription();
 
   private cityService = inject(CityService);
   constructor(private fb: FormBuilder) {
@@ -38,11 +40,12 @@ export class CityComponent {
 
   ngOnInit(): void {
     this.cityService.fetchCities()
-    this.cityService.cities$.subscribe((data)=>{
+    const Sub = this.cityService.cities$.subscribe((data)=>{
       
       this.cities=data
     })
-    
+    this.subscriptions.add(Sub);
+
   }
   onImageSelected(event: { file: File | null}): void {
     this.cityForm.patchValue({ image: event.file });
@@ -117,5 +120,8 @@ export class CityComponent {
   onAdd(AddCity:AddCity) {
     
     this.cityService.addCity(AddCity)
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

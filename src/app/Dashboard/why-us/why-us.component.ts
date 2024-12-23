@@ -6,6 +6,7 @@ import { ImageUploadComponent } from "../../../shared/image-upload/image-upload.
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { ToastService } from '../../../shared/Services/toast.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-why-us',
@@ -33,7 +34,8 @@ export class WhyUsManageComponent {
     importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
   };
   Massege = inject(ToastService) 
-  
+  private subscriptions: Subscription = new Subscription();
+
   whyUsItems: any[] = [];
   forms: FormGroup[] = [];
   imageForm!:FormGroup
@@ -47,7 +49,7 @@ export class WhyUsManageComponent {
 
   loadItems() {
     
-    this.whyUsService.getAll().subscribe((data: any) => {
+    const Sub = this.whyUsService.getAll().subscribe((data: any) => {
       this.imageForm= this.fb.group({
         image:[data[0].imageUrl,Validators.required]
       })
@@ -60,6 +62,8 @@ export class WhyUsManageComponent {
         })
       );
     });
+    this.subscriptions.add(Sub);
+
   }
 
   onImageChange(event: { file: File | null}, index: number) {
@@ -72,7 +76,9 @@ export class WhyUsManageComponent {
 
     }
   }
-
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
   saveChanges(index: number) {
     const form = this.forms[index];
     console.log(form.value)

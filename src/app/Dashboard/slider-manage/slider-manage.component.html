@@ -17,23 +17,24 @@
   </div>
 
 
-<div class="popup-modal" *ngIf="isPopupOpen">
-  <div class="popup-content" dir="rtl">
-    <h3>إضافة عنصر إلى السلايدر</h3>
-    <form [formGroup]="sliderForm" (ngSubmit)="addSliderItem()">
-      <label for="mediaType">اختر نوع الوسائط:</label>
-      <select formControlName="mediaType" name="mediaType" required>
-        <option value="image">صورة</option>
-        <option value="video">فيديو</option>
-      </select>
+  <div class="popup-modal" *ngIf="isPopupOpen">
+    <div class="popup-content" dir="rtl">
+      <h3>إضافة عنصر إلى السلايدر</h3>
+      <form [formGroup]="sliderForm" (ngSubmit)="addSliderItem()">
+        <label for="mediaType">اختر نوع الوسائط:</label>
+        <select formControlName="mediaType" name="mediaType" required>
+          <option value="image">صورة</option>
+          <option value="video">فيديو</option>
+        </select>
 
-      <label for="media">اختر الوسائط:</label>
-      <input type="file" (change)="onFileSelected($event)" required />
+        <label for="media">اختر الوسائط:</label>
+        <input type="file" (change)="onFileSelected($event)" required />
 
-      <div class="popup-actions">
-        <button type="submit" [disabled]="sliderForm.invalid">رفع</button>
-        <button type="button" (click)="closePopup()">إلغاء</button>
-      </div>
-    </form>
+        <div class="popup-actions">
+          <button type="submit" [disabled]="sliderForm.invalid">رفع</button>
+          <button type="button" (click)="closePopup()">إلغاء</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

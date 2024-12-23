@@ -5,6 +5,7 @@ import { AreaService } from '../../../shared/Services/area.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ImageUploadComponent } from '../../../shared/image-upload/image-upload.component';
 import { environment } from '../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-area',
@@ -21,6 +22,8 @@ export class AreaComponent {
   NameImage:string="";
   UrlEdit:string=""
   ImageUrl:string=environment.apiImage
+  private subscriptions: Subscription = new Subscription();
+
   constructor(private AreaService:AreaService,private fb: FormBuilder){
     this.AreaForm = this.fb.group({
       id : [0],
@@ -31,10 +34,11 @@ export class AreaComponent {
   }
   ngOnInit(): void {
     this.AreaService.fetchArea()
-    this.AreaService.areas$.subscribe((data)=>{
+    const Sub=this.AreaService.areas$.subscribe((data)=>{
       this.areas=data
     })
-    
+    this.subscriptions.add(Sub);
+
   }
   onImageSelected(event: { file: File | null}): void {
     this.AreaForm.patchValue({ image: event.file });
@@ -108,5 +112,8 @@ export class AreaComponent {
       }
     }
     return null; 
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

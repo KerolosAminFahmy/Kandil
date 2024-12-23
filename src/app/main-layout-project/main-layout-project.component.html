@@ -4,7 +4,7 @@
 
 <div id="widgetWrapper" class="bottom-right">
   <div id="contentWrapper" class="hide">
-    <div id="channels">
+    <div id="channels" [ngClass]="openSocial?'show':''">
       <button
         class="channel"
         data-id="5"
@@ -108,7 +108,7 @@
   </div>
   <div id="widgetBubbleRow">
     <div id="widgetBubbleWrapper" class="--wiggle-animation">
-      <button id="widgetBubble" class="circle">
+      <button id="widgetBubble" (click)="toggle()" [ngClass]="openSocial?'open':''" class="circle">
         <img
           alt="Widget Icon"
           id="widget-img"

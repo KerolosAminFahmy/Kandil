@@ -6,6 +6,7 @@ import { MediaCategoryService } from '../../../shared/Services/media-category.se
 import { ImageUploadComponent } from '../../../shared/image-upload/image-upload.component';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-media-category',
@@ -23,6 +24,7 @@ export class MediaCategoriesComponent {
   @ViewChild('Form') header!: ElementRef;
   UrlEdit:string=""
   ImageUrl:string=environment.apiImage
+  private subscriptions: Subscription = new Subscription();
 
   private mediaCategoryService = inject(MediaCategoryService);
   constructor(private fb: FormBuilder) {
@@ -37,11 +39,12 @@ export class MediaCategoriesComponent {
 
   ngOnInit(): void {
     this.mediaCategoryService.fetchCities()
-    this.mediaCategoryService.MediaCategory$.subscribe((data)=>{
+    const Sub = this.mediaCategoryService.MediaCategory$.subscribe((data)=>{
       
       this.MediaCategory=data
     })
-    
+    this.subscriptions.add(Sub);
+
   }
   onImageSelected(event: { file: File | null}): void {
     this.cityForm.patchValue({ image: event.file });
@@ -114,5 +117,8 @@ export class MediaCategoriesComponent {
   onAdd(AddCity:AddMediaCategory) {
     
     this.mediaCategoryService.addMediaCategory(AddCity)
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

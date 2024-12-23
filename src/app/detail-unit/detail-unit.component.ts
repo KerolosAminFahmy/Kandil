@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { StatusTranslatePipe } from '../../shared/Pipes/status-translate.pipe';
 import { environment } from '../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-detail-unit',
@@ -26,6 +27,8 @@ export class DetailUnitComponent {
   safeContent!: SafeHtml;
   service!:Array<Array<string>>;
   imagesName:Array<string>=[];
+  private subscriptions: Subscription = new Subscription();
+
   constructor(private route:ActivatedRoute,private unitService:UnitManageService,private sanitizer: DomSanitizer) {
     
   }
@@ -33,9 +36,9 @@ export class DetailUnitComponent {
     this.breadcrumbs.push(
       {name:"وحدات",url:"/unit"}
     )
-    this.route.params.subscribe((params) => {
+    const paramSub=this.route.params.subscribe((params) => {
       this.unitId = +params['unitId'];
-      this.unitService.fetchUpdate(this.unitId).subscribe((data)=>{
+      const Sub = this.unitService.fetchUpdate(this.unitId).subscribe((data)=>{
         this.unit=data
         this.SafeContent(data.videoUrl,data.description)
         data.unitImages.forEach((e)=>{
@@ -43,8 +46,10 @@ export class DetailUnitComponent {
         })
         this.service=this.splitIntoChunks(data.serviceUnits.map(e=>e.text),3);
       })
+      this.subscriptions.add(Sub);
 
     });
+    this.subscriptions.add(paramSub);
     
   }
   SafeContent(url:string,description:string){
@@ -60,5 +65,8 @@ export class DetailUnitComponent {
     }
   
     return result;
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

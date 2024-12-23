@@ -13,8 +13,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './main-layout-project.component.css'
 })
 export class MainLayoutProjectComponent {
+toggle() {
+  this.openSocial=!this.openSocial}
   headerImageUrl: string = '';
   customClass: string = '';
+  openSocial : boolean =false;
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute) {
   

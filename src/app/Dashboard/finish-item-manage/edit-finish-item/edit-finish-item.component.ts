@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ImageUploadComponent } from '../../../../shared/image-upload/image-upload.component';
 import { FinishItemDTO } from '../../../../shared/Models/model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-finish-item',
@@ -26,6 +27,7 @@ export class EditFinishItemComponent {
   finishCategoryId:number=0;
   finishId:number=0;
   apiUrl:string=environment.apiUrl
+  private subscriptions: Subscription = new Subscription();
 
   init: EditorComponent['init'] = {
     plugins: [
@@ -55,7 +57,7 @@ export class EditFinishItemComponent {
     private ServiceFinish:FinisghItemService,private router:Router,
     private Massege:ToastService){}
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    const paramSub = this.route.params.subscribe(params => {
       this.finishCategoryId = +params['FinishCategory'] 
       this.finishId = +params['finishItem'] 
     });
@@ -68,7 +70,7 @@ export class EditFinishItemComponent {
       detailImages: this.fb.array([])
     });
 
-    this.ServiceFinish.getFinishItem(this.finishId).subscribe((data)=>{
+   const Sub = this.ServiceFinish.getFinishItem(this.finishId).subscribe((data)=>{
       this.finishForm.patchValue({
         title: data.finishItem.title,
         description:data.finishItem.description,
@@ -90,6 +92,9 @@ export class EditFinishItemComponent {
       this.isFormInit=true
 
     })
+    this.subscriptions.add(Sub);
+    this.subscriptions.add(paramSub);
+
   }
   get detailImages(): FormArray {
     return this.finishForm.get('detailImages') as FormArray;
@@ -168,5 +173,8 @@ export class EditFinishItemComponent {
             this.Massege.showMessage("success","نجاح","تم تعديل تشطيب بنجاح")
           })
       }
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

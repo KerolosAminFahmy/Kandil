@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-call-us',
@@ -17,7 +18,8 @@ import { RippleModule } from 'primeng/ripple';
 })
 export class CallUsComponent {
   contactForm: FormGroup;
-  
+  private subscriptions: Subscription = new Subscription();
+
   constructor(private fb: FormBuilder,private messageService: MessageService, private contactService: ContactService,private msg :ToastService) {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -29,10 +31,12 @@ export class CallUsComponent {
   }
 
   ngOnInit(): void {
-    this.msg.MassegeToast.subscribe((data)=>{
+    const sub =  this.msg.MassegeToast.subscribe((data)=>{
       this.messageService.add({ severity: data.severity, summary: data.summary, detail: data.detail ,life: 4000  });
 
     })
+    this.subscriptions.add(sub);
+
   }
 
   onSubmit(): void {
@@ -60,5 +64,8 @@ export class CallUsComponent {
       //   }
       // );
     }
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

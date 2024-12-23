@@ -9,6 +9,7 @@ import { AreaService } from '../../shared/Services/area.service';
 import { ProjectService } from '../../shared/Services/project.service';
 import { environment } from '../../environments/environment';
 import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-project',
@@ -19,6 +20,7 @@ import { PageNotFoundComponent } from "../page-not-found/page-not-found.componen
 })
 export class ProjectComponent {
   ImageUrl:string=environment.apiImage
+  private subscriptions: Subscription = new Subscription();
 
   LoadedData!:ViewProject[];
   Title:string|null="";
@@ -29,13 +31,15 @@ export class ProjectComponent {
   constructor(private route: ActivatedRoute, private projectService: ProjectService) {}
   ngOnInit(): void {
   
-    this.route.params.subscribe(params => {
+    const paramSub = this.route.params.subscribe(params => {
       this.areaId= +params['projectId'];
       this.projectId= +params['categoryId'];
-      this.projectService.GetAllProjectByArea(this.areaId).subscribe((data)=>{
+      const Sub = this.projectService.GetAllProjectByArea(this.areaId).subscribe((data)=>{
         this.LoadedData=data
        
       })
+      this.subscriptions.add(Sub);
+
       this.breadcrumbs.push(
         {name:"اقسام المشاريع",url:"/projectcategory"}
       )
@@ -51,6 +55,10 @@ export class ProjectComponent {
       })
     });
     
-    
+    this.subscriptions.add(paramSub);
+
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

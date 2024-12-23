@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../shared/Services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,12 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  private subscriptions: Subscription = new Subscription();
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    this.authService.login(this.username, this.password).subscribe({
+    const Sub = this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         this.authService.saveTokens(response.accessToken,response.refreshToken); 
         this.router.navigate(['/dashboard/Cities']);
@@ -26,5 +28,10 @@ export class LoginComponent {
         console.error('Login failed:', err);
       }
     });
+    this.subscriptions.add(Sub);
+
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

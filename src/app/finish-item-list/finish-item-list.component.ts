@@ -5,6 +5,7 @@ import { FinisghItemService } from '../../shared/Services/finisgh-item.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-finish-item-list',
@@ -21,7 +22,7 @@ export class FinishItemListComponent {
   selectedItem!:FinishItemDTO
   title:string="";
   FinishCategoryId:number=0;
-
+  private subscriptions: Subscription = new Subscription();
   facebookShareUrl: string = '';
   twitterShareUrl: string = '';
   linkedinShareUrl: string = '';
@@ -31,9 +32,9 @@ export class FinishItemListComponent {
     this.breadcrumbs.push(
       {name:"اقسام تشطبيات",url:"/finishcategory"}
     )
-    this.route.params.subscribe((params) => {
+    const paramSub = this.route.params.subscribe((params) => {
       this.FinishCategoryId=+params['finishCategoryId']
-      this.finishItemService.getFinishItemWithName(this.FinishCategoryId).subscribe((data)=>{
+      const Sub = this.finishItemService.getFinishItemWithName(this.FinishCategoryId).subscribe((data)=>{
         this.items=data.data
         this.title=data.name
         this.selectedItem=data.data[0]
@@ -41,8 +42,11 @@ export class FinishItemListComponent {
           e.imageName=this.ImageUrl+"Finish/"+e.imageName
         })
       })
+      this.subscriptions.add(Sub);
+
     })
-   
+    this.subscriptions.add(paramSub);
+
     
   }
   openPreview(id:number|undefined){
@@ -64,5 +68,8 @@ export class FinishItemListComponent {
   }
   removePreview(){
     this.isOpen=false;
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
