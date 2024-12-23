@@ -29,7 +29,9 @@ export class PorjectAreaComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private areaService: AreaService) {}
   ngOnInit(): void {
-
+    this.breadcrumbs.push(
+      {name:"اقسام المشاريع",url:"/projectcategory"}
+    )
     const paramSub = this.route.params.subscribe(params => {
       this.areaId= +params['categoryId'];
       const Sub = this.areaService.fetchAreaByCity(this.areaId).subscribe((data)=>{
@@ -42,9 +44,7 @@ export class PorjectAreaComponent implements OnInit {
 
       })
       this.subscriptions.add(paramSub);
-      this.breadcrumbs.push(
-        {name:"اقسام المشاريع",url:"/projectcategory"}
-      )
+      
       this.dataTitle.emit(this.Title)
     });
     
