@@ -1,0 +1,12 @@
+<app-title-navigation title="سابقة الاعمال" [id]="1"></app-title-navigation>
+<section class="AllProject">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-sm-6 col-12" *ngFor="let Project of projectCategories">
+        <app-card title={{Project.name}} Url={{Project.id}} imgUrl={{Project.imageName}}></app-card>
+      </div>
+      <app-page-not-found *ngIf="projectCategories==[] || projectCategories==null || projectCategories==undefined || projectCategories.length==0"></app-page-not-found>
+
+    </div>
+  </div>
+</section>

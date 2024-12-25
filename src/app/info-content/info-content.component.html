@@ -1,4 +1,4 @@
-<app-title-navigation title={{title}} [id]="2"></app-title-navigation>
+<app-title-navigation *ngIf="data && data.title !== undefined" title={{data.title}} [id]="2"></app-title-navigation>
 
 <section class="InfoContent">
   <div class="container">
@@ -8,24 +8,26 @@
           
           <!-- Image Section -->
           <div class="blog-img">
-            <img [src]="imageSrc" alt="Image">
+            <img [src]="apiUrl+'/WhyUs/'+data.imageUrl" (alt)="data.title">
           </div>
 
           <!-- Blockquote Section -->
           <blockquote>
             <i class="fa-sharp fa-solid fa-quote-left" style="color: #ffffff;"></i>
-            <p>{{ quoteText }}</p>
+            <p>{{ data.quote }}</p>
           </blockquote>
 
+          <div [innerHtml] ="safeContent" 
+                    class="rich-text-iframe"></div>
           <!-- Main Text Section -->
-          <p>{{ mainText }}</p>
+          <!-- <p>{{ mainText }}</p> -->
 
           <!-- List Items Section -->
-          <ul *ngIf="listItems.length > 0">
+          <!-- <ul *ngIf="listItems.length > 0">
             <li *ngFor="let item of listItems">
               <strong>{{ item.title }}</strong>: {{ item.description }}
             </li>
-          </ul>
+          </ul> -->
 
         </div>
       </div>

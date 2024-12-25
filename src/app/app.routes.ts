@@ -42,6 +42,9 @@ import { FinishItemListComponent } from './finish-item-list/finish-item-list.com
 import { FinishItemDetailComponent } from './finish-item-detail/finish-item-detail.component';
 import { AllPaidUnitComponent } from './all-paid-unit/all-paid-unit.component';
 import { CoverImageComponent } from './Dashboard/cover-image/cover-image.component';
+import { PaidCityComponent } from './paid-city/paid-city.component';
+import { PaidAreaComponent } from './paid-area/paid-area.component';
+import { PaidProjectComponent } from './paid-project/paid-project.component';
 
 export const routes: Routes = [
   
@@ -109,6 +112,10 @@ export const routes: Routes = [
       {path:'mediaCategories',component:MediaCategoryComponent},
       {path:"project",component:DetailProjectComponent},
       {path:"unit/paid",component:AllPaidUnitComponent},
+      {path:"comprojects",component:PaidCityComponent},
+      {path:"comprojects/:categoryId",component:PaidAreaComponent},
+      {path:"comprojects/:categoryId/project/:projectId",component:PaidProjectComponent},
+
       {path:"unit/:unitId",component:DetailUnitComponent},
       {path:"unit",component:AllUnitComponent},
       {path: '', redirectTo:"home" , pathMatch:"full"},

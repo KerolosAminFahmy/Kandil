@@ -73,8 +73,6 @@ export class FinishItemDetailComponent {
 
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.safeContent = this.sanitizer.bypassSecurityTrustHtml( this.getRtlContent(description));
-    console.log(this.safeUrl)
-    console.log(this.safeContent)
   }
   getRtlContent(description: string): string {
     const rtlStyle = `

@@ -25,7 +25,7 @@ declare var $: any;
 })
 export class HomeComponent implements AfterViewInit  {
   @ViewChild('tri', { static: false }) tri!: ElementRef;
-
+  whyId:Array<number>=[];
   ImageUrl:string=environment.apiImage
   unitData: Array<unit> = [
     {
@@ -90,6 +90,7 @@ export class HomeComponent implements AfterViewInit  {
     const Sub1 =  this.WhyusService.getAll().subscribe((data: any[])=>{
       console.log(data)
       data.forEach(e => {
+        this.whyId.push(e.id)
         this.whyUsItem.push(this.SafeContent(e.description))
       });
       this.ImageWhyUs+=data[0].imageUrl

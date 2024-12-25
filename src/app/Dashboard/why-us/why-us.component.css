@@ -25,7 +25,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-input:disabled{
+input:disabled,button:disabled{
   cursor: not-allowed;
 }
 button {
@@ -38,3 +38,4 @@ button {
   margin: 10px auto;
   cursor: pointer;
 }
+

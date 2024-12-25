@@ -7,7 +7,7 @@ export class InfoContentService {
 
   loadContent(id: string | null): {title:string, imageSrc: string, quoteText: string, mainText: string, listItems: { title: string, description: string }[] } {
     switch (id) {
-      case '1':
+      case '4':
         return {
           title:"الجودة",
           imageSrc: '../../assets/Images/الجودة-1.png',
@@ -36,7 +36,7 @@ export class InfoContentService {
             { title: 'الالتزام بالشفافية', description: 'تقديم جميع المعلومات والبيانات المتعلقة بالعقارات للعميل بشكل واضح وصريح.' },
             { title: 'الالتزام بالدعم', description: 'تقديم خدمات ما بعد البيع للعملاء وتلبية احتياجاتهم.' }          ]
         };
-      case '4':
+      case '5':
         return {
           title:"المصداقية",
           imageSrc: '../../assets/Images/المصداقية.png',

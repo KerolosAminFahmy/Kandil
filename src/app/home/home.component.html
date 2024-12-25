@@ -14,7 +14,7 @@
             <img [src]="ImageUrl+'Slider/'+item.mediaPath" loading="lazy" alt="Image" srcset="" />
           }
         </div>
-          @defer () {
+
             <video [src]="ImageUrl+'Slider/'+item.mediaPath" 
              *ngIf="item.mediaType==='video'" 
               width="100%"
@@ -24,7 +24,7 @@
               playsinline
              crossorigin="anonymous">
             </video>
-          }
+
        
       </div>
     </div>
@@ -54,7 +54,7 @@
               <span><i class="fa-solid fa-shield-alt"></i></span>
             </div>
 
-            <a routerLink="/info/2">
+            <a [routerLink]="['/info/',whyId[1]]">
               <div class="CardBody">
                 <h4>الثقة</h4>
                 <p *ngIf="whyUsItem[1]!=undefined" [innerHTML]="whyUsItem[1]"></p>
@@ -67,7 +67,7 @@
               <span><i class="fa-solid fa-handshake"></i></span>
             </div>
 
-            <a routerLink="/info/3">
+            <a [routerLink]="['/info/',whyId[2]]">
               <div class="CardBody">
                 <h4>الإلتزام</h4>
                 <p *ngIf="whyUsItem[2]!=undefined" [innerHTML]="whyUsItem[2]"></p>
@@ -80,9 +80,9 @@
               <span><i class="fa-solid fa-certificate"></i></span>
             </div>
 
-            <a routerLink="/info/1"> </a>
+            <a [routerLink]="['/info/',whyId[3]]"> </a>
             <div class="CardBody">
-              <a routerLink="/info/1">
+              <a [routerLink]="['/info/',whyId[3]]">
                 <h4>الجودة</h4>
                 <p *ngIf="whyUsItem[3]!=undefined" [innerHTML]="whyUsItem[3]"></p>
 
@@ -94,9 +94,9 @@
               <span><i class="fa-solid fa-check-square"></i></span>
             </div>
 
-            <a routerLink="/info/4"> </a>
+            <a [routerLink]="['/info/',whyId[4]]"> </a>
             <div class="CardBody">
-              <a routerLink="/info/4">
+              <a [routerLink]="['/info/',whyId[4]]">
                 <h4>المصداقية</h4>
                 <p *ngIf="whyUsItem[4]!=undefined" [innerHTML]="whyUsItem[4]"></p>
 

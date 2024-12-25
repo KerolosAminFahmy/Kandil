@@ -35,7 +35,7 @@ export class WhyUsManageComponent {
   };
   Massege = inject(ToastService) 
   private subscriptions: Subscription = new Subscription();
-
+  images:Array<string>=[];
   whyUsItems: any[] = [];
   forms: FormGroup[] = [];
   imageForm!:FormGroup
@@ -54,27 +54,41 @@ export class WhyUsManageComponent {
         image:[data[0].imageUrl,Validators.required]
       })
       this.whyUsItems = data;
-      this.forms = this.whyUsItems.map((item) =>
+      this.forms = this.whyUsItems.map((item,index) =>
+       index === 0 ?
         this.fb.group({
           id: [item.id],
           title: [{ value: item.title, disabled: true }], 
           description: [item.description,Validators.required],
+        }):this.fb.group({
+          id: [item.id],
+          title: [{ value: item.title, disabled: true }], 
+          description: [item.description,Validators.required],
+          fullDescription: [item.fullDescription,Validators.required],
+          quote:[item.quote,Validators.required],
+          image:[item.imageUrl,Validators.required]
         })
       );
+      
     });
     this.subscriptions.add(Sub);
 
   }
 
   onImageChange(event: { file: File | null}, index: number) {
-    if (this.imageForm.get('image')?.value !== null && 
+    if(index===0){
+      if (this.imageForm.get('image')?.value !== null && 
       typeof this.imageForm.get('image')?.value === 'object' && !Array.isArray(this.imageForm.get('image')?.value)) {
         this.isMainImageChange=true;
       }
-    if (event.file){
-      this.imageForm.patchValue({ image: event.file });
+      if (event.file){
+        this.imageForm.patchValue({ image: event.file });
 
+      }
+    }else{
+      this.forms.at(index)?.patchValue({image:event.file})
     }
+    
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -87,7 +101,13 @@ export class WhyUsManageComponent {
     formData.append('id', form.value.id);
     formData.append('title',form.value.title)
     formData.append('description', form.value.description);
+    formData.append('fullDescription', form.value.fullDescription);
+    formData.append('quote', form.value.quote);
+    if (form.get('image')?.value !== null && 
+    typeof form.get('image')?.value === 'object' && !Array.isArray(form.get('image')?.value)) {
+      formData.append('imageFile', form.value.image);
 
+    }
     this.whyUsService.update(form.value.id, formData).subscribe(() => {
       this.Massege.showMessage("success","نجاح","تم اضافه الوصف بنجاح")
       this.loadItems();

@@ -173,4 +173,10 @@ ProjectRecord.locationProjects.forEach((location: any, index: number) => {
       })
     )
   }
+  GetAllPaidProjectByArea(id:number):Observable<ViewProject[]>{
+    return this.http.get<ViewProject[]>(this.apiUrl+"GetAllPaidProjectByArea/"+id).pipe(
+      tap(() => {
+      })
+    )
+  }
 }

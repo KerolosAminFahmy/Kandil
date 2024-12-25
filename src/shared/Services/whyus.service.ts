@@ -10,7 +10,9 @@ export class WhyusService {
   private apiUrl =  environment.apiUrl+'/WhyUs';
 
   constructor(private http: HttpClient) {}
-
+  get(id:number|null){
+    return this.http.get<{fullDescription:string,imageUrl:String,quote:string,title:string}>(this.apiUrl+"/"+id)
+  }
   getAll() :any {
     return this.http.get(this.apiUrl);
   }
