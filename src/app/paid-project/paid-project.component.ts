@@ -36,13 +36,13 @@ export class PaidProjectComponent {
       this.projectId= +params['categoryId'];
       const Sub = this.projectService.GetAllPaidProjectByArea(this.areaId).subscribe((data)=>{
         this.LoadedData=data
-       
+       console.log(data)
       })
       this.subscriptions.add(Sub);
 
      
       this.projectService.getById(this.projectId).subscribe(data=>{
-        this.Title = data.message
+
         this.breadcrumbs.push(
           {name:data.message,url:"/comprojects/"+this.projectId.toString()}
         )

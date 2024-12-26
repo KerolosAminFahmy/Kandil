@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-sm-6 col-12" *ngFor="let Project of LoadedData">
-        <app-card title={{Project.title}} [Url]='"detail/"+Project.id' [imgUrl]='ImageUrl+"Projects/"+Project.imageName'></app-card>
+        <app-card title={{Project.title}} [Url]='"/projectcategory/"+projectId+"/project/"+areaId+"/detail/"+Project.id'  [imgUrl]='ImageUrl+"Projects/"+Project.imageName'></app-card>
       </div>
       <app-page-not-found *ngIf="LoadedData==[] || LoadedData==null || LoadedData==undefined || LoadedData.length==0"></app-page-not-found>
 
