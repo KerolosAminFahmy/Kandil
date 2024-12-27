@@ -32,13 +32,14 @@ export class MediaListComponent {
     const paramSub = this.route.params.subscribe(params => {
       const id = +params['mediaId'] 
       this.MediaCategoryId=id
+      const Sub = this.MediaCategoryService.getById(this.MediaCategoryId).subscribe((name)=>{
+        this.Title = name.message
+      })
+      this.subscriptions.add(Sub);
+      this.MediaService.getByMediaCategory(this.MediaCategoryId)
     });
     this.subscriptions.add(paramSub);
-    const Sub = this.MediaCategoryService.getById(this.MediaCategoryId).subscribe((name)=>{
-      this.Title = name.message
-    })
-    this.subscriptions.add(Sub);
-    this.MediaService.getByMediaCategory(this.MediaCategoryId)
+    
     const Sub1 = this.MediaService.Media$.subscribe((data)=>{
       this.LoadedData=data
     })
