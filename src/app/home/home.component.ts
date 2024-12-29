@@ -88,13 +88,11 @@ export class HomeComponent implements AfterViewInit  {
       this.AllSliderItem=item
     })
     const Sub1 =  this.WhyusService.getAll().subscribe((data: any[])=>{
-      console.log(data)
       data.forEach(e => {
         this.whyId.push(e.id)
         this.whyUsItem.push(this.SafeContent(e.description))
       });
       this.ImageWhyUs+=data[0].imageUrl
-      console.log(this.ImageWhyUs)
     })
     this.AreaService.fetchArea();
     const Sub2 = this.AreaService.areas$.subscribe((data)=>{
@@ -201,9 +199,11 @@ export class HomeComponent implements AfterViewInit  {
           },
           { threshold: 0.5 }
         );
-      
-        const videos = this.tri.nativeElement.querySelectorAll('video');
+        if(this.tri!=undefined){
+const videos = this.tri.nativeElement.querySelectorAll('video');
         videos.forEach((video: HTMLVideoElement) => observer.observe(video));
+        }
+        
       
       },3500) 
   

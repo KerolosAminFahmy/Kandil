@@ -56,9 +56,12 @@
 #channels.show {
   display: flex;
 }
-#widgetWrapper:hover #channels{
+@media (min-width:700px) {
+  #widgetWrapper:hover #channels{
   display: flex !important;
 }
+}
+
 .bottom-right #channels .channel, .top-right #channels .channel {
   flex-direction: row-reverse;
 }
@@ -138,16 +141,22 @@
   opacity: 1;
   transition: opacity 0.3s ease-in;
 }
-#widgetWrapper:hover #widgetBubble::after{
-  opacity: 1;
-  transition: opacity 0.3s ease-in;
+@media (min-width:700px) {
+  #widgetWrapper:hover #widgetBubble::after{
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+  }
 }
+
 .--wiggle-animation {
   animation: 1s wiggle ease infinite;
 }
-#widgetWrapper:hover #widget-img {
-  opacity: 0;
-  transition: opacity .15s ease-out;
+@media (min-width:700px) {
+  #widgetWrapper:hover #widget-img {
+    opacity: 0;
+    transition: opacity .15s ease-out;
+  }
+  
 }
 
 #widgetBubble.open #widget-img {
