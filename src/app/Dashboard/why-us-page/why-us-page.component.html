@@ -11,15 +11,10 @@
         </div>
         <div>
           <label>وصف:</label>
-            <editor
-              
-              formControlName="title"
-              apiKey={{apikey}}
-      
-              
-              [init]="init"
-            ></editor>
-          
+            <div class="editor-container">
+              <ngx-editor-menu dir="ltr"  [toolbar]="toolbar" [editor]="editor[i]"> </ngx-editor-menu>
+              <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor[i]" formControlName="title" ></ngx-editor>
+            </div>
         </div>
       </ng-container>
       

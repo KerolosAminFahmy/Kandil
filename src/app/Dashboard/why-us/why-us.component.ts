@@ -8,32 +8,28 @@ import { environment } from '../../../environments/environment';
 import { ToastService } from '../../../shared/Services/toast.service';
 import { Subscription } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-why-us',
   standalone: true,
-  imports: [RouterLink,ReactiveFormsModule,CommonModule, EditorComponent, ImageUploadComponent],
+  imports: [RouterLink,ReactiveFormsModule,CommonModule, ImageUploadComponent,NgxEditorModule],
   templateUrl: './why-us.component.html',
   styleUrl: './why-us.component.css'
 })
 export class WhyUsManageComponent {
-  apikey:string=environment.apiKey;
-  init: EditorComponent['init'] = {
-    plugins: [
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
 
-    ],
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
-    exportword_converter_options: { 'document': { 'size': 'Letter' } },
-    importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
-  };
+  editor: Editor[]=[];
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
   Massege = inject(ToastService) 
   private subscriptions: Subscription = new Subscription();
   images:Array<string>=[];
@@ -42,7 +38,8 @@ export class WhyUsManageComponent {
   imageForm!:FormGroup
   isMainImageChange:boolean=false;
   apiUrl:string=environment.apiUrl
-  constructor(private whyUsService: WhyusService, private fb: FormBuilder) {}
+  constructor(private whyUsService: WhyusService, private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.loadItems();
@@ -55,8 +52,10 @@ export class WhyUsManageComponent {
         image:[data[0].imageUrl,Validators.required]
       })
       this.whyUsItems = data;
-      this.forms = this.whyUsItems.map((item,index) =>
-       index === 0 ?
+      this.forms = this.whyUsItems.map((item,index) =>{
+      this.editor.push(new Editor());
+      this.editor.push(new Editor());
+       return index === 0 ?
         this.fb.group({
           id: [item.id],
           title: [{ value: item.title, disabled: true }], 
@@ -69,7 +68,7 @@ export class WhyUsManageComponent {
           quote:[item.quote,Validators.required],
           image:[item.imageUrl,Validators.required]
         })
-      );
+    });
       
     });
     this.subscriptions.add(Sub);
@@ -93,6 +92,10 @@ export class WhyUsManageComponent {
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.editor.forEach((ele)=>{
+      ele.destroy()
+    });
+
   }
   saveChanges(index: number) {
     const form = this.forms[index];

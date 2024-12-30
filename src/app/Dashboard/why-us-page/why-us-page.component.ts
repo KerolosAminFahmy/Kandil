@@ -8,47 +8,45 @@ import { PageSection } from '../../../shared/Models/model';
 import { PageSectionService } from '../../../shared/Services/page-section.service';
 import { ImageUploadComponent } from '../../../shared/image-upload/image-upload.component';
 import { CommonModule } from '@angular/common';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-why-us-page',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule, EditorComponent, ImageUploadComponent],
+  imports: [ReactiveFormsModule,CommonModule, ImageUploadComponent,NgxEditorModule],
   templateUrl: './why-us-page.component.html',
   styleUrl: './why-us-page.component.css'
 })
 export class WhyUsPageComponent {
-  apikey:string=environment.apiKey;
-  apiUrl:string=environment.apiUrl
+  apiUrl:string=environment.apiUrl;
+  editor: Editor[]=[];
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
   PageSection:PageSection[]=[];
-  init: EditorComponent['init'] = {
-    plugins: [
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-
-    ],
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
-    exportword_converter_options: { 'document': { 'size': 'Letter' } },
-    importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
-  };
   Massege = inject(ToastService) 
   private subscriptions: Subscription = new Subscription();
   images:Array<string>=[];
   forms: FormGroup[] = [];
-  constructor(private PageSectionService:PageSectionService, private fb: FormBuilder){}
+  constructor(private PageSectionService:PageSectionService, private fb: FormBuilder){
+   
+     
+  }
   ngOnInit(): void {
     this.LoadItem();
   }
   LoadItem(){
     this.PageSectionService.getAll().subscribe((data)=>{
-      console.log(data)
       this.PageSection=data;
       this.forms = this.PageSection.map(ele=>{
+        this.editor.push(new Editor());
         return this.fb.group({
                   id: [ele.id],
                   title: [ele.text], 
@@ -78,6 +76,12 @@ export class WhyUsPageComponent {
     this.PageSectionService.update(form.value.id, formData).subscribe(() => {
       this.Massege.showMessage("success","نجاح","تم اضافه الوصف بنجاح")
       this.LoadItem();
+    });
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+    this.editor.forEach((ele)=>{
+      ele.destroy()
     });
   }
 }

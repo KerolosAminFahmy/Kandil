@@ -1,50 +1,49 @@
 <div class="container">
-  <form [formGroup]="imageForm" (ngSubmit)="saveImage()" >
-    <div *ngIf="imageForm.get('image')?.value" >
-      <label>صوره:</label>
-      <app-image-upload  nameImage="{{imageForm.get('image')?.value}}" 
-      Url="{{apiUrl+'/WhyUs/'+imageForm.get('image')?.value}}"  
-        (imageSelected)="onImageChange($event,0)" ></app-image-upload> 
-    </div>
-    <button type="submit">تعديل</button>
-
-  </form>
+  <div *ngIf="imageForm !=null || imageForm !=undefined ">
+    <form [formGroup]="imageForm" (ngSubmit)="saveImage()" >
+      <div *ngIf="imageForm.get('image')?.value" >
+        <label>صوره:</label>
+        <app-image-upload  nameImage="{{imageForm.get('image')?.value}}" 
+        Url="{{apiUrl+'/WhyUs/'+imageForm.get('image')?.value}}"  
+          (imageSelected)="onImageChange($event,0)" ></app-image-upload> 
+      </div>
+      <button type="submit">تعديل</button>
+  
+    </form>
+  </div>
+ 
   <div *ngIf="forms.length > 0">
     <form  *ngFor="let form of forms; let i = index" [formGroup]="form" (ngSubmit)="saveChanges(i)" class="form-card" style="margin-top: 20px;margin-bottom: 20px;">
       <ng-container *ngIf="i==0">
         <div>
           <label>عنوان:</label>
-          <input formControlName="title" [disabled]="true" />
+          <input formControlName="title" />
         </div>
         <div>
           <label>وصف:</label>
-            <editor
-              
-              formControlName="description"
-              apiKey={{apikey}}
-      
-              
-              [init]="init"
-            ></editor>
-          
+            <div class="editor-container">
+              <style>
+                .NgxEditor {
+                width: 100%;
+                height: 100%;
+                }
+            </style>
+              <ngx-editor-menu dir="ltr"  [toolbar]="toolbar" [editor]="editor[i]"> </ngx-editor-menu>
+              <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor[i]" formControlName="description" ></ngx-editor>
+            </div>
         </div>
       </ng-container>
       <ng-container *ngIf="i>0">
         <div>
           <label>عنوان:</label>
-          <input formControlName="title" [disabled]="true" />
+          <input formControlName="title"  />
         </div>
         <div>
           <label>وصف:</label>
-            <editor
-              
-              formControlName="description"
-              apiKey={{apikey}}
-      
-              
-              [init]="init"
-            ></editor>
-          
+            <div class="editor-container">
+              <ngx-editor-menu dir="ltr"  [toolbar]="toolbar" [editor]="editor[i]"> </ngx-editor-menu>
+              <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor[i]" formControlName="description" ></ngx-editor>
+            </div>
         </div>
         <div *ngIf="form.get('image')?.value" >
           <label>صوره:</label>
@@ -62,15 +61,10 @@
         </div>
         <div>
           <label>وصف اكثر:</label>
-            <editor
-              
-              formControlName="fullDescription"
-              apiKey={{apikey}}
-      
-              
-              [init]="init"
-            ></editor>
-          
+            <div class="editor-container">
+              <ngx-editor-menu dir="ltr"  [toolbar]="toolbar" [editor]="editor[editor.length-i]"> </ngx-editor-menu>
+              <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor[editor.length-i]" formControlName="fullDescription" ></ngx-editor>
+            </div>
         </div>
         
       </ng-container>
@@ -78,7 +72,7 @@
      
       <div style="width: 100%;display: flex;justify-content: center;align-items: center;">
         <button [disabled]="form.invalid" type="submit" style="margin-left:auto ;margin-right: auto;">تعديل</button>
-        <a class="btn btn-success" [routerLink]="['PageSection']" style="margin-left:auto ;margin-right: auto;height: min-content;">تعديل صفحه لماذا قنديل</a>
+        <a *ngIf="i==0" class="btn btn-success" [routerLink]="['PageSection']" style="margin-left:auto ;margin-right: auto;height: min-content;">تعديل صفحه لماذا قنديل</a>
 
       </div>
     </form>
