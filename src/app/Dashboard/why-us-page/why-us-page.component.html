@@ -1,0 +1,33 @@
+<div class="container">
+ 
+  <div *ngIf="forms.length > 0">
+    <form  *ngFor="let form of forms; let i = index" [formGroup]="form" (ngSubmit)="saveChanges(i)" class="form-card" style="margin-top: 20px;margin-bottom: 20px;">
+      <ng-container>
+        <div *ngIf="form.get('image')?.value" >
+          <label>صوره:</label>
+          <app-image-upload  nameImage="{{form.get('image')?.value}}" 
+          Url="{{apiUrl+'/PageSection/'+form.get('image')?.value}}"  
+            (imageSelected)="onImageChange($event,i)" ></app-image-upload> 
+        </div>
+        <div>
+          <label>وصف:</label>
+            <editor
+              
+              formControlName="title"
+              apiKey={{apikey}}
+      
+              
+              [init]="init"
+            ></editor>
+          
+        </div>
+      </ng-container>
+      
+     
+      <div style="width: 100%;display: flex;justify-content: center;">
+        <button [disabled]="form.invalid" type="submit" style="margin-left:auto ;margin-right: auto;">تعديل</button>
+      </div>
+    </form>
+  </div>
+  
+</div>

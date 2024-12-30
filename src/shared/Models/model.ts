@@ -360,3 +360,9 @@ export interface CoverImage {
   imageType: string;
   pageName: string;
 }
+export interface PageSection{
+  id:number;
+  text:string;
+  imageUrl:string;
+  imageFile:File;
+}

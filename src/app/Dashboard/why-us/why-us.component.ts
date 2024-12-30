@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { ToastService } from '../../../shared/Services/toast.service';
 import { Subscription } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-why-us',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule, EditorComponent, ImageUploadComponent],
+  imports: [RouterLink,ReactiveFormsModule,CommonModule, EditorComponent, ImageUploadComponent],
   templateUrl: './why-us.component.html',
   styleUrl: './why-us.component.css'
 })

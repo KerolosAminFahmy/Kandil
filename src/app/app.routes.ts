@@ -45,6 +45,7 @@ import { CoverImageComponent } from './Dashboard/cover-image/cover-image.compone
 import { PaidCityComponent } from './paid-city/paid-city.component';
 import { PaidAreaComponent } from './paid-area/paid-area.component';
 import { PaidProjectComponent } from './paid-project/paid-project.component';
+import { WhyUsPageComponent } from './Dashboard/why-us-page/why-us-page.component';
 
 export const routes: Routes = [
   
@@ -57,6 +58,7 @@ export const routes: Routes = [
       { path: 'Login', loadComponent: () =>
         import('./Dashboard/login/login.component').then((m) => m.LoginComponent)},
       { path: 'Cities', component: CityComponent  ,canActivate: [authGuard]   },
+      { path: 'WhyUs/PageSection', component: WhyUsPageComponent,canActivate:[authGuard] },
       { path: 'WhyUs', component: WhyUsManageComponent  ,canActivate: [authGuard]   },
       { path: 'Slider', component: SliderManageComponent  ,canActivate: [authGuard]   },
       { path: 'ContactManage', component: ContactManageComponent  ,canActivate: [authGuard]   },
@@ -69,7 +71,7 @@ export const routes: Routes = [
       { path: 'MediaCategory/:MediaCategoryId/edit/:mediaId' , component:EditMediaComponent,canActivate: [authGuard]},
       { path: 'MediaCategory/:MediaCategoryId/add' , component:AddMediaComponent,canActivate: [authGuard]},
       { path: 'MediaCategory/:MediaCategoryId' , component:MediaComponent,canActivate: [authGuard]},
-      { path: 'coverimage' , component: CoverImageComponent  },
+      { path: 'coverimage' , component: CoverImageComponent , canActivate:[authGuard]  },
       { path: 'MediaCategory' , component:MediaCategoriesComponent,canActivate: [authGuard]},
       { path: 'allarea', component: AreaComponent , canActivate: [authGuard] },
       { path: "FinishCategory" , component:FinishCategoryManageComponent , canActivate: [authGuard]},

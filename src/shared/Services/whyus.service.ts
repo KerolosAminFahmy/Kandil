@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class WhyusService {
-  //private apiUrl = 'https://localhost:7289/api/WhyUs';
   private apiUrl =  environment.apiUrl+'/WhyUs';
 
   constructor(private http: HttpClient) {}
