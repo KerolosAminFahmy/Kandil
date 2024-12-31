@@ -2,45 +2,41 @@ import { Component } from '@angular/core';
 import { MediaDTO } from '../../../../../shared/Models/model';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MediaService } from '../../../../../shared/Services/media.service';
-import { EditorComponent } from '@tinymce/tinymce-angular';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-add-media',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,EditorComponent],
+  imports: [ReactiveFormsModule,CommonModule,NgxEditorModule],
   templateUrl: './add-media.component.html',
   styleUrl: './add-media.component.css'
 })
 export class AddMediaComponent {
-  init: EditorComponent['init'] = {
-    plugins: [
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-
-    ],
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
-    exportword_converter_options: { 'document': { 'size': 'Letter' } },
-    importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
-  };
+  editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
   mediaForm!: FormGroup;
   selectedImage: File | null = null;
   MediaCategoryId:number=0;
-  apikey:string=environment.apiKey;
 
   constructor(
     private fb: FormBuilder,
     private mediaService: MediaService,
     private route:ActivatedRoute
-  ) {}
+  ) {
+    this.editor=new Editor()
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -89,5 +85,8 @@ export class AddMediaComponent {
     } else {
       console.error('Form is invalid');
     }
+  }
+  ngOnDestroy(): void {
+    this.editor.destroy()
   }
 }

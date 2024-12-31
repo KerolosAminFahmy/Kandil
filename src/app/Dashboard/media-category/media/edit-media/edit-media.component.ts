@@ -1,44 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EditorComponent } from '@tinymce/tinymce-angular';
 import { MediaService } from '../../../../../shared/Services/media.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaDTO, MediaImage } from '../../../../../shared/Models/model';
+import { MediaDTO } from '../../../../../shared/Models/model';
 import { ImageUploadComponent } from '../../../../../shared/image-upload/image-upload.component';
 import { environment } from '../../../../../environments/environment';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-edit-media',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,EditorComponent,ImageUploadComponent],
+  imports: [ReactiveFormsModule,CommonModule,NgxEditorModule,ImageUploadComponent],
   templateUrl: './edit-media.component.html',
   styleUrl: './edit-media.component.css'
 })
 export class EditMediaComponent {
-  init: EditorComponent['init'] = {
-    plugins: [
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-
-    ],
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
-    exportword_converter_options: { 'document': { 'size': 'Letter' } },
-    importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
-  };
+  editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
   isInitForm:boolean=false;
   mediaForm!: FormGroup;
   selectedImage: File | null = null;
   previewImage: string | null = null;
   previewNameImage: string | undefined = "";
   mediaId!: number;
-  apikey:string=environment.apiKey;
   ImagesIdRemoved:Array<number>=[];
   apiUrl:string=`${environment.apiUrl}/Media/GetImage/`;
   isFormInit:boolean=false;
@@ -47,7 +41,9 @@ export class EditMediaComponent {
     private mediaService: MediaService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.editor=new Editor();
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -146,5 +142,8 @@ export class EditMediaComponent {
     } else {
       console.error('Form is invalid');
     }
+  }
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 }

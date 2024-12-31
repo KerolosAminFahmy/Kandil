@@ -4,8 +4,8 @@
     <img [src]="ImageUrl+'Media/'+item.imageName" alt="Image" class="card-image" />
     <h3 class="card-title">{{ item.title}}</h3>
     <div class="card-buttons">
-      <a  class="btn btn-edit" [routerLink]="['edit/',item.id]">Edit</a>
-      <button (click)="onDelete(item.id)" class="btn btn-delete">Delete</button>
+      <a  class="btn btn-edit" [routerLink]="['edit/',item.id]">تعديل</a>
+      <button (click)="onDelete(item.id)" class="btn btn-delete">حذف</button>
     </div>
   </div>
 

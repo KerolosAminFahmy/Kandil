@@ -4,9 +4,9 @@
     <img [src]="ImageUrl+'Media/'+item.imageName" loading="lazy" alt="Image" class="card-image" />
     <h3 class="card-title">{{ item.title}}</h3>
     <div class="card-buttons">
-      <button (click)="onEdit(item.id)" class="btn btn-edit">Edit</button>
-      <a class="btn btn-info"  [routerLink]="['/dashboard/MediaCategory/', item.id]">All Event</a>
-      <button (click)="onDelete(item.id)" class="btn btn-delete">Delete</button>
+      <button (click)="onEdit(item.id)" class="btn btn-edit">تعديل</button>
+      <a class="btn btn-info"  [routerLink]="['/dashboard/MediaCategory/', item.id]">كل الاحداث</a>
+      <button (click)="onDelete(item.id)" class="btn btn-delete">حذف</button>
     </div>
   </div>
 
