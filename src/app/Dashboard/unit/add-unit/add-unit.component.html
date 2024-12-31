@@ -47,19 +47,10 @@
   <!-- Description -->
   <div class="mb-3">
     <label for="description" class="form-label">الوصف</label>
-    <editor
-        
-        formControlName="aboutProject"
-        apiKey={{apikey}}
-
-        [ngClass]="{
-          'is-invalid': unitForm.get('description')?.invalid && unitForm.get('description')?.touched,
-          'is-valid': unitForm.get('description')?.valid && unitForm.get('description')?.touched
-        }"
-        formControlName="description"
-        [init]="init"
-      ></editor>
-    
+      <div class="editor-container">
+        <ngx-editor-menu dir="ltr"  [toolbar]="toolbar" [editor]="editor"> </ngx-editor-menu>
+        <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor" formControlName="aboutProject" ></ngx-editor>
+      </div>
     <div *ngIf="unitForm.get('description')?.invalid && unitForm.get('description')?.touched" class="text-danger">
       <small *ngIf="unitForm.get('description')?.errors?.['required']">هذا الحقل مطلوب</small>
       <small *ngIf="unitForm.get('description')?.errors?.['maxlength']">يجب ألا يزيد عن 1000 حرف</small>

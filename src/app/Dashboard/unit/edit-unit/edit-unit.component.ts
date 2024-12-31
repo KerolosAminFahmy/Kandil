@@ -10,32 +10,27 @@ import { ImageUploadComponent } from '../../../../shared/image-upload/image-uplo
 import { GoogleMapsModule } from '@angular/google-maps';
 import { environment } from '../../../../environments/environment';
 import { Subscription } from 'rxjs';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-edit-unit',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,GoogleMapsModule,EditorComponent,ImageUploadComponent],
+  imports: [CommonModule,ReactiveFormsModule,GoogleMapsModule,ImageUploadComponent,NgxEditorModule],
   templateUrl: './edit-unit.component.html',
   styleUrl: './edit-unit.component.css'
 })
 export class EditUnitComponent {
-  apikey:string=environment.apiKey;
-  init: EditorComponent['init'] = {
-    plugins: [
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-
-    ],
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
-    exportword_converter_options: { 'document': { 'size': 'Letter' } },
-    importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
-  };
+  editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
   private subscriptions: Subscription = new Subscription();
 
   center: google.maps.LatLngLiteral = {
@@ -63,6 +58,7 @@ export class EditUnitComponent {
   ImageUrl:string=environment.apiImage
   apiUrl:string=environment.apiUrl
   constructor(private fb: FormBuilder,private unitService:UnitManageService,private UnitService:UnitManageService , private route :ActivatedRoute) {
+    this.editor=new Editor()
   }
   ngOnInit(): void {
     this.unitForm = this.fb.group({
@@ -263,5 +259,6 @@ export class EditUnitComponent {
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.editor.destroy()
   }
 }

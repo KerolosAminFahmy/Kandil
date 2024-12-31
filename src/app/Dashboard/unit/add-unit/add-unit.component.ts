@@ -9,34 +9,30 @@ import { ActivatedRoute } from '@angular/router';
 import { UnitManageService } from '../../../../shared/Services/unit-manage.service';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { environment } from '../../../../environments/environment';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-add-unit',
   standalone: true,
-  imports: [ReactiveFormsModule, GoogleMapsModule ,CommonModule,EditorComponent],
+  imports: [ReactiveFormsModule, GoogleMapsModule ,CommonModule,NgxEditorModule],
   templateUrl: './add-unit.component.html',
   styleUrl: './add-unit.component.css'
 })
 export class AddUnitComponent {
-  apikey:string=environment.apiKey;
+  editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
   unitForm!: FormGroup;
   projectId:number=0;
-  init: EditorComponent['init'] = {
-    plugins: [
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-
-    ],
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
-    exportword_converter_options: { 'document': { 'size': 'Letter' } },
-    importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
-  };
+  
   mapsUrl: string = '';
 
 
@@ -65,7 +61,9 @@ export class AddUnitComponent {
     this.mapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
   }
  
-  constructor(private fb: FormBuilder,private route : ActivatedRoute,private UnitService:UnitManageService) {}
+  constructor(private fb: FormBuilder,private route : ActivatedRoute,private UnitService:UnitManageService) {
+    this.editor=new Editor();
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -173,5 +171,8 @@ export class AddUnitComponent {
       this.UnitService.AddUnit(NewUnit)
     }
   }
-
+  ngOnDestroy(): void {
+    this.editor.destroy()
+    
+  }
 }

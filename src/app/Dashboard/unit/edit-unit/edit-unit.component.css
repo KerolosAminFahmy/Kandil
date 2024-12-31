@@ -1,0 +1,4 @@
+:host ::ng-deep .NgxEditor {
+  min-height: 300px;
+  width: 100%;
+}
