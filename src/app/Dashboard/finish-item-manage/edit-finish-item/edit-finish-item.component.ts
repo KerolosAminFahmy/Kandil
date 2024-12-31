@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EditorComponent } from '@tinymce/tinymce-angular';
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FinisghItemService } from '../../../../shared/Services/finisgh-item.service';
@@ -10,16 +9,27 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { ImageUploadComponent } from '../../../../shared/image-upload/image-upload.component';
 import { FinishItemDTO } from '../../../../shared/Models/model';
 import { Subscription } from 'rxjs';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-edit-finish-item',
   standalone: true,
-  imports: [ReactiveFormsModule,EditorComponent,CommonModule,GoogleMapsModule,ImageUploadComponent],
+  imports: [ReactiveFormsModule,CommonModule,GoogleMapsModule,NgxEditorModule,ImageUploadComponent],
   templateUrl: './edit-finish-item.component.html',
   styleUrl: './edit-finish-item.component.css'
 })
 export class EditFinishItemComponent {
-  apikey:string=environment.apiKey;
+  editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
   isFormInit:boolean=false;
   ImagesIdRemoved:Array<number>=[];
   isMainImageChange:boolean=false;
@@ -29,22 +39,6 @@ export class EditFinishItemComponent {
   apiUrl:string=environment.apiUrl
   private subscriptions: Subscription = new Subscription();
 
-  init: EditorComponent['init'] = {
-    plugins: [
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-
-    ],
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
-    exportword_converter_options: { 'document': { 'size': 'Letter' } },
-    importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
-  };
   mapsUrl: string = '';
   display: any;
   center: google.maps.LatLngLiteral = {
@@ -55,7 +49,9 @@ export class EditFinishItemComponent {
   markerPosition: google.maps.LatLngLiteral = this.center;
   constructor(private fb: FormBuilder,private route : ActivatedRoute,
     private ServiceFinish:FinisghItemService,private router:Router,
-    private Massege:ToastService){}
+    private Massege:ToastService){
+      this.editor=new Editor();
+    }
   ngOnInit(): void {
     const paramSub = this.route.params.subscribe(params => {
       this.finishCategoryId = +params['FinishCategory'] 
@@ -176,5 +172,6 @@ export class EditFinishItemComponent {
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.editor.destroy();
   }
 }

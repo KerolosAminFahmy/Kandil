@@ -128,3 +128,7 @@
   border-radius: 4px;
   cursor: pointer;
 }
+:host ::ng-deep .NgxEditor {
+  min-height: 300px;
+  width: 100%;
+}
