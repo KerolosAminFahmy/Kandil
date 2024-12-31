@@ -7,3 +7,7 @@ flex-direction: column;
 ::ng-deep ngx-extended-pdf-viewer {
   direction: ltr !important;
 }
+:host ::ng-deep .NgxEditor {
+  min-height: 300px;
+  width: 100%;
+}

@@ -12,13 +12,10 @@
     </div>
     <div class="mb-3">
       <label for="aboutProject" class="form-label">عن المشروع</label>
-      <editor
-        
-      formControlName="aboutProject"
-        apiKey={{apikey}}
-
-        [init]="init"
-      ></editor>
+      <div class="editor-container">
+        <ngx-editor-menu dir="ltr"  [toolbar]="toolbar" [editor]="editor"> </ngx-editor-menu>
+        <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor" formControlName="aboutProject" ></ngx-editor>
+      </div>
       <div 
         *ngIf="projectForm.get('aboutProject')?.invalid && projectForm.get('aboutProject')?.touched" 
         class="text-danger">

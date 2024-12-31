@@ -1,25 +1,34 @@
-import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
-import { EditorComponent } from '@tinymce/tinymce-angular';
+import { Component} from '@angular/core';
 import { ProjectService } from '../../../../shared/Services/project.service';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Element } from '@angular/compiler';
 import { ImageUploadComponent } from "../../../../shared/image-upload/image-upload.component";
-import { AdvantageProject, AdvantageUpdateProject, LocationProject, ProjectUpdateDto } from '../../../../shared/Models/model';
+import { AdvantageUpdateProject, LocationProject, ProjectUpdateDto } from '../../../../shared/Models/model';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { environment } from '../../../../environments/environment';
 import { Subscription } from 'rxjs';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-edit-project',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, EditorComponent, ImageUploadComponent,NgxExtendedPdfViewerModule],
+  imports: [ReactiveFormsModule, CommonModule,NgxEditorModule, ImageUploadComponent,NgxExtendedPdfViewerModule],
   templateUrl: './edit-project.component.html',
   styleUrl: './edit-project.component.css'
 })
 export class EditProjectComponent {
-  apikey:string=environment.apiKey;
+  editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
   projectForm: FormGroup;
   maxLocations = 3;
   areaId:number=0;
@@ -35,22 +44,6 @@ export class EditProjectComponent {
   private subscriptions: Subscription = new Subscription();
 
   PdfUrl:string="";
-  init: EditorComponent['init'] = {
-    plugins: [
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-
-    ],
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
-    exportword_converter_options: { 'document': { 'size': 'Letter' } },
-    importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
-  };
   ImageUrl:string=environment.apiImage
   apiUrl:string=environment.apiUrl
 
@@ -66,6 +59,7 @@ export class EditProjectComponent {
       locationProjects: this.fb.array([]),
       imageSlider : this.fb.array([])
     });
+    this.editor=new Editor();
   }
   ngOnInit(): void {
     const paramSub = this.route.params.subscribe(params => {
@@ -277,5 +271,6 @@ export class EditProjectComponent {
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.editor.destroy();
   }
 }
