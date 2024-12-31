@@ -49,7 +49,7 @@
     <label for="description" class="form-label">الوصف</label>
       <div class="editor-container">
         <ngx-editor-menu dir="ltr"  [toolbar]="toolbar" [editor]="editor"> </ngx-editor-menu>
-        <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor" formControlName="aboutProject" ></ngx-editor>
+        <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor" formControlName="description" ></ngx-editor>
       </div>
     <div *ngIf="unitForm.get('description')?.invalid && unitForm.get('description')?.touched" class="text-danger">
       <small *ngIf="unitForm.get('description')?.errors?.['required']">هذا الحقل مطلوب</small>
