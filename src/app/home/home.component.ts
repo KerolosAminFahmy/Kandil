@@ -135,14 +135,14 @@ export class HomeComponent implements AfterViewInit  {
       });
   
       this.observeSection(this.aboutUsSection, (isVisible) => {
-        if(!this.isAboutUsSectionVisible){
+        if(!this.isAboutUsSectionVisible && isVisible){
           const Sub1 =  this.WhyusService.getAll().subscribe((data: any[])=>{
             data.forEach(e => {
               this.whyId.push(e.id)
               this.whyUsItem.push(this.SafeContent(e.description))
             });
             this.isAboutUsSectionVisible = isVisible;
-            if(this.ImageWhyUs[-1]!=='/'){
+            if(isVisible){
               this.ImageWhyUs+=data[0].imageUrl
 
             }
