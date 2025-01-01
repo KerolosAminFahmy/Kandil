@@ -142,8 +142,10 @@ export class HomeComponent implements AfterViewInit  {
               this.whyUsItem.push(this.SafeContent(e.description))
             });
             this.isAboutUsSectionVisible = isVisible;
-  
-            this.ImageWhyUs+=data[0].imageUrl
+            if(this.ImageUrl[-1]!=='/'){
+              this.ImageWhyUs+=data[0].imageUrl
+
+            }
           })
           this.subscriptions.add(Sub1);
         }
