@@ -7,7 +7,14 @@
         placeholder="اسم لوكيشن" 
         formControlName="NameLocation"
         class="form-control mb-3" 
+        [ngClass]="{
+          'is-invalid': unitForm.get('NameLocation')?.invalid &&(unitForm.get('NameLocation')?.touched) ,
+          'is-valid': unitForm.get('NameLocation')?.valid &&(unitForm.get('NameLocation')?.touched)
+        }"
     />
+    <div *ngIf="unitForm.get('NameLocation')?.invalid&&(unitForm.get('NameLocation')?.touched)" class="text-danger">
+      <small *ngIf="unitForm.get('NameLocation')?.errors?.['required']">هذا الحقل مطلوب</small>
+    </div>
     <google-map
         height="450px"
         width="1000px"

@@ -7,7 +7,14 @@
         placeholder="اسم لوكيشن" 
         formControlName="NameLocation"
         class="form-control mb-3" 
+        [ngClass]="{
+          'is-invalid': finishForm.get('name')?.invalid ,
+          'is-valid': finishForm.get('name')?.valid
+        }"
     />
+    <div *ngIf="finishForm.get('NameLocation')?.invalid" class="text-danger">
+      <small *ngIf="finishForm.get('NameLocation')?.errors?.['required']">هذا الحقل مطلوب</small>
+    </div>
     <google-map
         height="450px"
         width="1000px"
@@ -33,12 +40,12 @@
       type="text"
       class="form-control"
       [ngClass]="{
-        'is-invalid': finishForm.get('title')?.invalid && finishForm.get('title')?.touched,
-        'is-valid': finishForm.get('title')?.valid && finishForm.get('title')?.touched
+        'is-invalid': finishForm.get('title')?.invalid,
+        'is-valid': finishForm.get('title')?.valid
       }"
       formControlName="title"
       placeholder="اسم تشطيب"    />
-    <div *ngIf="finishForm.get('title')?.invalid && finishForm.get('title')?.touched" class="text-danger">
+    <div *ngIf="finishForm.get('title')?.invalid" class="text-danger">
       <small *ngIf="finishForm.get('title')?.errors?.['required']">هذا الحقل مطلوب</small>
       <small *ngIf="finishForm.get('title')?.errors?.['maxlength']">يجب ألا يزيد عن 150 حرفًا</small>
     </div>
@@ -51,7 +58,7 @@
         <ngx-editor-menu dir="ltr"  [toolbar]="toolbar" [editor]="editor"> </ngx-editor-menu>
         <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor" formControlName="description" ></ngx-editor>
       </div>
-    <div *ngIf="finishForm.get('description')?.invalid && finishForm.get('description')?.touched" class="text-danger">
+    <div *ngIf="finishForm.get('description')?.invalid" class="text-danger">
       <small *ngIf="finishForm.get('description')?.errors?.['required']">هذا الحقل مطلوب</small>
       <small *ngIf="finishForm.get('description')?.errors?.['maxlength']">يجب ألا يزيد عن 1000 حرف</small>
     </div>
@@ -72,7 +79,7 @@
         (imageSelected)="onFileChange($event,-1)" ></app-image-upload>
     </ng-container>
     
-    <div *ngIf="finishForm.get('image')?.invalid && finishForm.get('image')?.touched" class="text-danger">
+    <div *ngIf="finishForm.get('image')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
     </div>
   </div>
@@ -90,13 +97,13 @@
       type="url"
       class="form-control"
       [ngClass]="{
-        'is-invalid': finishForm.get('videoUrl')?.invalid && finishForm.get('videoUrl')?.touched,
-        'is-valid': finishForm.get('videoUrl')?.valid && finishForm.get('videoUrl')?.touched
+        'is-invalid': finishForm.get('videoUrl')?.invalid,
+        'is-valid': finishForm.get('videoUrl')?.valid
       }"
       formControlName="videoUrl"
       placeholder="أدخل رابط الفيديو"
     />
-    <div *ngIf="finishForm.get('videoUrl')?.invalid && finishForm.get('videoUrl')?.touched" class="text-danger">
+    <div *ngIf="finishForm.get('videoUrl')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
       <small *ngIf="finishForm.get('videoUrl')?.errors?.['pattern']">يجب أن يكون رابط صالح</small>
     </div>

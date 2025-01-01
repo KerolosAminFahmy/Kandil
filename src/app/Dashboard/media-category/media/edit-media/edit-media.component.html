@@ -8,13 +8,13 @@
         type="text"
         class="form-control"
         [ngClass]="{
-          'is-invalid': mediaForm.get('title')?.invalid && mediaForm.get('title')?.touched
+          'is-invalid': mediaForm.get('title')?.invalid
         }"
         formControlName="title"
         placeholder="أدخل عنوان الوسائط"
       />
       <div
-        *ngIf="mediaForm.get('title')?.invalid && mediaForm.get('title')?.touched"
+        *ngIf="mediaForm.get('title')?.invalid"
         class="text-danger"
       >
         <small *ngIf="mediaForm.get('title')?.errors?.['required']">العنوان مطلوب.</small>
@@ -31,7 +31,7 @@
       <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor" formControlName="description" ></ngx-editor>
     </div>
       <div
-        *ngIf="mediaForm.get('description')?.invalid && mediaForm.get('description')?.touched"
+        *ngIf="mediaForm.get('description')?.invalid"
         class="text-danger"
       >
         <small>الوصف مطلوب.</small>
@@ -45,13 +45,13 @@
         type="url"
         class="form-control"
         [ngClass]="{
-          'is-invalid': mediaForm.get('videoUrl')?.invalid && mediaForm.get('videoUrl')?.touched
+          'is-invalid': mediaForm.get('videoUrl')?.invalid
         }"
         formControlName="videoUrl"
         placeholder="أدخل رابط الفيديو"
       />
       <div
-        *ngIf="mediaForm.get('videoUrl')?.invalid && mediaForm.get('videoUrl')?.touched"
+        *ngIf="mediaForm.get('videoUrl')?.invalid"
         class="text-danger"
       >
         <small *ngIf="mediaForm.get('videoUrl')?.errors?.['required']">الرابط مطلوب.</small>
@@ -68,7 +68,7 @@
         formControlName="created"
       />
       <div
-        *ngIf="mediaForm.get('created')?.invalid && mediaForm.get('created')?.touched"
+        *ngIf="mediaForm.get('created')?.invalid"
         class="text-danger"
       >
         <small>تاريخ الإنشاء مطلوب.</small>
@@ -77,12 +77,7 @@
 
     <div class="mb-3">
       <label for="image" class="form-label">تحميل صورة</label>
-      <!-- <input
-        id="image"
-        type="file"
-        class="form-control"
-        (change)="onImageSelected($event)"
-      /> -->
+
       <ng-container *ngIf="isInitForm">
         <app-image-upload  nameImage="{{previewNameImage}}" 
         Url="{{previewImage}}"  
@@ -90,15 +85,7 @@
       </ng-container>
       
       
-      <!-- <div class="mt-2">
-        <img
-          *ngIf="previewImage"
-          [src]="previewImage"
-          alt="الصورة المختارة"
-          class="img-thumbnail"
-          width="200"
-        />
-      </div> -->
+    
     </div>
 
     <div class="mb-3" formArrayName="detailImages">

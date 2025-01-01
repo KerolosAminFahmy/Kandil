@@ -1,6 +1,6 @@
 <!--Start Image And Video For Company And Search Section-->
-<section class="FirstSection"  >
-  <div class="container">
+<section class="FirstSection" #firstSection >
+  <div class="container" *ngIf="isFirstSectionVisible">
     <div class="SearchContianer">
       <h3 class="TitleSearch">دوّر على أي وحدات عندنا</h3>
       <app-dropdown></app-dropdown>
@@ -32,8 +32,8 @@
 </section>
 <!--End Image And Video For Company And Search Section-->
 <!--Start Extra Information About Company Sections-->
-<section class="AboutUsSection">
-  <div class="container">
+<section class="AboutUsSection" #aboutUsSection>
+  <div class="container" *ngIf="isAboutUsSectionVisible">
     <div class="row">
       <div class="col-lg-6 align-self-center">
         <div class="AboutusImage">
@@ -110,8 +110,8 @@
 </section>
 <!--End Extra Information About Company Sections-->
 <!--Start Showing All Project Section -->
-<section class="ProjectArea">
-  <div class="container">
+<section class="ProjectArea" #projectArea>
+  <div class="container" *ngIf="isProjectArea">
     <div class="row">
       <div class="col-lg-12">
         <form action="#">
@@ -235,8 +235,8 @@
 </section>
 <!--End Showing All Project Section -->
 <!--Video-->
-<section class="VideoArea">
-  <div class="container">
+<section class="VideoArea" #VideoArea>
+  <div class="container" *ngIf="isVideoArea">
     <iframe
       class="youtube-video"
       src="https://www.youtube.com/embed/Shk0ovDJsXA?loop=1&amp;controls=1&amp;showinfo=0&amp;autoplay=1&amp;mute=1"
@@ -251,7 +251,7 @@
 </section>
 <!--Video-->
 <!--Counter Animation -->
-<section class="Numbers">
+<section class="Numbers" >
   <div class="container">
     <div class="row">
       <div class="ContainerNumber col-lg-3 col-sm-6 col-12">
@@ -284,8 +284,8 @@
 <!--Counter Animation -->
 <!--Start Showing All Units Section -->
 
-<section class="ProductArea" style="overflow: hidden;">
-  <div class="container">
+<section class="ProductArea" style="overflow: hidden;" #productArea>
+  <div class="container" *ngIf="isProductArea">
     <div class="row">
       <div class="col-lg-12">
         <div class="TitleProductAraa text-center">

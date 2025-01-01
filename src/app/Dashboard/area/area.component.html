@@ -49,8 +49,13 @@
     
     <form [formGroup]="AreaForm" (ngSubmit)="onSubmit()">
       <label for="name">اسم منطقه</label>
-      <input id="name" formControlName="name" type="text" placeholder="ادخل اسم المدينه" />
-
+      <input id="name" formControlName="name" type="text" class="form-control"  [ngClass]="{
+        'is-invalid': AreaForm.get('name')?.invalid &&(isEditMode||AreaForm.get('name')?.touched) ,
+        'is-valid': AreaForm.get('name')?.valid &&(isEditMode||AreaForm.get('name')?.touched)
+      }" placeholder="ادخل اسم المدينه" />
+      <div *ngIf="AreaForm.get('name')?.invalid &&(isEditMode||AreaForm.get('name')?.touched)" class="text-danger">
+        <small *ngIf="AreaForm.get('name')?.errors?.['required']">هذا الحقل مطلوب</small>
+      </div>
       <label for="image">صوره منطقه</label>
       <app-image-upload nameImage="{{NameImage}}" Url="{{UrlEdit}}" (imageSelected)="onImageSelected($event)"></app-image-upload>
       <button type="submit" [disabled]="AreaForm.invalid" class="btn btn-submit">

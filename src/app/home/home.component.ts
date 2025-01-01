@@ -24,6 +24,28 @@ declare var $: any;
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements AfterViewInit  {
+  /* */
+  @ViewChild('firstSection', { static: true }) firstSection!: ElementRef;
+  @ViewChild('aboutUsSection', { static: true }) aboutUsSection!: ElementRef;
+  @ViewChild('projectArea', { static: true }) projectArea!: ElementRef;
+  @ViewChild('VideoArea', { static: true }) VideoArea!: ElementRef;
+  @ViewChild('productArea', { static: true }) productArea!: ElementRef;
+
+  isFirstSectionVisible = false;
+  isAboutUsSectionVisible = false;
+  isProjectArea = false;
+  isVideoArea = false;
+  isProductArea = false;
+  private observeSection(section: ElementRef, callback: (isVisible: boolean) => void): void {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        callback(entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(section.nativeElement);
+  }
+  /* */
   @ViewChild('tri', { static: false }) tri!: ElementRef;
   whyId:Array<number>=[];
   ImageUrl:string=environment.apiImage
@@ -83,34 +105,16 @@ export class HomeComponent implements AfterViewInit  {
   }
   ngOnInit(): void {
     
-    this.SliderService.getSliders();
     const Sub = this.SliderService.sliders$.subscribe((item)=>{
       this.AllSliderItem=item
     })
-    const Sub1 =  this.WhyusService.getAll().subscribe((data: any[])=>{
-      data.forEach(e => {
-        this.whyId.push(e.id)
-        this.whyUsItem.push(this.SafeContent(e.description))
-      });
-      this.ImageWhyUs+=data[0].imageUrl
-    })
-    this.AreaService.fetchArea();
-    const Sub2 = this.AreaService.areas$.subscribe((data)=>{
-      this.AllArea=data
-    })
-    const Sub3 = this.unitService.FetchAllUnitHome().subscribe((data)=>{
-      this.units=data
-      this.units.forEach(e=>{
-        e.imageName=this.ImageUrl+"Units/"+e.imageName
-      })
-    })
+    
+
+    
     const Sub4 = this.FinishCategory.getAllFinishCategories().subscribe((data)=>{
       this.FinishCategoryList=data
     })
     this.subscriptions.add(Sub);
-    this.subscriptions.add(Sub1);
-    this.subscriptions.add(Sub2);
-    this.subscriptions.add(Sub3);
     this.subscriptions.add(Sub4);
 
   }
@@ -121,7 +125,63 @@ export class HomeComponent implements AfterViewInit  {
 
   }
     ngAfterViewInit(): void {
+      this.observeSection(this.firstSection, (isVisible) => {
+        if(!this.isFirstSectionVisible){
+          this.isFirstSectionVisible = isVisible;
+          this.SliderService.getSliders();
+  
+        }
       
+      });
+  
+      this.observeSection(this.aboutUsSection, (isVisible) => {
+        if(!this.isAboutUsSectionVisible){
+          const Sub1 =  this.WhyusService.getAll().subscribe((data: any[])=>{
+            data.forEach(e => {
+              this.whyId.push(e.id)
+              this.whyUsItem.push(this.SafeContent(e.description))
+            });
+            this.isAboutUsSectionVisible = isVisible;
+  
+            this.ImageWhyUs+=data[0].imageUrl
+          })
+          this.subscriptions.add(Sub1);
+        }
+       
+
+      });
+      this.observeSection(this.productArea, (isVisible) => {
+        if(!this.isProductArea){
+          const Sub3 = this.unitService.FetchAllUnitHome().subscribe((data)=>{
+            this.units=data
+            this.isProductArea = isVisible;
+  
+            this.units.forEach(e=>{
+              e.imageName=this.ImageUrl+"Units/"+e.imageName
+            })
+          })
+          this.subscriptions.add(Sub3);
+        }
+       
+      });
+      this.observeSection(this.projectArea, (isVisible) => {
+        if(!this.isProjectArea){
+          this.AreaService.fetchArea();
+          const Sub2 = this.AreaService.areas$.subscribe((data)=>{
+            this.AllArea=data
+            this.isProjectArea = isVisible;
+  
+          })
+          this.subscriptions.add(Sub2);
+        }
+       
+
+      });
+      this.observeSection(this.VideoArea, (isVisible) => {
+        if(!this.isVideoArea)
+        this.isVideoArea = isVisible;
+      });
+  
       setTimeout(()=>{
         $('.slick-slider').slick({
           rtl: true,

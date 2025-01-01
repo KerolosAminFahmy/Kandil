@@ -24,8 +24,21 @@
       
       <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
         <label for="name">اسم المدينه</label>
-        <input id="name" formControlName="name" type="text" placeholder="ادخل اسم المدينه" />
-  
+        <input id="name"
+         formControlName="name"
+         class="form-control" 
+         [ngClass]="{
+          'is-invalid': cityForm.get('name')?.invalid &&(isEditMode||cityForm.get('name')?.touched) ,
+          'is-valid': cityForm.get('name')?.valid &&(isEditMode||cityForm.get('name')?.touched)
+        }"
+         type="text" 
+        placeholder="ادخل اسم المدينه" 
+        
+        
+        />
+        <div *ngIf="cityForm.get('name')?.invalid &&(isEditMode||cityForm.get('name')?.touched)" class="text-danger">
+          <small *ngIf="cityForm.get('name')?.errors?.['required']">هذا الحقل مطلوب</small>
+        </div>
         <label for="image">صوره المدينه</label>
         <app-image-upload nameImage="{{NameImage}}" Url="{{UrlEdit}}" (imageSelected)="onImageSelected($event)"></app-image-upload>
         <button type="submit" [disabled]="cityForm.invalid" class="btn btn-submit">

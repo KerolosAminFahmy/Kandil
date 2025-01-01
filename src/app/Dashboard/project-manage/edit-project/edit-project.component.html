@@ -3,10 +3,10 @@
     <!-- Project Title -->
     <div class="mb-3">
       <label for="title" class="form-label">اسم المشروع</label>
-      <input id="title" type="text" class="form-control" [ngClass]="{'is-invalid':projectForm.get('title')?.invalid && projectForm.get('title')?.touched,
-        'is-valid':projectForm.get('title')?.valid && projectForm.get('title')?.touched,
+      <input id="title" type="text" class="form-control" [ngClass]="{'is-invalid':projectForm.get('title')?.invalid,
+        'is-valid':projectForm.get('title')?.valid ,
       }"  formControlName="title" placeholder="ادخل اسم المشروع" />
-      <div *ngIf="projectForm.get('title')?.invalid && projectForm.get('title')?.touched" class="text-danger">
+      <div *ngIf="projectForm.get('title')?.invalid" class="text-danger">
         {{ projectForm.get('title')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
       </div>
     </div>
@@ -17,7 +17,7 @@
         <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor" formControlName="aboutProject" ></ngx-editor>
       </div>
       <div 
-        *ngIf="projectForm.get('aboutProject')?.invalid && projectForm.get('aboutProject')?.touched" 
+        *ngIf="projectForm.get('aboutProject')?.invalid" 
         class="text-danger">
         {{ projectForm.get('aboutProject')?.errors?.['required'] && 'This field is required' }}
       </div>
@@ -34,16 +34,16 @@
       <!-- <input id="mainImage" #f (change)="onFileChange($event, -1)" type="file" class="form-control" (click)="onclickInputFile(-1)" [ngClass]="{'is-invalid':projectForm.get('mainImage')?.invalid && projectForm.get('mainImage')?.touched,
       'is-valid':projectForm.get('mainImage')?.valid && projectForm.get('mainImage')?.touched,
     }" /> -->
-      <div *ngIf="projectForm.get('mainImage')?.invalid && projectForm.get('mainImage')?.touched" class="text-danger">
+      <div *ngIf="projectForm.get('mainImage')?.invalid" class="text-danger">
         {{ projectForm.get('mainImage')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
       </div>
     </div>
     <div class="mb-3">
       <label for="videoUrl" class="form-label">لينك فيديو يوتيوب للمشروع</label>
-      <input id="videoUrl" type="text" class="form-control" [ngClass]="{'is-invalid':projectForm.get('videoUrl')?.invalid && projectForm.get('videoUrl')?.touched,
-      'is-valid':projectForm.get('videoUrl')?.valid && projectForm.get('videoUrl')?.touched,
+      <input id="videoUrl" type="text" class="form-control" [ngClass]="{'is-invalid':projectForm.get('videoUrl')?.invalid,
+      'is-valid':projectForm.get('videoUrl')?.valid ,
     }" formControlName="videoUrl" placeholder="Enter video URL" />
-      <div *ngIf="projectForm.get('videoUrl')?.invalid && projectForm.get('videoUrl')?.touched" class="text-danger">
+      <div *ngIf="projectForm.get('videoUrl')?.invalid" class="text-danger">
         {{ projectForm.get('videoUrl')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
       </div>
     </div>
@@ -55,10 +55,10 @@
           <div class="d-flex gap-2">
             <!-- Text Input -->
             <div>
-              <input type="text" class="form-control" [ngClass]="{'is-invalid':advantage.get('text')?.invalid && advantage.get('text')?.touched,
-              'is-valid':advantage.get('text')?.valid && advantage.get('text')?.touched,
+              <input type="text" class="form-control" [ngClass]="{'is-invalid':advantage.get('text')?.invalid,
+              'is-valid':advantage.get('text')?.valid,
             }" formControlName="text"  placeholder="اسم ميزه" />
-              <div *ngIf="advantage.get('text')?.invalid && advantage.get('text')?.touched" class="text-danger">
+              <div *ngIf="advantage.get('text')?.invalid" class="text-danger">
                 <div *ngIf="advantage.get('text')?.errors?.['required']">هذا الحقل مطلوب</div>
                 <div *ngIf="advantage.get('text')?.errors?.['maxLength']">لا يمكن أن يكون أكثر من 15 حرفًا</div>
               </div>
@@ -73,7 +73,7 @@
               <!-- <input type="file"  class="form-control" [ngClass]="{'is-invalid':advantage.get('image')?.invalid && advantage.get('image')?.touched,
               'is-valid':advantage.get('image')?.valid && advantage.get('image')?.touched,
             }" (change)="onFileChange($event, i)" (click)="onclickInputFile(i)" /> -->
-              <div *ngIf="advantage.get('image')?.invalid && advantage.get('image')?.touched" class="text-danger">
+              <div *ngIf="advantage.get('image')?.invalid" class="text-danger">
                 <div *ngIf="advantage.get('image')?.errors?.['required']">الصورة مطلوبة</div>
               </div>
             </div>
@@ -97,7 +97,7 @@
           Url="{{projectForm.get('locationImage')?.value==null?'':apiUrl+'/Projects/'+projectForm.get('locationImage')?.value}}"   (imageSelected)="onFileChange($event, -2)" ></app-image-upload>
         </ng-container>
         
-      <div *ngIf="projectForm.get('locationImage')?.invalid && projectForm.get('locationImage')?.touched" class="text-danger">
+      <div *ngIf="projectForm.get('locationImage')?.invalid" class="text-danger">
         {{ projectForm.get('locationImage')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
       </div>
     </div>
@@ -111,10 +111,10 @@
             <!-- Time Input -->
             <div>
               <input type="number" class="form-control" 
-              [ngClass]="{'is-invalid':location.get('time')?.invalid && location.get('time')?.touched,
-              'is-valid':location.get('time')?.valid && location.get('time')?.touched,
+              [ngClass]="{'is-invalid':location.get('time')?.invalid ,
+              'is-valid':location.get('time')?.valid ,
             }" formControlName="time" placeholder="Time in minutes" />
-              <div *ngIf="location.get('time')?.invalid && location.get('time')?.touched" class="text-danger">
+              <div *ngIf="location.get('time')?.invalid " class="text-danger">
                 <div *ngIf="location.get('time')?.errors?.['required']">هذا الحقل مطلوب</div>
                 <div *ngIf="location.get('time')?.errors?.['min']">يجب أن تكون القيمة أكبر من الصفر</div>
               </div>
@@ -122,10 +122,10 @@
 
             <!-- Street Input -->
             <div>
-              <input type="text" class="form-control" [ngClass]="{'is-invalid':location.get('street')?.invalid && location.get('street')?.touched,
-              'is-valid':location.get('street')?.valid && location.get('street')?.touched,
+              <input type="text" class="form-control" [ngClass]="{'is-invalid':location.get('street')?.invalid,
+              'is-valid':location.get('street')?.valid ,
             }" formControlName="street" placeholder="Street name" />
-              <div *ngIf="location.get('street')?.invalid && location.get('street')?.touched" class="text-danger">
+              <div *ngIf="location.get('street')?.invalid" class="text-danger">
                 <div *ngIf="location.get('street')?.errors?.['required']">هذا الحقل مطلوب</div>
                 <div *ngIf="location.get('street')?.errors?.['minLength']">يجب أن يكون الاسم أكثر من 3 أحرف</div>
               </div>
@@ -156,7 +156,7 @@
             </div>
            
            
-              <div *ngIf="imageSlider.get('image')?.invalid && imageSlider.get('image')?.touched" class="text-danger">
+              <div *ngIf="imageSlider.get('image')?.invalid" class="text-danger">
                 <div *ngIf="imageSlider.get('image')?.errors?.['required']">الصورة مطلوبة</div>
               </div>
             </div>

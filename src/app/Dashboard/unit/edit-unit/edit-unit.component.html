@@ -7,7 +7,14 @@
         placeholder="اسم لوكيشن" 
         formControlName="NameLocation"
         class="form-control mb-3" 
+        [ngClass]="{
+          'is-invalid': unitForm.get('NameLocation')?.invalid,
+          'is-valid': unitForm.get('NameLocation')?.valid
+        }"
     />
+    <div *ngIf="unitForm.get('NameLocation')?.invalid" class="text-danger">
+      <small *ngIf="unitForm.get('NameLocation')?.errors?.['required']">هذا الحقل مطلوب</small>
+    </div>
     <google-map
         height="450px"
         width="100%"
@@ -27,12 +34,12 @@
       type="text"
       class="form-control"
       [ngClass]="{
-        'is-invalid': unitForm.get('title')?.invalid && unitForm.get('title')?.touched,
-        'is-valid': unitForm.get('title')?.valid && unitForm.get('title')?.touched
+        'is-invalid': unitForm.get('title')?.invalid,
+        'is-valid': unitForm.get('title')?.valid
       }"
       formControlName="title"
       placeholder="اسم الوحده"    />
-    <div *ngIf="unitForm.get('title')?.invalid && unitForm.get('title')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('title')?.invalid" class="text-danger">
       <small *ngIf="unitForm.get('title')?.errors?.['required']">هذا الحقل مطلوب</small>
       <small *ngIf="unitForm.get('title')?.errors?.['maxlength']">يجب ألا يزيد عن 150 حرفًا</small>
     </div>
@@ -45,7 +52,7 @@
         <ngx-editor-menu dir="ltr"  [toolbar]="toolbar" [editor]="editor"> </ngx-editor-menu>
         <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor" formControlName="description" ></ngx-editor>
       </div>
-    <div *ngIf="unitForm.get('description')?.invalid && unitForm.get('description')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('description')?.invalid " class="text-danger">
       <small *ngIf="unitForm.get('description')?.errors?.['required']">هذا الحقل مطلوب</small>
       <small *ngIf="unitForm.get('description')?.errors?.['maxlength']">يجب ألا يزيد عن 1000 حرف</small>
     </div>
@@ -54,18 +61,12 @@
   <!-- Image -->
   <div class="mb-3">
     <label for="image" class="form-label">الصورة</label>
-    <!-- <input
-      id="image"
-      type="file"
-      class="form-control"
-      (change)="onFileSelect($event, -1)"
-    /> -->
     <ng-container *ngIf="unitForm.get('image')?.value!=='' && isFormInit">
       <app-image-upload  nameImage="{{unitForm.get('image')?.value}}" 
       Url="{{apiUrl+'/Units/'+unitForm.get('image')?.value}}"  
         (imageSelected)="onFileChange($event,-1)" ></app-image-upload>
     </ng-container>
-    <div *ngIf="unitForm.get('image')?.invalid && unitForm.get('image')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('image')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
     </div>
   </div>
@@ -77,8 +78,8 @@
       id="status"
       class="form-control"
       [ngClass]="{
-        'is-invalid': unitForm.get('status')?.invalid && unitForm.get('status')?.touched,
-        'is-valid': unitForm.get('status')?.valid && unitForm.get('status')?.touched
+        'is-invalid': unitForm.get('status')?.invalid ,
+        'is-valid': unitForm.get('status')?.valid
       }"
       formControlName="status"
     >
@@ -86,7 +87,7 @@
       <option value="Available">متاحة</option>
       <option value="Sold">تم بيعها</option>
     </select>
-    <div *ngIf="unitForm.get('status')?.invalid && unitForm.get('status')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('status')?.invalid" class="text-danger">
       <small>الحالة مطلوبة ويجب أن تكون 'متاحة' أو 'تم بيعها'</small>
     </div>
   </div>
@@ -96,8 +97,8 @@
       id="status"
       class="form-control"
       [ngClass]="{
-        'is-invalid': unitForm.get('typePrice')?.invalid && unitForm.get('typePrice')?.touched,
-        'is-valid': unitForm.get('typePrice')?.valid && unitForm.get('typePrice')?.touched
+        'is-invalid': unitForm.get('typePrice')?.invalid ,
+        'is-valid': unitForm.get('typePrice')?.valid 
       }"
       formControlName="typePrice"
     >
@@ -105,7 +106,7 @@
       <option value="Available">مقدم</option>
       <option value="Sold">تقسيط</option>
     </select>
-    <div *ngIf="unitForm.get('typePrice')?.invalid && unitForm.get('typePrice')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('typePrice')?.invalid" class="text-danger">
       <small>الحالة الدفع مطلوبة ويجب أن تكون 'مقدم' أو 'تقسيط'</small>
     </div>
   </div>
@@ -117,13 +118,13 @@
       type="text"
       class="form-control"
       [ngClass]="{
-        'is-invalid': unitForm.get('codeUnit')?.invalid && unitForm.get('codeUnit')?.touched,
-        'is-valid': unitForm.get('codeUnit')?.valid && unitForm.get('codeUnit')?.touched
+        'is-invalid': unitForm.get('codeUnit')?.invalid,
+        'is-valid': unitForm.get('codeUnit')?.valid
       }"
       formControlName="codeUnit"
       placeholder="أدخل رمز الوحدة"
     />
-    <div *ngIf="unitForm.get('codeUnit')?.invalid && unitForm.get('codeUnit')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('codeUnit')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
       <small *ngIf="unitForm.get('codeUnit')?.errors?.['maxlength']">يجب ألا يزيد عن 20 حرفًا</small>
     </div>
@@ -137,13 +138,13 @@
       type="number"
       class="form-control"
       [ngClass]="{
-        'is-invalid': unitForm.get('area')?.invalid && unitForm.get('area')?.touched,
-        'is-valid': unitForm.get('area')?.valid && unitForm.get('area')?.touched
+        'is-invalid': unitForm.get('area')?.invalid,
+        'is-valid': unitForm.get('area')?.valid
       }"
       formControlName="area"
       placeholder="أدخل مساحة الوحدة"
     />
-    <div *ngIf="unitForm.get('area')?.invalid && unitForm.get('area')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('area')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
       <small *ngIf="unitForm.get('area')?.errors?.['min']">يجب أن تكون المساحة أكبر من 0</small>
     </div>
@@ -157,13 +158,13 @@
       type="number"
       class="form-control"
       [ngClass]="{
-        'is-invalid': unitForm.get('numberBathroom')?.invalid && unitForm.get('numberBathroom')?.touched,
-        'is-valid': unitForm.get('numberBathroom')?.valid && unitForm.get('numberBathroom')?.touched
+        'is-invalid': unitForm.get('numberBathroom')?.invalid,
+        'is-valid': unitForm.get('numberBathroom')?.valid
       }"
       formControlName="numberBathroom"
       placeholder="أدخل عدد الحمامات"
     />
-    <div *ngIf="unitForm.get('numberBathroom')?.invalid && unitForm.get('numberBathroom')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('numberBathroom')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
       <small *ngIf="unitForm.get('numberBathroom')?.errors?.['min']">يجب أن يكون أكبر من 0</small>
     </div>
@@ -177,13 +178,13 @@
       type="number"
       class="form-control"
       [ngClass]="{
-        'is-invalid': unitForm.get('numberRoom')?.invalid && unitForm.get('numberRoom')?.touched,
-        'is-valid': unitForm.get('numberRoom')?.valid && unitForm.get('numberRoom')?.touched
+        'is-invalid': unitForm.get('numberRoom')?.invalid,
+        'is-valid': unitForm.get('numberRoom')?.valid
       }"
       formControlName="numberRoom"
       placeholder="أدخل عدد الغرف"
     />
-    <div *ngIf="unitForm.get('numberRoom')?.invalid && unitForm.get('numberRoom')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('numberRoom')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
       <small *ngIf="unitForm.get('numberRoom')?.errors?.['min']">يجب أن يكون أكبر من 0</small>
     </div>
@@ -197,13 +198,13 @@
       type="number"
       class="form-control"
       [ngClass]="{
-        'is-invalid': unitForm.get('yearOfBuild')?.invalid && unitForm.get('yearOfBuild')?.touched,
-        'is-valid': unitForm.get('yearOfBuild')?.valid && unitForm.get('yearOfBuild')?.touched
+        'is-invalid': unitForm.get('yearOfBuild')?.invalid ,
+        'is-valid': unitForm.get('yearOfBuild')?.valid
       }"
       formControlName="yearOfBuild"
       placeholder="أدخل سنة البناء"
     />
-    <div *ngIf="unitForm.get('yearOfBuild')?.invalid && unitForm.get('yearOfBuild')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('yearOfBuild')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
       <small *ngIf="unitForm.get('yearOfBuild')?.errors?.['min']">يجب أن تكون السنة بعد 1800</small>
       <small *ngIf="unitForm.get('yearOfBuild')?.errors?.['max']">يجب أن تكون السنة قبل 2100</small>
@@ -218,13 +219,13 @@
       type="number"
       class="form-control"
       [ngClass]="{
-        'is-invalid': unitForm.get('price')?.invalid && unitForm.get('price')?.touched,
-        'is-valid': unitForm.get('price')?.valid && unitForm.get('price')?.touched
+        'is-invalid': unitForm.get('price')?.invalid,
+        'is-valid': unitForm.get('price')?.valid
       }"
       formControlName="price"
       placeholder="أدخل السعر"
     />
-    <div *ngIf="unitForm.get('price')?.invalid && unitForm.get('price')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('price')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
       <small *ngIf="unitForm.get('price')?.errors?.['min']">يجب أن يكون السعر أكبر من 0</small>
     </div>
@@ -238,13 +239,13 @@
       type="url"
       class="form-control"
       [ngClass]="{
-        'is-invalid': unitForm.get('videoUrl')?.invalid && unitForm.get('videoUrl')?.touched,
-        'is-valid': unitForm.get('videoUrl')?.valid && unitForm.get('videoUrl')?.touched
+        'is-invalid': unitForm.get('videoUrl')?.invalid ,
+        'is-valid': unitForm.get('videoUrl')?.valid
       }"
       formControlName="videoUrl"
       placeholder="أدخل رابط الفيديو"
     />
-    <div *ngIf="unitForm.get('videoUrl')?.invalid && unitForm.get('videoUrl')?.touched" class="text-danger">
+    <div *ngIf="unitForm.get('videoUrl')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
       <small *ngIf="unitForm.get('videoUrl')?.errors?.['pattern']">يجب أن يكون رابط صالح</small>
     </div>
@@ -260,11 +261,11 @@
         formControlName="advantage" 
         placeholder="أدخل ميزة"
         [ngClass]="{
-          'is-invalid': advantage.invalid && advantage.touched,
-          'is-valid': advantage.valid && advantage.touched
+          'is-invalid': advantage.invalid,
+          'is-valid': advantage.valid
         }"
       />
-      <div *ngIf="advantage.invalid && advantage.touched" class="text-danger">
+      <div *ngIf="advantage.invalid" class="text-danger">
         <small>هذا الحقل مطلوب</small>
       </div>
       <button type="button" class="btn btn-danger mt-1" (click)="removeAdvantage(i)">حذف</button>
@@ -282,11 +283,11 @@
         formControlName="service" 
         placeholder="أدخل خدمة"
         [ngClass]="{
-          'is-invalid': service.invalid && service.touched,
-          'is-valid': service.valid && service.touched
+          'is-invalid': service.invalid,
+          'is-valid': service.valid
         }"
       />
-      <div *ngIf="service.invalid && service.touched" class="text-danger">
+      <div *ngIf="service.invalid" class="text-danger">
         <small>هذا الحقل مطلوب</small>
       </div>
       <button type="button" class="btn btn-danger mt-1" (click)="removeService(i)">حذف</button>

@@ -24,8 +24,18 @@
     
     <form [formGroup]="FinishForm" (ngSubmit)="onSubmit()">
       <label for="name">اسم تشطبيات</label>
-      <input id="name" formControlName="title" type="text" placeholder="ادخل اسم المدينه" />
-
+      <input id="name" formControlName="title" type="text"
+       class="form-control" 
+      placeholder="ادخل اسم المدينه" 
+      [ngClass]="{
+        'is-invalid': FinishForm.get('title')?.invalid &&(isEditMode||FinishForm.get('title')?.touched) ,
+        'is-valid': FinishForm.get('title')?.valid &&(isEditMode||FinishForm.get('title')?.touched)
+      }"
+      
+      />
+      <div *ngIf="FinishForm.get('title')?.invalid &&(isEditMode||FinishForm.get('title')?.touched)" class="text-danger">
+        <small *ngIf="FinishForm.get('title')?.errors?.['required']">هذا الحقل مطلوب</small>
+      </div>
       <label for="image">صوره تشطبيات</label>
       <app-image-upload nameImage="{{NameImage}}" Url="{{UrlEdit}}" (imageSelected)="onImageSelected($event)"></app-image-upload>
       <button type="submit" [disabled]="FinishForm.invalid" class="btn btn-submit">
