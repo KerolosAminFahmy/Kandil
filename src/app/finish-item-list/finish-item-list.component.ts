@@ -6,11 +6,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { Subscription } from 'rxjs';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 @Component({
   selector: 'app-finish-item-list',
   standalone: true,
-  imports: [TitleNavigationComponent,CommonModule,RouterLink],
+  imports: [TitleNavigationComponent,CommonModule,RouterLink,PageNotFoundComponent],
   templateUrl: './finish-item-list.component.html',
   styleUrl: './finish-item-list.component.css'
 })

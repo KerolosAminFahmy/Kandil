@@ -64,14 +64,15 @@
         </div>
         </div>
       </div>
-    
+      <app-page-not-found *ngIf="items==[] || items==null || items==undefined || items.length==0"></app-page-not-found>
+
     </div>
   </div>
 </section>
 
 
 
-<div class="AllPreviewProduct">
+<div class="AllPreviewProduct" *ngIf="items.length>0">
 
   <div class="modal fade" data-target="p-1" [ngClass]="isOpen?'show':''">
     <div class="modal-dialog modal-lg" role="document">
