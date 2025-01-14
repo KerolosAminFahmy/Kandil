@@ -175,8 +175,6 @@
                         }
                         
                       </div>
-
-                     
                     </div>
                   </div>
                 </div>
@@ -284,8 +282,8 @@
 <!--Counter Animation -->
 <!--Start Showing All Units Section -->
 
-<section class="ProductArea" style="overflow: hidden;" #productArea>
-  <div class="container" *ngIf="isProductArea">
+<section class="ProductArea" #productArea>
+  <div class="container">
     <div class="row">
       <div class="col-lg-12">
         <div class="TitleProductAraa text-center">
@@ -293,7 +291,7 @@
           <h1 class="section-title">جديد وحدات للبيع</h1>
         </div>
       </div>
-      <div class="slick-slider" style="overflow: hidden;"
+      <div class="slick-slider"
       >
         
       <ng-container *ngFor="let item of units">

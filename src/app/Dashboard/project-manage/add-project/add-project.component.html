@@ -16,15 +16,11 @@
         <ngx-editor-menu dir="ltr"  [toolbar]="toolbar" [editor]="editor"> </ngx-editor-menu>
         <ngx-editor style="display:inline-block;width: 100%;height: 300px;" [editor]="editor" formControlName="aboutProject" ></ngx-editor>
       </div>
-      <div 
-        *ngIf="projectForm.get('aboutProject')?.invalid && projectForm.get('aboutProject')?.touched" 
-        class="text-danger">
-        {{ projectForm.get('aboutProject')?.errors?.['required'] && 'This field is required' }}
-      </div>
     </div>
     <div class="mb-3">
       <label for="mainImage" class="form-label">صوره الاساسيه للمشروع</label>
-      <input id="mainImage" (change)="onFileChange($event, -1)" type="file" class="form-control" (click)="onclickInputFile(-1)" [ngClass]="{'is-invalid':projectForm.get('mainImage')?.invalid && projectForm.get('mainImage')?.touched,
+      <input id="mainImage" (change)="onFileChange($event, -1)" type="file" class="form-control" 
+      (click)="onclickInputFile(-1)" [ngClass]="{'is-invalid':projectForm.get('mainImage')?.invalid && projectForm.get('mainImage')?.touched,
       'is-valid':projectForm.get('mainImage')?.valid && projectForm.get('mainImage')?.touched,
     }" />
       <div *ngIf="projectForm.get('mainImage')?.invalid && projectForm.get('mainImage')?.touched" class="text-danger">
@@ -33,12 +29,9 @@
     </div>
     <div class="mb-3">
       <label for="videoUrl" class="form-label">لينك فيديو يوتيوب للمشروع</label>
-      <input id="videoUrl" type="text" class="form-control" [ngClass]="{'is-invalid':projectForm.get('videoUrl')?.invalid && projectForm.get('videoUrl')?.touched,
-      'is-valid':projectForm.get('videoUrl')?.valid && projectForm.get('videoUrl')?.touched,
-    }" formControlName="videoUrl" placeholder="Enter video URL" />
-      <div *ngIf="projectForm.get('videoUrl')?.invalid && projectForm.get('videoUrl')?.touched" class="text-danger">
-        {{ projectForm.get('videoUrl')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
-      </div>
+      <input id="videoUrl" type="text" class="form-control" formControlName="videoUrl" 
+      placeholder="Enter video URL" />
+    
     </div>
     <!-- Advantage Projects -->
     <div class="mb-3">
@@ -143,12 +136,8 @@
     </div>
 
     <div class="mb-3">
-      <input type="file" class="form-control" (change)="onFileSelected($event)" accept="application/pdf"  [ngClass]="{'is-invalid':projectForm.get('pdfFile')?.invalid,
-            'is-valid':projectForm.get('pdfFile')?.valid,
-          }" />
-      <div *ngIf="projectForm.get('pdfFile')?.invalid"  class="text-danger">
-        {{ projectForm.get('pdfFile')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
-      </div>
+      <input type="file" class="form-control" (change)="onFileSelected($event)" accept="application/pdf"  />
+     
      
     </div>
     <!-- Submit Button -->

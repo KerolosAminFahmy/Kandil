@@ -113,7 +113,10 @@ formData.append('videoUrl', ProjectRecord.videoUrl);
 formData.append('areaId', ProjectRecord.areaId.toString());
 
 formData.append('mainImage', ProjectRecord.mainImage as Blob);
-formData.append('pdfFile', ProjectRecord.pdfFile as Blob);
+if(ProjectRecord.pdfFile != null){
+  formData.append('pdfFile', ProjectRecord.pdfFile as Blob);
+
+}
 formData.append('locationImage', ProjectRecord.locationImage as Blob);
 
 

@@ -156,7 +156,7 @@ export class HomeComponent implements AfterViewInit  {
         if(!this.isProductArea){
           const Sub3 = this.unitService.FetchAllUnitHome().subscribe((data)=>{
             this.units=data
-            this.isProductArea = isVisible;
+            this.isProductArea = true;
   
             this.units.forEach(e=>{
               e.imageName=this.ImageUrl+"Units/"+e.imageName
@@ -191,8 +191,8 @@ export class HomeComponent implements AfterViewInit  {
           slidesToShow:3,       
           slidesToScroll: 1,     
           autoplay: false,        
-          autoplaySpeed: 5000,   
-          arrows: false,          
+          autoplaySpeed: 1000,   
+          arrows: true,          
           dots: true , 
           lazyLoad: 'ondemand', 
           prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="display: flex;align-content: center;justify-content: center;align-items: center;"></button>' ,         

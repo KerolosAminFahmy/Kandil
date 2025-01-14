@@ -41,11 +41,11 @@ export class AddProjectComponent {
     this.projectForm = this.fb.group({
       title: ['', [Validators.required]],
       mainImage: [null, [Validators.required]],
-      pdfFile: [null, [Validators.required]],
-      videoUrl: ['', [Validators.required]],
-      aboutProject: ['', Validators.required],
+      pdfFile: [null],
+      videoUrl: [''],
+      aboutProject: [''],
       advantageProjects: this.fb.array([]),
-      locationImage : [null ,[Validators.required]],
+      locationImage : [null],
       locationProjects: this.fb.array([]),
       imageSlider : this.fb.array([])
     });
