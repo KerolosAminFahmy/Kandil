@@ -10,7 +10,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const Massege = inject(ToastService) 
   
   
-  const token = authService.isLogin(); // Or check your auth service
+  const token = authService.isLogin();
   if (token) {
         return true;
   } else {
@@ -20,7 +20,7 @@ export const authGuard: CanActivateFn = (route, state) => {
       'warn',
       'غير مصرح به',
      'يجب عليك تسجيل الدخول للوصول إلى هذا المورد.',
-     6000
+     2000
      );
     return false;
   }

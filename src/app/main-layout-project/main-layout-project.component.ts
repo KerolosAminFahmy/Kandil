@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component,Renderer2  } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { LoadingPageComponent } from '../loading-page/loading-page.component';
 
 @Component({
   selector: 'app-main-layout-project',
   standalone: true,
-  imports: [HeaderComponent,RouterOutlet,FooterComponent,CommonModule],
+  imports: [HeaderComponent,RouterOutlet,FooterComponent,CommonModule,LoadingPageComponent],
   templateUrl: './main-layout-project.component.html',
   styleUrl: './main-layout-project.component.css'
 })
@@ -19,17 +20,22 @@ toggle() {
   customClass: string = '';
   openSocial : boolean =false;
   constructor(private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private renderer: Renderer2) {
   
  }
-
+ loadPaceJs(): void {
+  const script = this.renderer.createElement('script');
+  script.src = 'assets/pace-js/pace.min.js';
+  this.renderer.appendChild(document.body, script);
+}
  ngOnInit(): void {
   this.router.events
   .pipe(filter(event => event instanceof NavigationEnd))
   .subscribe(() => {
     this.updateHeaderData();
   });
-
+  this.loadPaceJs()
 this.updateHeaderData();
   
  }

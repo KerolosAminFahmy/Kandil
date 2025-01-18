@@ -10,6 +10,7 @@ export class AuthService {
 
   //private baseUrl = "https://kandil.runasp.net/";
   private baseUrl = environment.authApi;
+  private base = environment.apiUrl+"/UsersAuth/"; 
   private tokenKey = 'authToken';
   private refreshTokenKey = 'refreshToken';
   private isLoginvar=false;
@@ -30,12 +31,10 @@ export class AuthService {
   }
   login(username: string, password: string): Observable<{ accessToken: string,refreshToken:string }> {
     const payload = {
-      email: username,
+      userName: username,
       password: password,
-      twoFactorCode:null, 
-      twoFactorRecoveryCode: null 
     };
-    return this.http.post<{ accessToken: string,refreshToken:string }>(`${this.baseUrl}login`, payload, {
+    return this.http.post<{ accessToken: string,refreshToken:string }>(`${this.base}login`, payload, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
@@ -56,8 +55,10 @@ export class AuthService {
   // Refresh access token
   refreshAccessToken(): Observable<{ accessToken: string,refreshToken:string }> {
     const refreshToken = this.getRefreshToken();
-    return this.http.post<{ accessToken: string,refreshToken:string }>(`${this.baseUrl}refresh`, {
+    const accessToken = this.getAccessToken();
+    return this.http.post<{ accessToken: string,refreshToken:string }>(`${this.base}refresh`, {
       refreshToken:refreshToken,
+      accessToken:accessToken
     });
   }
 }

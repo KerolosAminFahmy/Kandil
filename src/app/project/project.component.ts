@@ -32,6 +32,7 @@ export class ProjectComponent {
   ngOnInit(): void {
   
     const paramSub = this.route.params.subscribe(params => {
+      this.breadcrumbs=[]
       this.areaId= +params['projectId'];
       this.projectId= +params['categoryId'];
       const Sub = this.projectService.GetAllProjectByArea(this.areaId).subscribe((data)=>{
@@ -60,5 +61,6 @@ export class ProjectComponent {
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    
   }
 }

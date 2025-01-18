@@ -49,14 +49,14 @@ import { WhyUsPageComponent } from './Dashboard/why-us-page/why-us-page.componen
 
 export const routes: Routes = [
   
-  
+  { path: 'dashboard/Login', component: LoginComponent},
   {
     path: 'dashboard',
     component: MainLayoutComponent,
     children: [
       { path: '', redirectTo:"Cities" , pathMatch:"full" },
-      { path: 'Login', loadComponent: () =>
-        import('./Dashboard/login/login.component').then((m) => m.LoginComponent)},
+      // { path: 'Login', loadComponent: () =>
+      //   import('./Dashboard/login/login.component').then((m) => m.LoginComponent)},
       { path: 'Cities', component: CityComponent  ,canActivate: [authGuard]   },
       { path: 'WhyUs/PageSection', component: WhyUsPageComponent,canActivate:[authGuard] },
       { path: 'WhyUs', component: WhyUsManageComponent  ,canActivate: [authGuard]   },
