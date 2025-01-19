@@ -7,104 +7,106 @@
 </style>
 <div class="container-dashboard">
   <div class="navigation" [ngClass]="{ 'active': isMenuActive }">
-      <ul>
-          <li>
-              <a href="#" >
-                  <span class="icon">
-                      <img src="../../../assets/Images/k1.png" loading="lazy" width="60px" height="45" alt="Logo Kandil Company">
-                  </span>
-                  <!-- <span class="title" style="font-size: 30px;margin-top: 10px;">قنديل</span> -->
-              </a>
-          </li>
-
-
-
-          <li routerLinkActive="hovered" >
-              <a routerLink="/dashboard/Cities" >
-                  <span class="icon">
-                      <ion-icon name="people-outline"></ion-icon>
-                  </span>
-                  <span class="title">المدن</span>
-              </a>
-          </li>
-
-          <li routerLinkActive="hovered" >
-              <a routerLink="/dashboard/allarea" >
-                  <span class="icon">
-                      <ion-icon name="chatbubble-outline"></ion-icon>
-                  </span>
-                  <span class="title">المنطقه</span>
-              </a>
-          </li>
-
-          <li routerLinkActive="hovered" >
-              <a routerLink="/dashboard/Projects" >
-                  <span class="icon">
-                      <ion-icon name="help-outline"></ion-icon>
-                  </span>
-                  <span class="title">مشاريع</span>
-              </a>
-          </li>
-
-          <li routerLinkActive="hovered" >
-              <a routerLink="/dashboard/MediaCategory" >
-                  <span class="icon">
-                      <ion-icon name="settings-outline"></ion-icon>
-                  </span>
-                  <span class="title">مركز الاعلامي</span>
-              </a>
-          </li>
-
-          <li>
-              <a routerLink="WhyUs">
-                  <span class="icon">
-                      <ion-icon name="lock-closed-outline"></ion-icon>
-                  </span>
-                  <span class="title">تعديل لماذا قنديل</span>
-              </a>
-          </li>
-          <li>
-            <a routerLink="ContactManage">
-                <span class="icon">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                </span>
-                <span class="title">عرض رسائل</span>
-            </a>
-        </li>
-        <li routerLinkActive="hovered" >
-            <a routerLink="/dashboard/Slider" >
-                <span class="icon">
-                    <ion-icon name="chatbubble-outline"></ion-icon>
-                </span>
-                <span class="title">تحكم في سلايدر</span>
-            </a>
-        </li>
-        <li routerLinkActive="hovered" >
-            <a routerLink="/dashboard/coverimage" >
-                <span class="icon">
-                    <ion-icon name="settings-outline"></ion-icon>
-                </span>
-                <span class="title">تحكم في كفر صفحات</span>
-            </a>
-        </li>
-
+    <ul>
         <li>
-            <a routerLink="FinishCategory">
-                <span class="icon">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                </span>
-                <span class="title"> تشطبيات</span>
-            </a>
+          <a href="#">
+            <span class="icon">
+              <img src="../../../assets/Images/k1.png" loading="lazy" width="60px" height="45" alt="Logo Kandil Company">
+            </span>
+          </a>
         </li>
-          <li>
-              <a href="#" (click)="Signout()">
-                  <span class="icon">
-                      <ion-icon name="log-out-outline"></ion-icon>
-                  </span>
-                  <span class="title">تسجيل خروج</span>
-              </a>
-          </li>
+      
+        <li routerLinkActive="hovered">
+          <a routerLink="/dashboard/Cities">
+            <span class="icon">
+              <ion-icon name="business-outline"></ion-icon> <!-- Represents cities/locations -->
+            </span>
+            <span class="title">المدن</span>
+          </a>
+        </li>
+      
+        <li routerLinkActive="hovered">
+          <a routerLink="/dashboard/allarea">
+            <span class="icon">
+              <ion-icon name="map-outline"></ion-icon> <!-- Represents areas/regions -->
+            </span>
+            <span class="title">المنطقه</span>
+          </a>
+        </li>
+      
+        <li routerLinkActive="hovered">
+          <a routerLink="/dashboard/Projects">
+            <span class="icon">
+              <ion-icon name="construct-outline"></ion-icon> <!-- Represents construction/projects -->
+            </span>
+            <span class="title">مشاريع</span>
+          </a>
+        </li>
+      
+        <li routerLinkActive="hovered">
+          <a routerLink="/dashboard/MediaCategory">
+            <span class="icon">
+              <ion-icon name="image-outline"></ion-icon> <!-- Represents media center/images -->
+            </span>
+            <span class="title">مركز الاعلامي</span>
+          </a>
+        </li>
+      
+        <li>
+          <a routerLink="WhyUs">
+            <span class="icon">
+              <ion-icon name="information-circle-outline"></ion-icon> <!-- Represents information/why choose us -->
+            </span>
+            <span class="title">تعديل لماذا قنديل</span>
+          </a>
+        </li>
+      
+        <li>
+          <a routerLink="ContactManage">
+            <span class="icon">
+              <ion-icon name="mail-outline"></ion-icon> <!-- Represents contact/messages -->
+            </span>
+            <span class="title">عرض رسائل</span>
+          </a>
+        </li>
+      
+        <li routerLinkActive="hovered">
+          <a routerLink="/dashboard/Slider">
+            <span class="icon">
+              <ion-icon name="images-outline"></ion-icon> <!-- Represents slider/visual control -->
+            </span>
+            <span class="title">تحكم في سلايدر</span>
+          </a>
+        </li>
+      
+        <li routerLinkActive="hovered">
+          <a routerLink="/dashboard/coverimage">
+            <span class="icon">
+              <ion-icon name="brush-outline"></ion-icon> <!-- Represents design/cover images -->
+            </span>
+            <span class="title">تحكم في كفر صفحات</span>
+          </a>
+        </li>
+      
+        <li>
+          <a routerLink="FinishCategory">
+            <span class="icon">
+              <ion-icon name="home-outline"></ion-icon> <!-- Represents finishing/home details -->
+            </span>
+            <span class="title">تشطبيات</span>
+          </a>
+        </li>
+      
+        <li>
+          <a href="#" (click)="Signout()">
+            <span class="icon">
+              <ion-icon name="log-out-outline"></ion-icon> <!-- Represents logout -->
+            </span>
+            <span class="title">تسجيل خروج</span>
+          </a>
+        </li>
       </ul>
+      
   </div>
 
   <!-- ========================= Main ==================== -->
