@@ -27,6 +27,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.toast.MassegeToast.subscribe((data)=>{
+      if(data!=null)
       this.messageService.add({ severity: data.severity, summary: data.summary, detail: data.detail ,life: data.life  });
         
     })

@@ -71,12 +71,13 @@ export class DropdownComponent {
         this.arrTemp=[]
       });
     })
-    const sub =  this.msg.MassegeToast.subscribe((data)=>{
-      this.messageService.add({ severity: data.severity, summary: data.summary, detail: data.detail ,life: 4000  });
+    // const sub =  this.msg.MassegeToast.subscribe((data)=>{
+    //   if(data!=null)
+    //   this.messageService.add({ severity: data.severity, summary: data.summary, detail: data.detail ,life: 4000  });
 
-    })
+    // })
     this.subscriptions.add(Sub);
-    this.subscriptions.add(sub);
+    //this.subscriptions.add(sub);
 
   }
   ToggleShow( dropdownIndex: number ){
@@ -128,7 +129,7 @@ export class DropdownComponent {
   }
   showChosenOptions(){
     if(this.SelectedCityId == 0 || this.SelectedAreaId == 0){
-      this.msg.showMessage("warning","تحذير","يجب اختيار كل الاختيارات لاجل بحث فعال")
+      this.msg.showMessage("warn","تحذير","يجب اختيار كل الاختيارات لاجل بحث فعال",1500)
       return
     }
     this.router.navigate([`search/${this.SelectedCityId}/project/${this.SelectedAreaId}`])

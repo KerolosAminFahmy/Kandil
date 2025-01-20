@@ -31,11 +31,11 @@ export class CallUsComponent {
   }
 
   ngOnInit(): void {
-    const sub =  this.msg.MassegeToast.subscribe((data)=>{
-      this.messageService.add({ severity: data.severity, summary: data.summary, detail: data.detail ,life: 4000  });
+    // const sub =  this.msg.MassegeToast.subscribe((data)=>{
+    //   this.messageService.add({ severity: data.severity, summary: data.summary, detail: data.detail ,life: 4000  });
 
-    })
-    this.subscriptions.add(sub);
+    // })
+    // this.subscriptions.add(sub);
 
   }
 
