@@ -45,7 +45,6 @@ export class ProjectComponent {
         {name:"اقسام المشاريع",url:"/projectcategory"}
       )
       this.projectService.getById(this.projectId).subscribe(data=>{
-        this.Title = data.message
         this.breadcrumbs.push(
           {name:data.message,url:"/projectcategory/"+this.projectId.toString()}
         )
