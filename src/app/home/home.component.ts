@@ -14,19 +14,19 @@ import { FinishCategoryService } from '../../shared/Services/finish-category.ser
 import { WhyusService } from '../../shared/Services/whyus.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { LoadingPageComponent } from '../loading-page/loading-page.component';
 declare var $: any;
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [DropdownComponent, UnitComponent,CommonModule,IncreaseNumberDirective,RouterLink],
+  imports: [DropdownComponent, UnitComponent,CommonModule,IncreaseNumberDirective,RouterLink,LoadingPageComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements AfterViewInit  {
   /* */
   @ViewChild('firstSection', { static: true }) firstSection!: ElementRef;
-  @ViewChild('aboutUsSection', { static: true }) aboutUsSection!: ElementRef;
   @ViewChild('projectArea', { static: true }) projectArea!: ElementRef;
   @ViewChild('VideoArea', { static: true }) VideoArea!: ElementRef;
   @ViewChild('productArea', { static: true }) productArea!: ElementRef;
@@ -104,7 +104,6 @@ export class HomeComponent implements AfterViewInit  {
 
   }
   ngOnInit(): void {
-    
     const Sub = this.SliderService.sliders$.subscribe((item)=>{
       this.AllSliderItem=item
     })
@@ -114,6 +113,14 @@ export class HomeComponent implements AfterViewInit  {
     const Sub4 = this.FinishCategory.getAllFinishCategories().subscribe((data)=>{
       this.FinishCategoryList=data
     })
+    const Sub1 =  this.WhyusService.getAll().subscribe((data: any[])=>{
+      data.forEach(e => {
+        this.whyId.push(e.id)
+        this.whyUsItem.push(this.SafeContent(e.description))
+      });
+        this.ImageWhyUs+=data[0].imageUrl
+    })
+    this.subscriptions.add(Sub1);
     this.subscriptions.add(Sub);
     this.subscriptions.add(Sub4);
 
@@ -132,25 +139,6 @@ export class HomeComponent implements AfterViewInit  {
   
         }
       
-      });
-  
-      this.observeSection(this.aboutUsSection, (isVisible) => {
-        if(!this.isAboutUsSectionVisible && isVisible){
-          const Sub1 =  this.WhyusService.getAll().subscribe((data: any[])=>{
-            data.forEach(e => {
-              this.whyId.push(e.id)
-              this.whyUsItem.push(this.SafeContent(e.description))
-            });
-            this.isAboutUsSectionVisible = isVisible;
-            if(isVisible){
-              this.ImageWhyUs+=data[0].imageUrl
-
-            }
-          })
-          this.subscriptions.add(Sub1);
-        }
-       
-
       });
       this.observeSection(this.productArea, (isVisible) => {
         if(!this.isProductArea){
@@ -267,7 +255,7 @@ const videos = this.tri.nativeElement.querySelectorAll('video');
         }
         
       
-      },3500) 
+      },3000) 
   
     
   

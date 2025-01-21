@@ -32,9 +32,10 @@ export class LoadingPageComponent implements OnInit {
   }
   ngOnInit(): void {
     (window as any).paceOptions = {
-      ajax: true,
-      document: true,
-      eventLag: false
+      ajax: false,
+      document: false,
+      eventLag: false,
+      restartOnRequestAfter: false
     };
   }
 }
