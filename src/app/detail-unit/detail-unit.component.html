@@ -1,107 +1,113 @@
 <app-title-navigation [isUnit]="true" [statusUnit]="unit.status" title={{unit.title}} [id]="1" [breadcrumbs]="breadcrumbs" ></app-title-navigation>
 <app-slider-image *ngIf="imagesName!==[]" [listImage]="imagesName"></app-slider-image>
 
+<section *ngIf="isLoading; else content">
+  <app-skeleton-detail-unit></app-skeleton-detail-unit>
+</section>
+<ng-template #content>
 
-<section class="DetailUnit">
-  <div class="shop-details-area pb-10">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 col-md-12">
-          <div class="shop-details-inner page-details-inner mb-60">
-            <div class="blog-meta">
-            </div>
-            <h1>
-              {{unit.title}}
-            </h1>
-
-            <label>
-              <a class="secondary-color" [href]="'https://www.google.com/maps?q='+unit.latitude+','+unit.longitude" 
-              target="_blank">
-                <i class="fa-solid fa-location-dot"></i>
-                {{unit.nameLocation}}
-              </a>
-              
-            </label>
-            <h4 class="title-2">الوصف</h4>
-            <div [innerHTML]="safeContent"></div>
-
-
-              <h4 class="title-2">تفاصيل الوحدة</h4>
-              <div class="property-detail-info-list section-bg-1 clearfix mb-60">
-                <ul>
-                  <li><label>كود العقار:</label> <span> {{unit.codeUnit}}</span></li>
-                  <li><label>المساحة: </label> <span> {{unit.area}} متر</span></li>
-                  <li><label>عدد الغرف:</label> <span>{{unit.numberRoom}}</span></li>
-                  <li><label>عدد الحمامات:</label> <span>{{unit.numberBathroom}}</span></li>
-                </ul>
-                <ul>
-                  <li><label>سنه البناء:</label> <span>{{unit.yearOfBuild}}</span></li>
-                  <li><label>السعر:</label> <span>{{unit.price}}</span></li>
-                  <li><label>حالة العقار:</label> <span>{{unit.status | statusTranslate }}</span></li>
-                </ul>
+  <section class="DetailUnit">
+    <div class="shop-details-area pb-10">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <div class="shop-details-inner page-details-inner mb-60">
+              <div class="blog-meta">
               </div>
-
-              <h4 class="title-2">المميزات</h4>
-              <div class="property-detail-feature-list clearfix mb-45">
-                <ul>
-                  <li *ngFor="let item of unit.advantageUnits">
-                    <div class="property-detail-feature-list-item">
-                      <i class="fas fa-star" style="line-height: 38px;"></i>
-                      <div>
-                        <h6>{{item.text}}</h6>
+              <h1>
+                {{unit.title}}
+              </h1>
+  
+              <label>
+                <a class="secondary-color" [href]="'https://www.google.com/maps?q='+unit.latitude+','+unit.longitude" 
+                target="_blank">
+                  <i class="fa-solid fa-location-dot"></i>
+                  {{unit.nameLocation}}
+                </a>
+                
+              </label>
+              <h4 class="title-2">الوصف</h4>
+              <div [innerHTML]="safeContent"></div>
+  
+  
+                <h4 class="title-2">تفاصيل الوحدة</h4>
+                <div class="property-detail-info-list section-bg-1 clearfix mb-60">
+                  <ul>
+                    <li><label>كود العقار:</label> <span> {{unit.codeUnit}}</span></li>
+                    <li><label>المساحة: </label> <span> {{unit.area}} متر</span></li>
+                    <li><label>عدد الغرف:</label> <span>{{unit.numberRoom}}</span></li>
+                    <li><label>عدد الحمامات:</label> <span>{{unit.numberBathroom}}</span></li>
+                  </ul>
+                  <ul>
+                    <li><label>سنه البناء:</label> <span>{{unit.yearOfBuild}}</span></li>
+                    <li><label>السعر:</label> <span>{{unit.price}}</span></li>
+                    <li><label>حالة العقار:</label> <span>{{unit.status | statusTranslate }}</span></li>
+                  </ul>
+                </div>
+  
+                <h4 class="title-2">المميزات</h4>
+                <div class="property-detail-feature-list clearfix mb-45">
+                  <ul>
+                    <li *ngFor="let item of unit.advantageUnits">
+                      <div class="property-detail-feature-list-item">
+                        <i class="fas fa-star" style="line-height: 38px;"></i>
+                        <div>
+                          <h6>{{item.text}}</h6>
+                        </div>
+                      </div>
+                    </li>
+                   
+                    
+                  </ul>
+                  
+                </div>
+                
+                <h4 class="title-2">الخدمات</h4>
+                <div class="property-details-amenities mb-60 " >
+                  <div class="row">
+                    
+                    <div class="col-lg-4 col-md-6" *ngFor="let items of service">
+                      <div class="menu-widget">
+                        <ul>
+                          <li *ngFor="let item of items">
+                            <i class="fa-sharp fa-solid fa-square-check chxc fa-lg"></i>&nbsp;&nbsp;
+                            {{item}}
+  
+                        
+                        </ul>
                       </div>
                     </div>
-                  </li>
-                 
-                  
-                </ul>
+                   
+                    <h4 class="title-2">الفيديو</h4>
+                    <iframe title="إزاي تختار مكان شقتك ؟؟" width="100%" height="590"
+                      [src]="safeUrl" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+                  </div>
+                </div>
+                <h4 class="title-2">موقع الوحدة</h4>
+                <div class="container">
+                  <div class="row">
+                    <a 
+                      [href]="'https://www.google.com/maps?q=' + unit.latitude + ',' + unit.longitude"
+                      class="card-location"
+                      target="_blank">
+                      <div class="card-content">
+                        <i class="fa fa-map-marker-alt"></i>
+                        <span>فتح في الخريطة</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                
+                <h4 class="title-2">وحدات ذات صله</h4>
                 
               </div>
-              
-              <h4 class="title-2">الخدمات</h4>
-              <div class="property-details-amenities mb-60 " >
-                <div class="row">
-                  
-                  <div class="col-lg-4 col-md-6" *ngFor="let items of service">
-                    <div class="menu-widget">
-                      <ul>
-                        <li *ngFor="let item of items">
-                          <i class="fa-sharp fa-solid fa-square-check chxc fa-lg"></i>&nbsp;&nbsp;
-                          {{item}}
-
-                      
-                      </ul>
-                    </div>
-                  </div>
-                 
-                  <h4 class="title-2">الفيديو</h4>
-                  <iframe title="إزاي تختار مكان شقتك ؟؟" width="100%" height="590"
-                    [src]="safeUrl" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
-                </div>
-              </div>
-              <h4 class="title-2">موقع الوحدة</h4>
-              <div class="container">
-                <div class="row">
-                  <a 
-                    [href]="'https://www.google.com/maps?q=' + unit.latitude + ',' + unit.longitude"
-                    class="card-location"
-                    target="_blank">
-                    <div class="card-content">
-                      <i class="fa fa-map-marker-alt"></i>
-                      <span>فتح في الخريطة</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              
-              <h4 class="title-2">وحدات ذات صله</h4>
-              
             </div>
+  
           </div>
-
         </div>
       </div>
-    </div>
-</section>
+  </section>
+
+</ng-template>

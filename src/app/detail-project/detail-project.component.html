@@ -1,203 +1,219 @@
 <app-title-navigation [title]="Title" [breadcrumbs]="breadcrumbs" [id]="1"></app-title-navigation>
-<app-slider-image *ngIf="project!==null" [listImage]="project.images"></app-slider-image>
 
-<section class="DetailProject">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <form action="#">
-          <div class="TabMenu">
-            <div class="nav">
-                <a
-                  class="show btn theme-btn-4 btn-effect-4 active"
-                  data-bs-toggle="tab"
-                  href="#AboutProject"
-                  > عن المشروع</a
-                >
-                <a
-                  data-bs-toggle="tab"
-                  href="#LocationProject"
-                  class="btn theme-btn-4 btn-effect-4"
-                  > موقع المشروع</a
-                >
-                <a
-                  data-bs-toggle="tab"
-                  href="#FeatureProject"
-                  class="btn theme-btn-4 btn-effect-4"
-                  > مميزات المشروع</a>
+
+<section *ngIf="isLoading; else content" style="margin-bottom: 30px;">
+  <app-skeleton-detail
+  [skeletonBlocks]="[
+    { style: { width: '100%', height: '200px' } }, 
+    { style: { width: '60%', height: '20px' } },
+    { style: { width: '80%', height: '20px' } },
+    { style: { width: '100%', height: '20px' } },
+    { style: { width: '90%', height: '200px' } }
+  ]"
+></app-skeleton-detail>
+
+</section>
+<ng-template #content>
+  <app-slider-image *ngIf="project!==null" [listImage]="project.images"></app-slider-image>
+
+  <section class="DetailProject">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <form action="#">
+            <div class="TabMenu">
+              <div class="nav">
+                  <a
+                    class="show btn theme-btn-4 btn-effect-4 active"
+                    data-bs-toggle="tab"
+                    href="#AboutProject"
+                    > عن المشروع</a
+                  >
+                  <a
+                    data-bs-toggle="tab"
+                    href="#LocationProject"
+                    class="btn theme-btn-4 btn-effect-4"
+                    > موقع المشروع</a
+                  >
+                  <a
+                    data-bs-toggle="tab"
+                    href="#FeatureProject"
+                    class="btn theme-btn-4 btn-effect-4"
+                    > مميزات المشروع</a>
+                    <a
+                    data-bs-toggle="tab"
+                    href="#IntroVideo"
+                    class="btn theme-btn-4 btn-effect-4"
+                    >  فيديو تعريفي</a>
+                    <a
+                    data-bs-toggle="tab"
+                    href="#AvailableUnit"
+                    class="btn theme-btn-4 btn-effect-4"
+                    > الوحدات المتاحة
+                  </a>
                   <a
                   data-bs-toggle="tab"
-                  href="#IntroVideo"
+                  href="#detailProject"
                   class="btn theme-btn-4 btn-effect-4"
-                  >  فيديو تعريفي</a>
-                  <a
-                  data-bs-toggle="tab"
-                  href="#AvailableUnit"
-                  class="btn theme-btn-4 btn-effect-4"
-                  > الوحدات المتاحة
+                  > تفاصيل المشروع
                 </a>
-                <a
-                data-bs-toggle="tab"
-                href="#detailProject"
-                class="btn theme-btn-4 btn-effect-4"
-                > تفاصيل المشروع
-              </a>
-              </div>
-          </div>
-          <div class="tab-content">
-            <div class="tab-pane fade active show" id="AboutProject">
-              <div class="container">
-                <div class="row" *ngIf="project.aboutProject!==null">
-                  <div style="margin: 1.5rem 0;" ></div>
-                  {{project.aboutProject}}
-                  <div class="col-lg-12" [innerHTML]="safeContent">
-                   
-                  </div>
                 </div>
-              </div>
             </div>
-            <div class="tab-pane fade" id="LocationProject" *ngIf="project.locationProjects!==undefined ||project.locationProjects!==[] ">
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="LocationInfo" >
-                      
-                        
-                          <div class="boxLocation" *ngFor="let item of project.locationProjects">
-                            <div class="icon">
-                              <i class="fa-solid fa-location-dot"></i>
-                              <span>{{item.time}}</span>د
-                            </div>
-                            <div class="text">
-                              <h6>{{item.nameOfStreet}}</h6>
-                            </div>
-                          </div>
-                         
-                      
-                    </div>
-                  </div>
-                  <div class="col-lg-8">
-                    <div class="ImageLocation">
-                      <img *ngIf="project.locationImage!=null" [src]="ImageUrl+'Projects/'+project.locationImage" loading="lazy" alt="LocationImage" width="100%" height="100%">
-                    </div>
-                  </div>
-                 
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="IntroVideo">
-              <div class="container" >
-                <div class="row" *ngIf="project.videoURL!=null">
-                  <div class="col-lg-12">
-                    <style>
-                    
-                    </style>
-                    <iframe
-                    
-                      class="youtube-video"
-                      [src]="safeUrl"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen=""
-                      __idm_id__="2269185"
-                    ></iframe>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="FeatureProject">
-              <div class="slider-container">
-                <div class="slider-images">
-                  <div class="slider-img" *ngFor="let item of project.advantageProjects;let i=index"  [ngClass]="{'active': selectedIndex === i}" 
-                  (click)="setActiveImage(i)" >
-                    <img [src]="ImageUrl+'Projects/'+item.imageUrl" loading="lazy" alt={{item.text}} />
-                    <h1>{{item.text}}</h1>
-                    <div class="details">
-                      <h2>{{item.text}}</h2>
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="slider-container-slick">
-                <div class="slider-images-slick ">
-                  <div class="slider-img-slick" *ngFor="let item of project.advantageProjects">
-                    <img [src]="ImageUrl+'Projects/'+item.imageUrl" loading="lazy" alt={{item.text}} />
-                    <div class="details">
-                      <h2>{{item.text}}</h2>
-                      
-                    </div>
-                  </div>
-                
-
-
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="AvailableUnit">
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="TabMenu" >
-                      <div class="nav">
-                        <a *ngFor="let item of units;let i=index"
-                          style="margin:0;padding: 10px 10px;"
-                          class="show btn theme-btn-4 btn-effect-4" [ngClass]="{'active':i==0}"
-                          data-bs-toggle="tab"
-                          href="#area_{{i}}"
-                          > {{item.area}} م</a
-                        >
-                    
-                      </div>
-                    </div>
-                    <div class="tab-content">
-                      <div *ngFor="let item of units; let i = index" class="tab-pane fade" id="area_{{i}}"  [ngClass]="{'active show':i==0}">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col-lg-12 text-center mt-4">
-                              <h4 style="font-weight: bolder; color: black;">{{item.title}}</h4>
-                            </div>
-                            <div class="col-lg-12 position-relative">
-                              <div class="image-container" style="max-width: 800px;margin: 0 auto;">
-                                <a [href]="ImageUrl+'Units/' + item.imageName" data-rel="lightcase">
-                                  <img
-                                    [src]="ImageUrl+'Units/' + item.imageName"
-                                    alt="{{item.title}}"
-                                    loading="lazy"
-                                    width="100%"
-                                    height="100%"
-                                  />
-                                </a>
-                                <div class="overlay">
-                                  <a [routerLink]="'/unit/' + item.id" class="btn  btn-danger">تفاصيل الوحده</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+            <div class="tab-content">
+              <div class="tab-pane fade active show" id="AboutProject">
+                <div class="container">
+                  <div class="row" *ngIf="project.aboutProject!==null">
+                    <div style="margin: 1.5rem 0;" ></div>
+                    {{project.aboutProject}}
+                    <div class="col-lg-12" [innerHTML]="safeContent">
                      
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="tab-pane fade" id="detailProject">
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-12">
-                    
-                    <div *ngIf="project.pdfFile" style="height: 80vh;    width: 95%;
-    overflow-x: hidden;">
-                      <ngx-extended-pdf-viewer [src]="ImageUrl+'Projects/'+project.pdfFile" [showDownloadButton]="true"></ngx-extended-pdf-viewer>
+              <div class="tab-pane fade" id="LocationProject" *ngIf="project.locationProjects!==undefined ||project.locationProjects!==[] ">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="LocationInfo" >
+                        
+                          
+                            <div class="boxLocation" *ngFor="let item of project.locationProjects">
+                              <div class="icon">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>{{item.time}}</span>د
+                              </div>
+                              <div class="text">
+                                <h6>{{item.nameOfStreet}}</h6>
+                              </div>
+                            </div>
+                           
+                        
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="ImageLocation">
+                        <img *ngIf="project.locationImage!=null" [src]="ImageUrl+'Projects/'+project.locationImage" loading="lazy" alt="LocationImage" width="100%" height="100%">
+                      </div>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="IntroVideo">
+                <div class="container" >
+                  <div class="row" *ngIf="project.videoURL!=null">
+                    <div class="col-lg-12">
+                      <style>
+                      
+                      </style>
+                      <iframe
+                      
+                        class="youtube-video"
+                        [src]="safeUrl"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen=""
+                        __idm_id__="2269185"
+                      ></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="FeatureProject">
+                <div class="slider-container">
+                  <div class="slider-images">
+                    <div class="slider-img" *ngFor="let item of project.advantageProjects;let i=index"  [ngClass]="{'active': selectedIndex === i}" 
+                    (click)="setActiveImage(i)" >
+                      <img [src]="ImageUrl+'Projects/'+item.imageUrl" loading="lazy" alt={{item.text}} />
+                      <h1>{{item.text}}</h1>
+                      <div class="details">
+                        <h2>{{item.text}}</h2>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slider-container-slick">
+                  <div class="slider-images-slick ">
+                    <div class="slider-img-slick" *ngFor="let item of project.advantageProjects">
+                      <img [src]="ImageUrl+'Projects/'+item.imageUrl" loading="lazy" alt={{item.text}} />
+                      <div class="details">
+                        <h2>{{item.text}}</h2>
+                        
+                      </div>
+                    </div>
+                  
+  
+  
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="AvailableUnit">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="TabMenu" >
+                        <div class="nav">
+                          <a *ngFor="let item of units;let i=index"
+                            style="margin:0;padding: 10px 10px;"
+                            class="show btn theme-btn-4 btn-effect-4" [ngClass]="{'active':i==0}"
+                            data-bs-toggle="tab"
+                            href="#area_{{i}}"
+                            > {{item.area}} م</a
+                          >
+                      
+                        </div>
+                      </div>
+                      <div class="tab-content">
+                        <div *ngFor="let item of units; let i = index" class="tab-pane fade" id="area_{{i}}"  [ngClass]="{'active show':i==0}">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-lg-12 text-center mt-4">
+                                <h4 style="font-weight: bolder; color: black;">{{item.title}}</h4>
+                              </div>
+                              <div class="col-lg-12 position-relative">
+                                <div class="image-container" style="max-width: 800px;margin: 0 auto;">
+                                  <a [href]="ImageUrl+'Units/' + item.imageName" data-rel="lightcase">
+                                    <img
+                                      [src]="ImageUrl+'Units/' + item.imageName"
+                                      alt="{{item.title}}"
+                                      loading="lazy"
+                                      width="100%"
+                                      height="100%"
+                                    />
+                                  </a>
+                                  <div class="overlay">
+                                    <a [routerLink]="'/unit/' + item.id" class="btn  btn-danger">تفاصيل الوحده</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="detailProject">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      
+                      <div *ngIf="project.pdfFile" style="height: 80vh;    width: 95%;
+      overflow-x: hidden;">
+                        <ngx-extended-pdf-viewer [src]="ImageUrl+'Projects/'+project.pdfFile" [showDownloadButton]="true"></ngx-extended-pdf-viewer>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</ng-template>

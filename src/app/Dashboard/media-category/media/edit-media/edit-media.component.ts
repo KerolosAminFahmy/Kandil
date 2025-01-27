@@ -130,14 +130,12 @@ export class EditMediaComponent {
         detailImages: this.detailImages.value
             .filter((e:any) => e.id <= 0)
             .map((e:any) => {
-              console.log(e)
                return e.image
           }) as File[],
         image: this.selectedImage || undefined,
         id: this.mediaId,
         AllRemovedImages:this.ImagesIdRemoved,
       };
-      console.log(formData)
       this.mediaService.update(this.mediaId, formData);
     } else {
       console.error('Form is invalid');

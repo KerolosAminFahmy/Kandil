@@ -8,18 +8,20 @@ import { AreaService } from '../../shared/Services/area.service';
 import { environment } from '../../environments/environment';
 import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
 import { Subscription } from 'rxjs';
+import { SkeletonCardComponent } from '../../shared/Component/skeleton-card/skeleton-card.component';
 
 @Component({
   selector: 'app-porject-area',
   standalone: true,
-  imports: [CommonModule, CardComponent, TitleNavigationComponent, PageNotFoundComponent],
+  imports: [CommonModule, CardComponent, TitleNavigationComponent, PageNotFoundComponent,SkeletonCardComponent],
   templateUrl: './porject-area.component.html',
   styleUrl: './porject-area.component.css'
 })
 export class PorjectAreaComponent implements OnInit {
   ImageUrl:string=environment.apiImage
   private subscriptions: Subscription = new Subscription();
-
+  skeletonArray = Array(3);
+  isLoading = true;
   LoadedData!:ViewAreaDTO[];
   Title:string|undefined="";
   areaId:number=0;
@@ -40,6 +42,10 @@ export class PorjectAreaComponent implements OnInit {
         this.LoadedData.forEach((e)=>{
           e.imageName=this.ImageUrl+e.imageName
         })
+        setTimeout(()=>{
+
+          this.isLoading=false
+        },500)
         this.subscriptions.add(Sub);
 
       })

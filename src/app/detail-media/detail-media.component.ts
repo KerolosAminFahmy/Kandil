@@ -2,20 +2,20 @@ import { Component } from '@angular/core';
 import { TitleNavigationComponent } from "../../shared/Component/title-navigation/title-navigation.component";
 import { SliderImageComponent } from "../../shared/Component/slider-image/slider-image.component";
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { LoadMediaContentService } from '../../shared/Services/load-media-content.service';
 import { CommonModule } from '@angular/common';
-import { Media, MediaDTO } from '../../shared/Models/model';
+import { MediaDTO } from '../../shared/Models/model';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { MediaService } from '../../shared/Services/media.service';
 import { CustomDatePipe } from '../../shared/Pipes/custom-date.pipe';
 import { MediaCategoryService } from '../../shared/Services/media-category.service';
 import { environment } from '../../environments/environment';
 import { Subscription } from 'rxjs';
+import { SkeletonDetailEventComponent } from '../../shared/Component/skeleton-detail-event/skeleton-detail-event.component';
 
 @Component({
   selector: 'app-detail-media',
   standalone: true,
-  imports: [TitleNavigationComponent, SliderImageComponent ,CommonModule,RouterLink,CustomDatePipe],
+  imports: [TitleNavigationComponent, SliderImageComponent ,CommonModule,RouterLink,CustomDatePipe,SkeletonDetailEventComponent],
   templateUrl: './detail-media.component.html',
   styleUrl: './detail-media.component.css'
 })
@@ -24,6 +24,7 @@ export class DetailMediaComponent {
   safeUrl!: SafeResourceUrl|null;
   safeContent!: SafeHtml;
   LoadedImage:string[]=[];
+  isLoading:boolean=true;
   title:string="";
   IdMedia:number=0;
   NameMedia:string="";
@@ -50,6 +51,9 @@ export class DetailMediaComponent {
         this.LoadedData=media
         this.title=media.title
         this.SafeContent(media.videoURl,media.description)
+        setTimeout(()=>{
+          this.isLoading=false
+        },500)
       });
     this.subscriptions.add(Sub);
 

@@ -2,69 +2,78 @@
 <section class="ProductArea">
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 col-sm-6 col-12" *ngFor="let item of items; let i=index" data-target="p-1">
-        <div class="product-item text-center">
-        <div class="product-img">
-          <a
-            [routerLink]="['detail',item.id]" 
-            tabindex="-1"
-            ><img
-            src={{item.imageName}}
-            alt={{item.title}}
-          /></a>
-          <div class="product-badge">
-            <ul>
-              <li class="sale-badge bg-silver">سيلفر</li>
-            </ul>
+      <ng-container *ngIf="isLoading; else projectCards">
+        <div class="col-lg-4 col-sm-6 col-12" style="margin-bottom: 20px;" *ngFor="let skeleton of skeletonArray">
+          <app-skeleton-card></app-skeleton-card>
+        </div>
+      </ng-container>
+      <ng-template #projectCards>
+        
+        <div class="col-lg-4 col-sm-6 col-12" *ngFor="let item of items; let i=index" data-target="p-1">
+          <div class="product-item text-center">
+          <div class="product-img">
+            <a
+              [routerLink]="['detail',item.id]" 
+              tabindex="-1"
+              ><img
+              src={{item.imageName}}
+              alt={{item.title}}
+            /></a>
+            <div class="product-badge">
+              <ul>
+                <li class="sale-badge bg-silver">سيلفر</li>
+              </ul>
+            </div>
+            <div class="product-img-location-gallery">
+              <div class="product-img-location">
+                <ul>
+                  <li>
+                    <a [href]="'https://www.google.com/maps?q='+item.latitude+','+item.longitude"
+                      ><i class="fa-solid fa-location-dot"></i> {{item.nameLocation}}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <div class="product-img-location-gallery">
-            <div class="product-img-location">
+          <div class="product-info">
+            <h2 class="product-title">
+              <a
+              [routerLink]="['detail',item.id]" 
+  
+                >{{item.title}}</a
+              >
+            </h2>
+  
+          
+          </div>
+          <div class="product-info-bottom">
+            <div class="real-estate-agent">
+              <div class="agent-brief">
+              
+              </div>
+            </div>
+            <div class="product-hover-action">
               <ul>
                 <li>
-                  <a [href]="'https://www.google.com/maps?q='+item.latitude+','+item.longitude"
-                    ><i class="fa-solid fa-location-dot"></i> {{item.nameLocation}}</a
-                  >
+                  <a (click)="openPreview(item.id)" title="Quick View" data-target="p-1" class="Preview">
+                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                  </a>
+                </li>
+                <li>
+                  <a             [routerLink]="['detail',item.id]" 
+                  title="Product Details" tabindex="0">
+                    <i class="fa-solid fa-circle-plus"></i>
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
-        </div>
-        <div class="product-info">
-          <h2 class="product-title">
-            <a
-            [routerLink]="['detail',item.id]" 
-
-              >{{item.title}}</a
-            >
-          </h2>
-
-        
-        </div>
-        <div class="product-info-bottom">
-          <div class="real-estate-agent">
-            <div class="agent-brief">
-            
-            </div>
-          </div>
-          <div class="product-hover-action">
-            <ul>
-              <li>
-                <a (click)="openPreview(item.id)" title="Quick View" data-target="p-1" class="Preview">
-                  <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
-                </a>
-              </li>
-              <li>
-                <a             [routerLink]="['detail',item.id]" 
-                title="Product Details" tabindex="0">
-                  <i class="fa-solid fa-circle-plus"></i>
-                </a>
-              </li>
-            </ul>
           </div>
         </div>
-        </div>
-      </div>
-      <app-page-not-found *ngIf="items==[] || items==null || items==undefined || items.length==0"></app-page-not-found>
+        <app-page-not-found *ngIf="items==[] || items==null || items==undefined || items.length==0"></app-page-not-found>
+      </ng-template>
+      
 
     </div>
   </div>

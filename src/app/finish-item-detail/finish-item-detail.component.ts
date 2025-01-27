@@ -8,11 +8,12 @@ import { TitleNavigationComponent } from '../../shared/Component/title-navigatio
 import { CommonModule } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { SkeletonDetailComponent } from '../../shared/Component/skeleton-detail/skeleton-detail.component';
 
 @Component({
   selector: 'app-finish-item-detail',
   standalone: true,
-  imports: [SliderImageComponent,CommonModule,TitleNavigationComponent],
+  imports: [SliderImageComponent,CommonModule,TitleNavigationComponent,SkeletonDetailComponent],
   templateUrl: './finish-item-detail.component.html',
   styleUrl: './finish-item-detail.component.css'
 })
@@ -31,6 +32,7 @@ export class FinishItemDetailComponent {
     },
     finishImages: [],
   };
+  isLoading:boolean=true;
   breadcrumbs: { name: string; url: string }[] = [];
   ImageUrl:string=environment.apiImage
   FinishCategoryId:number=0;
@@ -62,6 +64,9 @@ export class FinishItemDetailComponent {
         this.SafeContent(this.items.finishItem.videoUrl,this.items.finishItem.description)
         this.adjustIframeHeight();
         this.isReady=true
+        setTimeout(() => {
+          this.isLoading=false
+        }, 100);
       })
     })
     

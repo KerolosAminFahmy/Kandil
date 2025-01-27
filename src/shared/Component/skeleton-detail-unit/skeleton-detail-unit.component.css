@@ -1,0 +1,77 @@
+/* Base Skeleton Styles */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #e0e0e0 25%,
+    #f0f0f0 50%,
+    #e0e0e0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+/* Skeleton Variants */
+.skeleton-text {
+  height: 16px;
+  width: 100%;
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 50%;
+}
+
+.skeleton-link {
+  height: 14px;
+  width: 30%;
+}
+
+.skeleton-paragraph {
+  height: 12px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.skeleton-icon-text {
+  height: 16px;
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
+
+.skeleton-icon-text::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #ccc;
+}
+
+.skeleton-video {
+  height: 300px;
+  width: 100%;
+}
+
+.skeleton-map-link {
+  height: 20px;
+  width: 40%;
+}
+
+.skeleton-card {
+  height: 100px;
+  width: 100%;
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

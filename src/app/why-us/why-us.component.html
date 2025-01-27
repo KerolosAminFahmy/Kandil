@@ -1,51 +1,64 @@
 <app-title-navigation title="لماذا قنديل" [id]="2"></app-title-navigation>
 <section class="WhyusContent">
-    
   <div class="container">
     <div class="row" style="text-align: center;">
-      <div class="col-lg-12">
-        <div *ngIf="items!==[]">
-          <div class="blog-img">
-            <img [src]="imageApi+'PageSection/'+items[0].imageUrl" loading="lazy" alt="Image">
+      <section *ngIf="isLoading; else content" style="margin-bottom: 30px;">
+        <app-skeleton-detail
+        [skeletonBlocks]="[
+          { style: { width: '100%', height: '200px' } }, 
+          { style: { width: '60%', height: '20px' } },
+          { style: { width: '80%', height: '20px' } },
+          { style: { width: '100%', height: '20px' } },
+          { style: { width: '90%', height: '200px' } }
+        ]"
+      ></app-skeleton-detail>
+      
+      </section>
+        <ng-template #content>
+          <div class="col-lg-12">
+            <div *ngIf="items!==[]">
+              <div class="blog-img">
+                <img [src]="imageApi+'PageSection/'+items[0].imageUrl" loading="lazy" alt="Image">
+              </div>
+                <div [innerHTML]="SafeContent(items[0].text)"></div>
+                <!-- <h4>شركة قنديل للاستثمار العقاري</h4>
+                <p >&nbsp;وإدارة المشروعات تأسست في 2001 بخبرة تقارب ثلاث&nbsp; وعشرون عاماً في مجال البناء والتشييد والمقاولات العامة بالمدن الجديدة وخاصة مدينة الشروق والتجمع الخامس ,لدينا سابقة أعمال على نطاق واسع تشهد لنا بنجاحنا والتزامنا بمبدأنا وهو المصداقية والالتزام بالتسليم لكافة المشاريع في مواعيدها المحددة.</p> -->
+                <p ><img  [src]="imageApi+'PageSection/'+items[1].imageUrl" loading="lazy" alt="Image"></p>
+                <hr>
+                <div style="margin-bottom: 3rem; margin-top: 3rem;" [innerHTML]="SafeContent(items[2].text)">
+
+                </div>
+                <!-- <h4 style="margin-top: 7cap;">رئيــــس مجلــس الإدارة</h4>
+                <h3  class="animated fadeIn"><strong>م/ أشرف بكر قنديل</strong></h3>
+                <p >خبرة أكثر مـــن 28 عام&nbsp;</p>
+                <p >عضو مؤسس جمعية مطوري القاهرة الجديدة</p>
+                <p  style="margin-bottom: 7rem;">ورئيــــــس لجنـــة اللائحة وميثـــاق الشــرف</p> -->
+                <hr>
+                <div style="margin-bottom: 3rem; margin-top: 3rem;" [innerHTML]="SafeContent(items[3].text)">
+
+                </div>
+                <!-- <h4 style="margin-top: 7rem;">نائب رئيس مجلس الإدارة</h4>
+                <h3 ><strong>د/صافينـــــاز خليفــــة</strong></h3>
+                <p >مدير الإدارة الهندسية – ماجيستير ودكتوراة الفلسفة في الهندسة الإنشائية والتخصصي في تصميم المنشئات المقاومة لأحمال الزلازل&nbsp;</p>
+                <p style="margin-bottom: 7rem;">جامعة عين شمس وأستاذ الخرسانة بالجامعة الروسية&nbsp;</p> -->
+                <hr>
+                <p>&nbsp;</p>
+                <h4 ><img [src]="imageApi+'PageSection/'+items[4].imageUrl" loading="lazy" alt="Image"></h4>
+                <p style="margin-bottom: 7rem;" [innerHTML]="SafeContent(items[4].text)">نحن نهتم بجودة مشاريعنا بتقديم أفضل بناء باستخدام أفضل خامات البناء بأعلى مستوى من التشطيب للواجهات الخارجة المصممة بإحترافية عالية على الإسلوبين الكلاسيك والمودرن .. بالاضافة الى خبراتنا التسويقية المتميزة التي تضمن لك أفضل استثمار بأعلى ربحية من خلال أفضل الطرق الاستثمارية الشاملة التي نقدمها لك. .</p>
+                <hr>
+                <h4 ><img  [src]="imageApi+'PageSection/'+items[5].imageUrl" loading="lazy" alt="Image" ></h4>
+                <!-- <p >نقدم شقق سكنية بالتجمع الخامس بأعلى مواصفات البناء والأكثر راحة للعملاء:</p> -->
+                <p style="margin-bottom: 7rem;" [innerHTML]="SafeContent(items[5].text)">(واجهات ألترا مودرن– بوابات الكترونية – كاميرات مراقبة – مداخل راقية جداً –&nbsp; أسانسير كامل – نافورة – مساحات خضراء – شلالات مياه – أمن وحراسة – جراج خاص لكل وحدة – تجهيز للدش المركزي والانتركم)</p>
+                <hr>
+                <h4 ><img [src]="imageApi+'PageSection/'+items[6].imageUrl" loading="lazy" alt="Image"></h4>
+                <p [innerHTML]="SafeContent(items[6].text)">تهدف الشركة الى تحقيق أعلى درجات النجاح في السوق العقاري في مصر معتمدة في ذلك على الالتزام والتنفيذ والحصول على ثقة العملاء الذين لم نصل الى هذا القدر من النجاح الا بثقتهم الغالية في شركتنا وفي أعمالنا .. ونحن نعتز بذلك …وأيضاً طموحاتنا في التوسع والانتشار على أكبر رقعة أرضية في مصر وخاصة في المدن الجديدة … ساعيين في خدمة المجتمع للصالح العام .</p>
+                <p >&nbsp;</p>
+                <p >&nbsp;&nbsp;</p>
+                <p></p>
+            </div>
           </div>
-            <div [innerHTML]="SafeContent(items[0].text)"></div>
-            <!-- <h4>شركة قنديل للاستثمار العقاري</h4>
-            <p >&nbsp;وإدارة المشروعات تأسست في 2001 بخبرة تقارب ثلاث&nbsp; وعشرون عاماً في مجال البناء والتشييد والمقاولات العامة بالمدن الجديدة وخاصة مدينة الشروق والتجمع الخامس ,لدينا سابقة أعمال على نطاق واسع تشهد لنا بنجاحنا والتزامنا بمبدأنا وهو المصداقية والالتزام بالتسليم لكافة المشاريع في مواعيدها المحددة.</p> -->
-            <p ><img  [src]="imageApi+'PageSection/'+items[1].imageUrl" loading="lazy" alt="Image"></p>
-            <hr>
-            <div style="margin-bottom: 3rem; margin-top: 3rem;" [innerHTML]="SafeContent(items[2].text)">
-
-            </div>
-            <!-- <h4 style="margin-top: 7cap;">رئيــــس مجلــس الإدارة</h4>
-            <h3  class="animated fadeIn"><strong>م/ أشرف بكر قنديل</strong></h3>
-            <p >خبرة أكثر مـــن 28 عام&nbsp;</p>
-            <p >عضو مؤسس جمعية مطوري القاهرة الجديدة</p>
-            <p  style="margin-bottom: 7rem;">ورئيــــــس لجنـــة اللائحة وميثـــاق الشــرف</p> -->
-            <hr>
-            <div style="margin-bottom: 3rem; margin-top: 3rem;" [innerHTML]="SafeContent(items[3].text)">
-
-            </div>
-            <!-- <h4 style="margin-top: 7rem;">نائب رئيس مجلس الإدارة</h4>
-            <h3 ><strong>د/صافينـــــاز خليفــــة</strong></h3>
-            <p >مدير الإدارة الهندسية – ماجيستير ودكتوراة الفلسفة في الهندسة الإنشائية والتخصصي في تصميم المنشئات المقاومة لأحمال الزلازل&nbsp;</p>
-            <p style="margin-bottom: 7rem;">جامعة عين شمس وأستاذ الخرسانة بالجامعة الروسية&nbsp;</p> -->
-            <hr>
-            <p>&nbsp;</p>
-            <h4 ><img [src]="imageApi+'PageSection/'+items[4].imageUrl" loading="lazy" alt="Image"></h4>
-            <p style="margin-bottom: 7rem;" [innerHTML]="SafeContent(items[4].text)">نحن نهتم بجودة مشاريعنا بتقديم أفضل بناء باستخدام أفضل خامات البناء بأعلى مستوى من التشطيب للواجهات الخارجة المصممة بإحترافية عالية على الإسلوبين الكلاسيك والمودرن .. بالاضافة الى خبراتنا التسويقية المتميزة التي تضمن لك أفضل استثمار بأعلى ربحية من خلال أفضل الطرق الاستثمارية الشاملة التي نقدمها لك. .</p>
-            <hr>
-            <h4 ><img  [src]="imageApi+'PageSection/'+items[5].imageUrl" loading="lazy" alt="Image" ></h4>
-            <!-- <p >نقدم شقق سكنية بالتجمع الخامس بأعلى مواصفات البناء والأكثر راحة للعملاء:</p> -->
-            <p style="margin-bottom: 7rem;" [innerHTML]="SafeContent(items[5].text)">(واجهات ألترا مودرن– بوابات الكترونية – كاميرات مراقبة – مداخل راقية جداً –&nbsp; أسانسير كامل – نافورة – مساحات خضراء – شلالات مياه – أمن وحراسة – جراج خاص لكل وحدة – تجهيز للدش المركزي والانتركم)</p>
-            <hr>
-            <h4 ><img [src]="imageApi+'PageSection/'+items[6].imageUrl" loading="lazy" alt="Image"></h4>
-            <p [innerHTML]="SafeContent(items[6].text)">تهدف الشركة الى تحقيق أعلى درجات النجاح في السوق العقاري في مصر معتمدة في ذلك على الالتزام والتنفيذ والحصول على ثقة العملاء الذين لم نصل الى هذا القدر من النجاح الا بثقتهم الغالية في شركتنا وفي أعمالنا .. ونحن نعتز بذلك …وأيضاً طموحاتنا في التوسع والانتشار على أكبر رقعة أرضية في مصر وخاصة في المدن الجديدة … ساعيين في خدمة المجتمع للصالح العام .</p>
-            <p >&nbsp;</p>
-            <p >&nbsp;&nbsp;</p>
-            <p></p>
-        </div>
+        </ng-template>
       </div>
     </div>
-  </div>
 </section>
 

@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { Subscription } from 'rxjs';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { SkeletonCardComponent } from '../../shared/Component/skeleton-card/skeleton-card.component';
 
 @Component({
   selector: 'app-finish-item-list',
   standalone: true,
-  imports: [TitleNavigationComponent,CommonModule,RouterLink,PageNotFoundComponent],
+  imports: [TitleNavigationComponent,CommonModule,RouterLink,PageNotFoundComponent,SkeletonCardComponent],
   templateUrl: './finish-item-list.component.html',
   styleUrl: './finish-item-list.component.css'
 })
@@ -28,6 +29,8 @@ export class FinishItemListComponent {
   twitterShareUrl: string = '';
   linkedinShareUrl: string = '';
   whatsappShareUrl: string = '';
+  skeletonArray = Array(3);
+  isLoading = true;
   constructor(private finishItemService:FinisghItemService,private route: ActivatedRoute){}
   ngOnInit(): void {
     this.breadcrumbs.push(
@@ -42,6 +45,10 @@ export class FinishItemListComponent {
         this.items.forEach((e)=>{
           e.imageName=this.ImageUrl+"Finish/"+e.imageName
         })
+        setTimeout(()=>{
+
+          this.isLoading=false
+        },500)
       })
       this.subscriptions.add(Sub);
 

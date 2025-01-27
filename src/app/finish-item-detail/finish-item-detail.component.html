@@ -1,71 +1,86 @@
 <app-title-navigation  title={{title}} [id]="3"  [breadcrumbs]="breadcrumbs" ></app-title-navigation>
-<app-slider-image *ngIf="imagesName!==[] || imagesName.length!==0" [listImage]="imagesName"></app-slider-image>
-<section class="DetailUnit" >
-  <div class="shop-details-area pb-10">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="shop-details-inner page-details-inner mb-60">
-                  <div class="blog-meta">
-                    <ul>
-                      <li class="blog-category">
-                        <a class="bg-grean" style="background-color:#aaa;" href="#">سيلفر</a> 
-                      </li>
-                    </ul>
-                  </div>
-                 
-                  <h1>
-                    {{items.finishItem.title}}
-                  </h1>
-                  <a [href]="'https://www.google.com/maps?q='+items.finishItem.latitude+','+items.finishItem.longitude">
-                    <span class="secondary-color">
-                      <i class="fa-solid fa-location-dot"></i>
-                    </span>
-                    {{items.finishItem.nameLocation}}
-                  </a>
-                  <h4 class="title-2">الوصف</h4>
 
-                  <style>
-                    img {
-                            max-height: none !important;
-                            object-fit: cover;
-                            object-position: 0% 50% !important;
-                            width: fit-content !important;
-                        }
-                  </style>
-                   <iframe #richTextIframe [srcdoc]="safeContent" 
-                   style="width:100% ;height: max-content;overflow-y: hidden; direction: rtl;" 
-                   frameborder="0"
-                    class="rich-text-iframe"></iframe>
+<section *ngIf="isLoading; else content" style="margin-bottom: 30px;">
+  <app-skeleton-detail
+  [skeletonBlocks]="[
+    { style: { width: '100%', height: '200px' } }, 
+    { style: { width: '60%', height: '20px' } },
+    { style: { width: '80%', height: '20px' } },
+    { style: { width: '100%', height: '20px' } },
+    { style: { width: '90%', height: '200px' } }
+  ]"
+></app-skeleton-detail>
 
-                  
-                  
-                  <style>
-                    p iframe{
-                      aspect-ratio: 16 / 9;
-                      width: 100%;
-                      height: 80vh;
-                    }
-                  </style>
-                  <h4 class="title-2">الفيديو</h4>
-                  <p>
-                    
-                    <iframe title={{items.finishItem.title}}  
-                    [src]="safeUrl"  frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe></p>
-                
-                
-                  <h4 class="title-2">تشطيبات ذات صله</h4>
-                  <div class="row">
-                    
-
-                      
-                  </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</div>
 </section>
+<ng-template #content>
+  <app-slider-image *ngIf="imagesName!==[] || imagesName.length!==0" [listImage]="imagesName"></app-slider-image>
+  <section class="DetailUnit" >
+    <div class="shop-details-area pb-10">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12 col-md-12">
+                  <div class="shop-details-inner page-details-inner mb-60">
+                    <div class="blog-meta">
+                      <ul>
+                        <li class="blog-category">
+                          <a class="bg-grean" style="background-color:#aaa;" href="#">سيلفر</a> 
+                        </li>
+                      </ul>
+                    </div>
+                  
+                    <h1>
+                      {{items.finishItem.title}}
+                    </h1>
+                    <a [href]="'https://www.google.com/maps?q='+items.finishItem.latitude+','+items.finishItem.longitude">
+                      <span class="secondary-color">
+                        <i class="fa-solid fa-location-dot"></i>
+                      </span>
+                      {{items.finishItem.nameLocation}}
+                    </a>
+                    <h4 class="title-2">الوصف</h4>
+
+                    <style>
+                      img {
+                              max-height: none !important;
+                              object-fit: cover;
+                              object-position: 0% 50% !important;
+                              width: fit-content !important;
+                          }
+                    </style>
+                    <iframe #richTextIframe [srcdoc]="safeContent" 
+                    style="width:100% ;height: max-content;overflow-y: hidden; direction: rtl;" 
+                    frameborder="0"
+                      class="rich-text-iframe"></iframe>
+
+                    
+                    
+                    <style>
+                      p iframe{
+                        aspect-ratio: 16 / 9;
+                        width: 100%;
+                        height: 80vh;
+                      }
+                    </style>
+                    <h4 class="title-2">الفيديو</h4>
+                    <p>
+                      
+                      <iframe title={{items.finishItem.title}}  
+                      [src]="safeUrl"  frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe></p>
+                  
+                  
+                    <h4 class="title-2">تشطيبات ذات صله</h4>
+                    <div class="row">
+                      
+
+                        
+                    </div>
+                  </div>
+              </div>
+              
+          </div>
+      </div>
+  </div>
+  </section>
+</ng-template>

@@ -10,17 +10,19 @@ import { MediaCategoryService } from '../../shared/Services/media-category.servi
 import { environment } from '../../environments/environment';
 import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
 import { Subscription } from 'rxjs';
+import { SkeletonCardComponent } from '../../shared/Component/skeleton-card/skeleton-card.component';
 
 @Component({
   selector: 'app-media-list',
   standalone: true,
-  imports: [TitleNavigationComponent, CardComponent, CommonModule, PageNotFoundComponent],
+  imports: [TitleNavigationComponent, CardComponent, CommonModule, PageNotFoundComponent,SkeletonCardComponent],
   templateUrl: './media-list.component.html',
   styleUrl: './media-list.component.css'
 })
 export class MediaListComponent {
   ImageUrl:string=environment.apiImage
-
+  skeletonArray = Array(3);
+  isLoading = true;
   Title:string|null="";
   LoadedData!:MediaDTO[];
   private subscriptions: Subscription = new Subscription();
@@ -42,6 +44,9 @@ export class MediaListComponent {
     
     const Sub1 = this.MediaService.Media$.subscribe((data)=>{
       this.LoadedData=data
+      setTimeout(()=>{
+        this.isLoading=false
+      },500)
     })
     this.subscriptions.add(Sub1);
 

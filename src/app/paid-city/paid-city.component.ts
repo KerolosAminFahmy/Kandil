@@ -7,15 +7,18 @@ import { CityService } from '../../shared/Services/city.service';
 import { City } from '../../shared/Models/model';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { SkeletonCardComponent } from '../../shared/Component/skeleton-card/skeleton-card.component';
 
 @Component({
   selector: 'app-paid-city',
   standalone: true,
-  imports: [TitleNavigationComponent, CardComponent, CommonModule, PageNotFoundComponent],
+  imports: [TitleNavigationComponent, CardComponent, CommonModule, PageNotFoundComponent,SkeletonCardComponent],
   templateUrl: './paid-city.component.html',
   styleUrl: './paid-city.component.css'
 })
 export class PaidCityComponent {
+  skeletonArray = Array(3);
+  isLoading = true;
   constructor(private CityService:CityService){}
   projectCategories: City[] = [
   ];
@@ -31,6 +34,10 @@ export class PaidCityComponent {
       this.projectCategories.forEach((e)=>{
         e.imageName=this.ImageUrl+e.imageName
       })
+      setTimeout(()=>{
+
+        this.isLoading=false
+      },500)
     })
     
   }

@@ -110,7 +110,6 @@ export class AddFinishItemComponent {
         videoUrl:valueForm.videoUrl,
         detailImage:this.detailImages.value,
       }
-      console.log(NewUnit)
       this.ServiceFinish.AddFinishItem(NewUnit).subscribe((data)=>{
         this.router.navigate(['/dashboard/FinishCategory/',this.finishCategoryId])
         this.Massege.showMessage("success","نجاح","تم اضافه تشطيب بنجاح")

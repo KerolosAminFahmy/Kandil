@@ -1,11 +1,20 @@
 <app-title-navigation title={{Title}} [breadcrumbs]="breadcrumbs" [id]="1"></app-title-navigation>
 <section class="AllProject">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-4 col-sm-6 col-12" *ngFor="let Project of LoadedData">
-        <app-card title={{Project.name}} [Url]='"project/"+Project.id' imgUrl={{Project.imageName}}></app-card>
+    <ng-container *ngIf="isLoading; else projectCards">
+      <div class="col-lg-4 col-sm-6 col-12" style="margin-bottom: 20px;" *ngFor="let skeleton of skeletonArray">
+        <app-skeleton-card></app-skeleton-card>
       </div>
-      <app-page-not-found *ngIf="LoadedData==[] || LoadedData==null || LoadedData==undefined || LoadedData.length==0"></app-page-not-found>
-    </div>
+    </ng-container>
+    <ng-template #projectCards>
+      <div class="row">
+        <div class="col-lg-4 col-sm-6 col-12" *ngFor="let Project of LoadedData">
+          <app-card title={{Project.name}} [Url]='"project/"+Project.id' imgUrl={{Project.imageName}}></app-card>
+        </div>
+        <app-page-not-found *ngIf="LoadedData==[] || LoadedData==null || LoadedData==undefined || LoadedData.length==0"></app-page-not-found>
+      </div>
+    </ng-template>
+    
+    
   </div>
 </section>

@@ -9,18 +9,19 @@ import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-brows
 import { StatusTranslatePipe } from '../../shared/Pipes/status-translate.pipe';
 import { environment } from '../../environments/environment';
 import { Subscription } from 'rxjs';
+import { SkeletonDetailUnitComponent } from '../../shared/Component/skeleton-detail-unit/skeleton-detail-unit.component';
 
 @Component({
   selector: 'app-detail-unit',
   standalone: true,
-  imports: [TitleNavigationComponent, SliderImageComponent,CommonModule,StatusTranslatePipe],
+  imports: [TitleNavigationComponent, SliderImageComponent,CommonModule,StatusTranslatePipe,SkeletonDetailUnitComponent],
   templateUrl: './detail-unit.component.html',
   styleUrl: './detail-unit.component.css'
 })
 export class DetailUnitComponent {
   ImageUrl:string=environment.apiImage
   breadcrumbs: { name: string; url: string }[] = [];
-
+  isLoading:boolean=true;
   unitId:number=0;
   unit!:ShowUnitsDTO;
   safeUrl:SafeResourceUrl|null="";
@@ -45,6 +46,10 @@ export class DetailUnitComponent {
           this.imagesName.push(this.ImageUrl+'Units/'+e.imageName)
         })
         this.service=this.splitIntoChunks(data.serviceUnits.map(e=>e.text),3);
+        setTimeout(()=>{
+
+          this.isLoading=false
+        },500)
       })
       this.subscriptions.add(Sub);
 

@@ -5,18 +5,19 @@ import { PageSection } from '../../shared/Models/model';
 import { environment } from '../../environments/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { SkeletonDetailComponent } from '../../shared/Component/skeleton-detail/skeleton-detail.component';
 
 @Component({
   selector: 'app-why-us',
   standalone: true,
-  imports: [TitleNavigationComponent,CommonModule],
+  imports: [TitleNavigationComponent,CommonModule,SkeletonDetailComponent],
   templateUrl: './why-us.component.html',
   styleUrl: './why-us.component.css'
 })
 export class WhyUsComponent {
   items:PageSection[]=[]
   imageApi:string=environment.apiImage;
-  
+  isLoading:boolean=true
   constructor(private PageSection:PageSectionService,private sanitizer: DomSanitizer){}
   ngOnInit(): void {
     
@@ -25,6 +26,7 @@ export class WhyUsComponent {
   LoadItems(){
     this.PageSection.getAll().subscribe((data)=>{
       this.items=data
+      this.isLoading=false
     })
   }
     SafeContent(description:string):SafeHtml{

@@ -65,7 +65,6 @@ export class WhyUsPageComponent {
   }
   saveChanges(index: number) {
     const form = this.forms[index];
-    console.log(form.value)
     const formData = new FormData();
 
     formData.append('id', form.value.id);

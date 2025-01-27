@@ -3,10 +3,19 @@
 <section class="AllProject">
   <div class="container">
     <div class="row">
-      <div class="col-lg-3 col-sm-6 col-12" *ngFor="let media of AllMediaCategory">
-        <app-card title={{media.title}}  [imgUrl]='ImageUrl+"Media/"+media.imageName' Url={{media.id}}  ></app-card>
-      </div>
-      <app-page-not-found *ngIf="AllMediaCategory==[] || AllMediaCategory==null || AllMediaCategory==undefined || AllMediaCategory.length==0"></app-page-not-found>
+      <ng-container *ngIf="isLoading; else projectCards">
+        <div class="col-lg-4 col-sm-6 col-12" style="margin-bottom: 20px;" *ngFor="let skeleton of skeletonArray">
+          <app-skeleton-card></app-skeleton-card>
+        </div>
+      </ng-container>
+      <ng-template #projectCards>
+
+        <div class="col-lg-3 col-sm-6 col-12" *ngFor="let media of AllMediaCategory">
+          <app-card title={{media.title}}  [imgUrl]='ImageUrl+"Media/"+media.imageName' Url={{media.id}}  ></app-card>
+        </div>
+        <app-page-not-found *ngIf="AllMediaCategory==[] || AllMediaCategory==null || AllMediaCategory==undefined || AllMediaCategory.length==0"></app-page-not-found>
+      </ng-template>
+      
 
     </div>
 

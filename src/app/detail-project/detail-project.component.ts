@@ -10,18 +10,19 @@ import { UnitManageService } from '../../shared/Services/unit-manage.service';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { environment } from '../../environments/environment';
 import { Subscription } from 'rxjs';
+import { SkeletonDetailComponent } from '../../shared/Component/skeleton-detail/skeleton-detail.component';
 declare var $: any;
 @Component({
   selector: 'app-detail-project',
   standalone: true,
-  imports: [TitleNavigationComponent, SliderImageComponent,CommonModule,RouterLink,NgxExtendedPdfViewerModule],
+  imports: [TitleNavigationComponent, SliderImageComponent,CommonModule,RouterLink,NgxExtendedPdfViewerModule,SkeletonDetailComponent],
   templateUrl: './detail-project.component.html',
   styleUrl: './detail-project.component.css'
 })
 export class DetailProjectComponent {
   ImageUrl:string=environment.apiImage
   private subscriptions: Subscription = new Subscription();
-
+  isLoading:boolean=true;
   Title:string="";
   project!:ViewUpdateDTO;
   safeUrl:SafeResourceUrl|null="";
@@ -48,6 +49,9 @@ export class DetailProjectComponent {
         this.project.images.forEach((e,i)=>{
           this.project.images[i]=this.ImageUrl+"Projects/"+e
         })
+        setTimeout(() => {
+          this.isLoading=false
+        }, 500);
         this.subscriptions.add(Sub);
       })
 

@@ -7,18 +7,20 @@ import { MediaCategoryService } from '../../shared/Services/media-category.servi
 import { environment } from '../../environments/environment';
 import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
 import { Subscription } from 'rxjs';
+import { SkeletonCardComponent } from '../../shared/Component/skeleton-card/skeleton-card.component';
 
 @Component({
   selector: 'app-media-category',
   standalone: true,
-  imports: [CardComponent, TitleNavigationComponent, CommonModule, PageNotFoundComponent],
+  imports: [CardComponent, TitleNavigationComponent, CommonModule, PageNotFoundComponent,SkeletonCardComponent],
   templateUrl: './media-category.component.html',
   styleUrl: './media-category.component.css'
 })
 export class MediaCategoryComponent {
   ImageUrl:string=environment.apiImage
   private subscriptions: Subscription = new Subscription();
-
+  skeletonArray = Array(3);
+  isLoading = true;
   AllMediaCategory: MediaCategory[] = [
     
   ];
@@ -28,6 +30,10 @@ export class MediaCategoryComponent {
     this.MediaCategory.fetchCities();
     const Sub = this.MediaCategory.MediaCategory$.subscribe((data)=>{
       this.AllMediaCategory=data
+      setTimeout(()=>{
+
+        this.isLoading=false
+      },500)
     })
     this.subscriptions.add(Sub);
 

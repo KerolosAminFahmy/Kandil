@@ -8,18 +8,20 @@ import { CommonModule } from '@angular/common';
 import { CardComponent } from '../../shared/Component/card/card.component';
 import { TitleNavigationComponent } from '../../shared/Component/title-navigation/title-navigation.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { SkeletonCardComponent } from '../../shared/Component/skeleton-card/skeleton-card.component';
 
 @Component({
   selector: 'app-paid-project',
   standalone: true,
-  imports: [CommonModule, TitleNavigationComponent, CardComponent, PageNotFoundComponent],
+  imports: [CommonModule, TitleNavigationComponent, CardComponent, PageNotFoundComponent,SkeletonCardComponent],
   templateUrl: './paid-project.component.html',
   styleUrl: './paid-project.component.css'
 })
 export class PaidProjectComponent {
  ImageUrl:string=environment.apiImage
   private subscriptions: Subscription = new Subscription();
-
+  skeletonArray = Array(3);
+  isLoading = true;
   LoadedData!:ViewProject[];
   Title:string|null="";
   areaId:number=0;
@@ -36,7 +38,10 @@ export class PaidProjectComponent {
       this.projectId= +params['categoryId'];
       const Sub = this.projectService.GetAllPaidProjectByArea(this.areaId).subscribe((data)=>{
         this.LoadedData=data
-       console.log(data)
+        setTimeout(()=>{
+
+          this.isLoading=false
+        },500)
       })
       this.subscriptions.add(Sub);
 

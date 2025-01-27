@@ -8,18 +8,20 @@ import { TitleNavigationComponent } from '../../shared/Component/title-navigatio
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { ActivatedRoute } from '@angular/router';
 import { AreaService } from '../../shared/Services/area.service';
+import { SkeletonCardComponent } from '../../shared/Component/skeleton-card/skeleton-card.component';
 
 @Component({
   selector: 'app-paid-area',
   standalone: true,
-  imports: [CommonModule, CardComponent, TitleNavigationComponent, PageNotFoundComponent],
+  imports: [CommonModule, CardComponent, TitleNavigationComponent, PageNotFoundComponent,SkeletonCardComponent],
   templateUrl: './paid-area.component.html',
   styleUrl: './paid-area.component.css'
 })
 export class PaidAreaComponent {
   ImageUrl:string=environment.apiImage
   private subscriptions: Subscription = new Subscription();
-
+  skeletonArray = Array(3);
+  isLoading = true;
   LoadedData!:ViewAreaDTO[];
   Title:string|undefined="";
   areaId:number=0;
@@ -37,6 +39,9 @@ export class PaidAreaComponent {
         this.LoadedData.forEach((e)=>{
           e.imageName=this.ImageUrl+e.imageName
         })
+        setTimeout(()=>{
+          this.isLoading=false
+        },500)
         this.subscriptions.add(Sub);
 
       })

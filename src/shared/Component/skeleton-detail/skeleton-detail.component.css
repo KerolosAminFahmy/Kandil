@@ -1,0 +1,26 @@
+.skeleton-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .skeleton-block {
+    background: linear-gradient(
+      90deg,
+      rgba(240, 240, 240, 1) 25%,
+      rgba(220, 220, 220, 1) 50%,
+      rgba(240, 240, 240, 1) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+}

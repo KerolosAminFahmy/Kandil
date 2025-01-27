@@ -1,115 +1,122 @@
 <app-title-navigation title="{{ title }}" [id]="4" [breadcrumbs]="breadcrumbs"></app-title-navigation>
 
-<app-slider-image [listImage]="LoadedImage"></app-slider-image>
-<section class="DetailEvents">
-  <div class="page-details-area blog-details-area mb-120">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-9">
-          <div class="blog-details-wrap">
-            <div class="page-details-inner blog-details-inner">
-              <div class="blog-meta">
-                <ul>
-                  <li class="blog-category">
-                    <a [routerLink]="['/mediaCategories/',IdMedia]" >{{NameMedia}}</a>
-                  </li>
-                </ul>
-              </div>
-              <h2 class="blog-title">{{LoadedData.title}}</h2>
-              <div class="blog-meta">
-                <ul>
-                  <li class="blog-date">
-                    <i class="far fa-calendar-alt"></i> {{LoadedData.created | customDate}}
-                  </li>
-                </ul>
-              </div>
-             <img [src]='ImageUrl+"Media/"+LoadedData.imageName' loading="lazy" alt={{LoadedData.title}}>
-             <div style="margin: 1.5rem 0;" [innerHTML]="LoadedData.description"></div>
-              <p>
-                <iframe
-
-                [src]="safeUrl"
-                  title="Kandil Iftar 2024"
-                  width="100%"
-                  height="360"
-                  
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen=""
-                ></iframe>
-              </p>
-            </div>
-            <!-- blog-tags-social-media -->
-            <div class="blog-tags-social-media mt-80 row">
-              <div class="tagcloud-widget col-lg-8">
-                <h4>الوسوم</h4>
-
-                <ul>
-                    <li>
-                      <a href="Jobs.html" rel="tag">الإنشاءات</a>
-
-                      <a href="Jobs.html" rel="tag">الاستثمار</a>
-
-                      <a href="Jobs.html" rel="tag">العقارات</a>
-
+<section *ngIf="isLoading; else content">
+  <app-skeleton-detail-event></app-skeleton-detail-event>
+</section>
+<ng-template #content>
+  <app-slider-image [listImage]="LoadedImage"></app-slider-image>
+  <section class="DetailEvents">
+    <div class="page-details-area blog-details-area mb-120">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
+            <div class="blog-details-wrap">
+              <div class="page-details-inner blog-details-inner">
+                <div class="blog-meta">
+                  <ul>
+                    <li class="blog-category">
+                      <a [routerLink]="['/mediaCategories/',IdMedia]" >{{NameMedia}}</a>
                     </li>
-                </ul>
+                  </ul>
+                </div>
+                <h2 class="blog-title">{{LoadedData.title}}</h2>
+                <div class="blog-meta">
+                  <ul>
+                    <li class="blog-date">
+                      <i class="far fa-calendar-alt"></i> {{LoadedData.created | customDate}}
+                    </li>
+                  </ul>
+                </div>
+               <img [src]='ImageUrl+"Media/"+LoadedData.imageName' loading="lazy" alt={{LoadedData.title}}>
+               <div style="margin: 1.5rem 0;" [innerHTML]="LoadedData.description"></div>
+                <p>
+                  <iframe
+  
+                  [src]="safeUrl"
+                    title="Kandil Iftar 2024"
+                    width="100%"
+                    height="360"
+                    
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen=""
+                  ></iframe>
+                </p>
               </div>
-              <div class="social-media text-right text-end col-lg-4">
-                <h4>شارك</h4>
-                <ul>
-                  <li>
-                    <a href="#" title="Facebook"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                  </li>
-                  <li>
-                    <a href="#" title="Twitter"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                  </li>
-
-                  <li>
-                    <a href="#" title="Youtube"
-                      ><i class="fab fa-youtube"></i
-                    ></a>
-                  </li>
-                </ul>
+              <!-- blog-tags-social-media -->
+              <div class="blog-tags-social-media mt-80 row">
+                <div class="tagcloud-widget col-lg-8">
+                  <h4>الوسوم</h4>
+  
+                  <ul>
+                      <li>
+                        <a href="Jobs.html" rel="tag">الإنشاءات</a>
+  
+                        <a href="Jobs.html" rel="tag">الاستثمار</a>
+  
+                        <a href="Jobs.html" rel="tag">العقارات</a>
+  
+                      </li>
+                  </ul>
+                </div>
+                <div class="social-media text-right text-end col-lg-4">
+                  <h4>شارك</h4>
+                  <ul>
+                    <li>
+                      <a href="#" title="Facebook"
+                        ><i class="fab fa-facebook-f"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" title="Twitter"
+                        ><i class="fab fa-twitter"></i
+                      ></a>
+                    </li>
+  
+                    <li>
+                      <a href="#" title="Youtube"
+                        ><i class="fab fa-youtube"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <hr />
-
-            <!-- related-post -->
-            <div class="related-post-area mb-50">
-              <h4 class="title-2">مقالات ذات صله</h4>
-              <div class="row"></div>
+              <hr />
+  
+              <!-- related-post -->
+              <div class="related-post-area mb-50">
+                <h4 class="title-2">مقالات ذات صله</h4>
+                <div class="row"></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-3">
-          <aside class="sidebar-area blog-sidebar right-sidebar">
-            <div
-              class="widget menu-widget menu-widget-2--- menu-widget-2-color-2---"
-            >
-              <h4 class="widget-title widget-title-border-2">الاقسام</h4>
-              <ul>
-                <li>
-                  <a href="Events.html">الفعاليات <span>(1)</span> </a>
-                </li>
-                <li>
-                  <a href="Jobs.html">الوظائف <span>(1)</span> </a>
-                </li>
-              </ul>
-            </div>
-
-            <div class="widget popular-post-widget">
-              <h4 class="widget-title widget-title-border-2">احدث الاخبار</h4>
-              <ul></ul>
-            </div>
-          </aside>
+          <div class="col-lg-3">
+            <aside class="sidebar-area blog-sidebar right-sidebar">
+              <div
+                class="widget menu-widget menu-widget-2--- menu-widget-2-color-2---"
+              >
+                <h4 class="widget-title widget-title-border-2">الاقسام</h4>
+                <ul>
+                  <li>
+                    <a href="Events.html">الفعاليات <span>(1)</span> </a>
+                  </li>
+                  <li>
+                    <a href="Jobs.html">الوظائف <span>(1)</span> </a>
+                  </li>
+                </ul>
+              </div>
+  
+              <div class="widget popular-post-widget">
+                <h4 class="widget-title widget-title-border-2">احدث الاخبار</h4>
+                <ul></ul>
+              </div>
+            </aside>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  
+</ng-template>
+

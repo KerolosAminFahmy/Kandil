@@ -7,17 +7,19 @@ import { Subscription } from 'rxjs';
 import { WhyusService } from '../../shared/Services/whyus.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+import { SkeletonDetailComponent } from '../../shared/Component/skeleton-detail/skeleton-detail.component';
 
 @Component({
   selector: 'app-info-content',
   standalone: true,
-  imports: [CommonModule,TitleNavigationComponent],
+  imports: [CommonModule,TitleNavigationComponent,SkeletonDetailComponent],
   templateUrl: './info-content.component.html',
   styleUrl: './info-content.component.css'
 })
 export class InfoContentComponent {
   imageSrc: string = '';
   title:string="";
+  isLoading:boolean=true;
   quoteText: string = '';
   mainText: string = '';
   safeContent:any="";
@@ -50,6 +52,9 @@ export class InfoContentComponent {
       this.data=data
       this.SafeContent(data?.fullDescription)
       //this.adjustIframeHeight()
+      setTimeout(() => {
+        this.isLoading=false
+      }, 100);
       })
     });
     this.subscriptions.add(paramSub);
