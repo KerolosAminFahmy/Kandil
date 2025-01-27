@@ -25,7 +25,7 @@ export class AllUnitComponent {
   constructor(private UnitServices:UnitManageService){}
   ngOnInit(): void {
     
-    const AllUnitSub = this.UnitServices.GetAllUnits().subscribe((data)=>{
+    const AllUnitSub = this.UnitServices.GetUnits().subscribe((data)=>{
       this.AllUnit=data
       setTimeout(()=>{
         this.isLoading=false

@@ -35,8 +35,17 @@ export class UnitComponent {
     this.subscriptions.add(paramSub);
 
   }
-  AddUnit(){
-
+  toggleVisibility(id:number,index:number){
+    this.unitService.toggleVisibility(id).subscribe({
+      next: (response: any) => {
+        if (this.units[index]) {
+          this.units[index].isShown = response.isShown;
+        }
+      },
+      error: (err) => {
+        console.error('Error toggling visibility:', err);
+      },
+    });
   }
   onDelete(id:number){
     this.unitService.DeleteUnit(id);

@@ -1,11 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProjectService } from '../../../../shared/Services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { UnitManageService } from '../../../../shared/Services/unit-manage.service';
-import { AddUnitsDTO, AdvantageUnit, ServiceUnit, ShowUnitsDTO, UnitImageDTO, UpdateUnitsDTO } from '../../../../shared/Models/model';
+import { AdvantageUnit, ServiceUnit, ShowUnitsDTO, UnitImageDTO, UpdateUnitsDTO } from '../../../../shared/Models/model';
 import { CommonModule } from '@angular/common';
-import { EditorComponent } from '@tinymce/tinymce-angular';
 import { ImageUploadComponent } from '../../../../shared/image-upload/image-upload.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { environment } from '../../../../environments/environment';
@@ -66,6 +64,7 @@ export class EditUnitComponent {
       description: ['', [Validators.required, Validators.maxLength(1000)]],
       NameLocation: ['', [Validators.required, Validators.maxLength(500)]],
       image: [null, Validators.required],
+      isShown:[false,Validators.required],
       status: ['', [Validators.required, Validators.pattern(/^(Available|Sold)$/)]],
       typePrice: ['', [Validators.required, Validators.pattern(/^(Available|Sold)$/)]],
       codeUnit: ['', [Validators.required, Validators.maxLength(20)]],
@@ -92,6 +91,7 @@ export class EditUnitComponent {
       codeUnit: data.codeUnit,
       NameLocation:data.nameLocation,
       area: data.area,
+      isShown:data.isShown,
       typePrice:data.typePrice=="مقدم"?"Available":"Sold",
       numberBathroom: data.numberBathroom,
       numberRoom:data.numberRoom,
@@ -99,7 +99,6 @@ export class EditUnitComponent {
       price: data.price,
       videoUrl: data.videoUrl,
       })
-
       const  center1: google.maps.LatLngLiteral = {
         lat: data.latitude,
         lng: data.longitude
@@ -237,6 +236,7 @@ export class EditUnitComponent {
         numberRoom:valueForm.numberRoom,
         yearOfBuild:valueForm.yearOfBuild,
         price:valueForm.price,
+        isShown:valueForm.isShown,
         videoUrl:valueForm.videoUrl,
         typePrice:valueForm.typePrice=="Available"?'مقدم':'تقسيط',
         unitImages: this.detailImages.value

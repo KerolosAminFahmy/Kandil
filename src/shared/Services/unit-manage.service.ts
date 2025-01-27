@@ -21,6 +21,9 @@ export class UnitManageService {
     return this.http.get<Units[]>(this.apiUrl+"GetAllUnits")
 
   } 
+  GetUnits():Observable<Units[]>{
+    return this.http.get<Units[]>(this.apiUrl+"GetUnits")
+  }
   FetchAllUnit(id:number){
     this.http.get<Units[]>(this.apiUrl+id).subscribe(data => {
       this.UnitSubject.next(data);
@@ -59,6 +62,7 @@ export class UnitManageService {
   formData.append('Latitude', NewUnit.latitude.toString());
   formData.append('Longitude', NewUnit.Longitude.toString());
   formData.append('TypePrice', NewUnit.typePrice);
+  formData.append('IsShown', NewUnit.isShown.toString());
 
   // If a single image is provided
   if (NewUnit.image) {
@@ -120,6 +124,8 @@ export class UnitManageService {
   formData.append('Latitude', updateData.latitude.toString());
   formData.append('Longitude', updateData.Longitude.toString());
   formData.append('TypePrice', updateData.typePrice);
+  formData.append('IsShown', updateData.isShown.toString());
+
   // Append nullable image if it exists
   if (updateData.image) {
     formData.append('image', updateData.image);
@@ -172,5 +178,10 @@ export class UnitManageService {
         console.error('Error deleting area:', error); 
       }
   )
-}
+  }
+  toggleVisibility(unitId: number):Observable<any> {
+    return this.http
+      .put(`${this.apiUrl}units/${unitId}/toggle-visibility`, {})
+      
+  }
 }

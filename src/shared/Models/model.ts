@@ -160,6 +160,7 @@ export interface Units {
   typePrice:string;
   codeUnit: string;
   area: number;
+  isShown:boolean;
   numberBathroom: number;
   numberRoom: number;
   yearOfBuild: number;
@@ -174,6 +175,7 @@ export interface AddUnitsDTO {
   Longitude:number;
   nameLocation:string;
   typePrice:string;
+  isShown:boolean;
   image: File;
   status: 'Available' | 'Sold';
   codeUnit: string;
@@ -203,6 +205,7 @@ export interface ShowUnitsDTO {
   imageName: string;
   latitude:number;
   longitude:number;
+  isShown:boolean;
   nameLocation:string;
   typePrice:string;
   status: string;
@@ -236,7 +239,7 @@ export interface UpdateUnitsDTO {
   codeUnit: string;
   area: number;
   numberBathroom: number;
-  
+  isShown:boolean;
   numberRoom: number;
   yearOfBuild: number;
   price: number;

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="product-item text-center col-4" style="margin-left: auto; margin-right:auto ;" *ngFor="let unit of units">
+    <div class="product-item text-center col-4" style="margin-left: auto; margin-right:auto ;" *ngFor="let unit of units; let i=index">
       <div class="product-img" style="height: auto !important;">
         <a
           routerLink=""
@@ -57,8 +57,15 @@
         </ul>
       </div>
       <div class="card-buttons">
-        <a class="btn btn-edit"  [routerLink]="['/dashboard/Projects/unit/edit/', unit.id]">Edit</a>
-        <button class="btn btn-delete" (click)="onDelete(unit.id)">Delete</button>
+        <a class="btn btn-edit"  [routerLink]="['/dashboard/Projects/unit/edit/', unit.id]">تعديل</a>
+        <button
+          class="btn"
+          [ngClass]="unit.isShown ? 'btn-hide' : 'btn-show'"
+          (click)="toggleVisibility(unit.id, i)"
+        >
+          {{ unit.isShown ? 'إخفاء من عروض للبيع' : 'إظهار في عروض للبيع' }}
+        </button>
+        <button class="btn btn-delete" (click)="onDelete(unit.id)">حذف</button>
       </div>
     </div>
     <div class="card-container col-4">
