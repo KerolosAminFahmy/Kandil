@@ -92,7 +92,7 @@ export class UnitManageService {
     this.http.post<void>(this.apiUrl+"AddUnit", formData).subscribe(
       (data) => {
         this.Massege.showMessage("success","نجاح","تم اضافه الوحده بنجاح")
-        this.router.navigate([`/dashboard/Projects`])
+        this.router.navigate([`/dashboard/Projects/AllUnit/${NewUnit.projectId}`])
       },
       (error) => {
         console.error('Error adding unit:', error);
@@ -155,9 +155,9 @@ export class UnitManageService {
     formData.append(`allRemovedImages[${index}]`, id.toString());
   });
     this.http.put(this.apiUrl, formData).subscribe(
-      (data) => {
+      (data:any) => {
         this.Massege.showMessage("success","نجاح","تم تعديل الوحده بنجاح")
-
+        this.router.navigate([`/dashboard/Projects/AllUnit/${data.id}`])
       },
       (error) => {
         console.error('Error updating project:', error);
