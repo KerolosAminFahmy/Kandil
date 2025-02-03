@@ -25,6 +25,7 @@ export class MediaListComponent {
   isLoading = true;
   Title:string|null="";
   LoadedData!:MediaDTO[];
+  
   private subscriptions: Subscription = new Subscription();
 
   breadcrumbs: { name: string; url: string }[] = [];

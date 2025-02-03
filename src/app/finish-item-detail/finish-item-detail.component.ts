@@ -62,12 +62,12 @@ export class FinishItemDetailComponent {
         this.title=data.finishItem.title
   
         this.SafeContent(this.items.finishItem.videoUrl,this.items.finishItem.description)
-        this.adjustIframeHeight();
-        this.isReady=true
         setTimeout(() => {
           this.isLoading=false
         }, 100);
       })
+        this.adjustIframeHeight();
+        this.isReady=true
     })
     
     this.subscriptions.add(paramSub);
