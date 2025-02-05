@@ -27,7 +27,7 @@
                 
               </label>
               <h4 class="title-2">الوصف</h4>
-              <div [innerHTML]="safeContent"></div>
+              <div [innerHTML]="safeContent==null?safeContent:''"></div>
   
   
                 <h4 class="title-2">تفاصيل الوحدة</h4>

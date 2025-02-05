@@ -52,11 +52,12 @@ export class EditProjectComponent {
       title: ['', [Validators.required]],
       mainImage: ['', [Validators.required]],
       pdfFile: [],
-      videoUrl: ['', [Validators.required]],
-      aboutProject: ['', Validators.required],
+      videoUrl: ['', ],
+      aboutProject: [''],
       advantageProjects: this.fb.array([]),
-      locationImage : [null ,[Validators.required]],
+      locationImage : [null ],
       locationProjects: this.fb.array([]),
+      isFinish:[false,Validators.required],
       imageSlider : this.fb.array([])
     });
     this.editor=new Editor();
@@ -74,6 +75,7 @@ export class EditProjectComponent {
         videoUrl:data.videoURL,
         aboutProject:data.aboutProject,
         locationImage:data.locationImage,
+        isFinish:data.isFinish
       })
       this.PdfUrl=data.pdfFile;
       data.advantageProjects.forEach((e)=>{
@@ -229,6 +231,7 @@ export class EditProjectComponent {
       
       const finalUpdateProject:ProjectUpdateDto={
         title:ProjectForm.title,
+        isFinish:ProjectForm.isFinish,
         aboutProject:ProjectForm.aboutProject,
         videoURL:ProjectForm.videoUrl,
         pdfFile:ProjectForm.pdfFile,

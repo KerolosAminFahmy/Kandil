@@ -46,6 +46,7 @@ export class AddProjectComponent {
       aboutProject: [''],
       advantageProjects: this.fb.array([]),
       locationImage : [null],
+      isFinish:[false,Validators.required],
       locationProjects: this.fb.array([]),
       imageSlider : this.fb.array([])
     });
@@ -156,6 +157,7 @@ export class AddProjectComponent {
         aboutProject: ProjectForm.aboutProject,
         videoUrl: ProjectForm.videoUrl,
         mainImage: ProjectForm.mainImage,
+        isFinish: ProjectForm.isFinish,
         locationImage: ProjectForm.locationImage,
         detailImage: this.imageSlider.value.map((file:any)=>{
           return file.image

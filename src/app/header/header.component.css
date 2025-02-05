@@ -52,7 +52,13 @@ header .RightContainer ul.LinksNavigator li.LinkNavigator::before{
     visibility: hidden;
     transform: translateX(50%)
 }
-
+.Sub-menuLinkNavigator1{
+  width: fit-content;
+  max-width: 200px;
+}
+.Sub-menuLinkNavigator1 li a{
+  text-wrap-mode: wrap;
+}
 header .RightContainer ul.LinksNavigator li.LinkNavigator a.LinkA,
 header .RightContainer ul.LinksNavigator li.LinkNavigator li a.LinkB,
 header .RightContainer ul.LinksNavigator li.LinkNavigator  ul.Sub-menuLinkNavigator li a.LinkC,

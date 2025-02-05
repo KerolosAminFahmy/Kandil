@@ -89,7 +89,8 @@ export interface ProjectDTO {
   locationProjects: LocationProjectDTO[];  
   mainImage: File | null;
   pdfFile: File | null;
-  locationImage: File | null; 
+  locationImage: File | null;
+  isFinish:boolean; 
   detailImage: File[];   
   areaId: number; 
 }
@@ -121,6 +122,7 @@ export interface ViewUpdateDTO {
   aboutProject: string;
   videoURL: string;
   mainImage: string; 
+  isFinish:boolean;
   pdfFile:string;
   locationImage: string; 
   locationProjects: LocationProject[];
@@ -132,6 +134,7 @@ export interface ProjectUpdateDto{
   title: string;
   aboutProject: string;
   videoURL: string;
+  isFinish:boolean;
   mainImage: File|null; 
   pdfFile: File|null; 
   locationImage:  File|null;

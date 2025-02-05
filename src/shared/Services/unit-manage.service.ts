@@ -55,6 +55,7 @@ export class UnitManageService {
   formData.append('area', NewUnit.area.toString());
   formData.append('numberBathroom', NewUnit.numberBathroom.toString());
   formData.append('numberRoom', NewUnit.numberRoom.toString());
+  if(NewUnit.yearOfBuild!=null)
   formData.append('yearOfBuild', NewUnit.yearOfBuild.toString());
   formData.append('price', NewUnit.price.toString());
   formData.append('videoUrl', NewUnit.videoUrl);

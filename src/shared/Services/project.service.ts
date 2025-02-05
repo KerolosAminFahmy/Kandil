@@ -54,6 +54,7 @@ export class ProjectService {
 
     formData.append('Title', UpdatedRecord.title);
     formData.append('projectId', UpdatedRecord.projectId.toString());
+    formData.append('isFinish', UpdatedRecord.isFinish.toString());
     formData.append('AboutProject', UpdatedRecord.aboutProject);
     formData.append('VideoURL', UpdatedRecord.videoURL);
   
@@ -108,27 +109,28 @@ export class ProjectService {
       formData.append(`images[${index}].text`, "te");
     });
     formData.append('title', ProjectRecord.title);
-formData.append('aboutProject', ProjectRecord.aboutProject);
-formData.append('videoUrl', ProjectRecord.videoUrl);
-formData.append('areaId', ProjectRecord.areaId.toString());
+    formData.append('aboutProject', ProjectRecord.aboutProject);
+    formData.append('videoUrl', ProjectRecord.videoUrl);
+    formData.append('areaId', ProjectRecord.areaId.toString());
+    formData.append('isFinish', ProjectRecord.isFinish.toString());
 
-formData.append('mainImage', ProjectRecord.mainImage as Blob);
-if(ProjectRecord.pdfFile != null){
-  formData.append('pdfFile', ProjectRecord.pdfFile as Blob);
+    formData.append('mainImage', ProjectRecord.mainImage as Blob);
+    if(ProjectRecord.pdfFile != null){
+      formData.append('pdfFile', ProjectRecord.pdfFile as Blob);
 
-}
-formData.append('locationImage', ProjectRecord.locationImage as Blob);
+    }
+    formData.append('locationImage', ProjectRecord.locationImage as Blob);
 
 
-ProjectRecord.advantageProjects.forEach((advantage: any, index: number) => {
-  formData.append(`advantageProjects[${index}].text`, advantage.text);
-  formData.append(`advantageProjects[${index}].image`, advantage.image);
-});
+    ProjectRecord.advantageProjects.forEach((advantage: any, index: number) => {
+      formData.append(`advantageProjects[${index}].text`, advantage.text);
+      formData.append(`advantageProjects[${index}].image`, advantage.image);
+    });
 
-ProjectRecord.locationProjects.forEach((location: any, index: number) => {
-  formData.append(`locationProjects[${index}].time`, location.time);
-  formData.append(`locationProjects[${index}].street`, location.street);
-});
+    ProjectRecord.locationProjects.forEach((location: any, index: number) => {
+      formData.append(`locationProjects[${index}].time`, location.time);
+      formData.append(`locationProjects[${index}].street`, location.street);
+    });
      
     this.http.post<void>(this.apiUrl+"AddProject", formData,
       {

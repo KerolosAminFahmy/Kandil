@@ -27,6 +27,18 @@
         {{ projectForm.get('mainImage')?.errors?.['required'] && 'هذا الحقل مطلوب' }}
       </div>
     </div>
+    <div class="form-group form-check" style="display: flex;align-items: center;">
+      <input
+        type="checkbox"
+        id="isFinish"
+        formControlName="isFinish"
+        class="form-check-input"
+      />
+      <label for="isFinish" class="form-check-label" style="padding-right: 30px;position: relative;
+      z-index: 0;    user-select: none;">
+        عرض المشروع في سابقه الاعمال
+      </label>
+    </div>
     <div class="mb-3">
       <label for="videoUrl" class="form-label">لينك فيديو يوتيوب للمشروع</label>
       <input id="videoUrl" type="text" class="form-control" formControlName="videoUrl" 
