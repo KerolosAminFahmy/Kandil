@@ -33,7 +33,7 @@ export class PaidAreaComponent {
     )
     const paramSub = this.route.params.subscribe(params => {
       this.areaId= +params['categoryId'];
-      const Sub = this.areaService.fetchAreaByCity(this.areaId).subscribe((data)=>{
+      const Sub = this.areaService.fetchFinishAreaByCity(this.areaId).subscribe((data)=>{
         this.Title=data.title
         this.LoadedData=data.data
         this.LoadedData.forEach((e)=>{
@@ -45,8 +45,8 @@ export class PaidAreaComponent {
         this.subscriptions.add(Sub);
 
       })
-      this.subscriptions.add(paramSub);
-          });
+    });
+    this.subscriptions.add(paramSub);
     
   }
   ngOnDestroy(): void {

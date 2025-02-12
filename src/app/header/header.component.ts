@@ -34,10 +34,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   headerOffset = 0;
   ngOnInit(): void {
     window.addEventListener('scroll', this.onScroll);
-    this.AreaService.fetchArea();
-    this.AreaService.areas$.subscribe((data)=>{
+    this.AreaService.fetchAvailableArea().subscribe((data)=>{
       this.AllArea=data
-    })
+    });
+
     this.MediaCategory.fetchCities();
     this.MediaCategory.MediaCategory$.subscribe((data)=>{
       this.AllMediaCategory=data

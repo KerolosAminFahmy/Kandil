@@ -36,7 +36,7 @@ export class PorjectAreaComponent implements OnInit {
     )
     const paramSub = this.route.params.subscribe(params => {
       this.areaId= +params['categoryId'];
-      const Sub = this.areaService.fetchAreaByCity(this.areaId).subscribe((data)=>{
+      const Sub = this.areaService.fetchUnfinishAreaByCity(this.areaId).subscribe((data)=>{
         this.Title=data.title
         this.LoadedData=data.data
         this.LoadedData.forEach((e)=>{

@@ -156,12 +156,11 @@ export class HomeComponent implements AfterViewInit  {
       });
       this.observeSection(this.projectArea, (isVisible) => {
         if(!this.isProjectArea){
-          this.AreaService.fetchArea();
-          const Sub2 = this.AreaService.areas$.subscribe((data)=>{
+          const Sub2 = this.AreaService.fetchAvailableArea().subscribe((data)=>{
             this.AllArea=data
             this.isProjectArea = isVisible;
-  
-          })
+          });
+
           this.subscriptions.add(Sub2);
         }
        

@@ -57,7 +57,7 @@ export class EditProjectComponent {
       advantageProjects: this.fb.array([]),
       locationImage : [null ],
       locationProjects: this.fb.array([]),
-      isFinish:[false,Validators.required],
+      isFinish:[false],
       imageSlider : this.fb.array([])
     });
     this.editor=new Editor();
@@ -69,6 +69,7 @@ export class EditProjectComponent {
     });
   
     const Sub = this.projectService.FetchProjectUpdate(this.projectId).subscribe((data)=>{
+      console.log(data);
       this.projectForm.patchValue({
         title:data.title,
         mainImage:data.mainImage,
@@ -151,6 +152,7 @@ export class EditProjectComponent {
         locationImage:event.file
       })
       this.projectForm.get('locationImage')?.markAsTouched()
+      console.log(this.projectForm.get('locationImage')?.value);
 
 
     }
@@ -193,6 +195,7 @@ export class EditProjectComponent {
   }
   removeImage(index:number){
     this.imageSlider.removeAt(index);
+    if(this.ListImageSlider[index]!==undefined)
     this.ListRemovedImageSlider.push(this.ListImageSlider[index])
     this.ListImageSlider.splice(index, 1);
 
@@ -234,9 +237,9 @@ export class EditProjectComponent {
         isFinish:ProjectForm.isFinish,
         aboutProject:ProjectForm.aboutProject,
         videoURL:ProjectForm.videoUrl,
-        pdfFile:ProjectForm.pdfFile,
+        pdfFile:ProjectForm.pdfFile?ProjectForm.pdfFile:null,
         mainImage:this.isMainImageChange?ProjectForm.mainImage:null,
-        locationImage:this.isLocationImageChange?ProjectForm.locationImage:null,
+        locationImage:ProjectForm.locationImage,
         locationRemoveList:this.LocationRemovedId,
         locationProjects:this.locationProjects.value.map((item: any) => ({
           id:item.id,
@@ -256,6 +259,7 @@ export class EditProjectComponent {
         ListRemovedImage:this.ListRemovedImageSlider,
         projectId:this.projectId
       }
+      console.log(finalUpdateProject);
       this.projectService.updateProject(finalUpdateProject)
     } else {
       console.log('Invalid Form');

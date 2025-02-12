@@ -20,8 +20,25 @@ export class AreaService {
       this.AreaSubject.next(data);
     });
   }
+  fetchAvailableArea():Observable<AllAreaDTO[]>{
+    return this.http.get<AllAreaDTO[]>(this.apiUrl+"AllAvailableAreas")
+  }
   fetchAreaByCity(id:number):Observable<{title:string,data:ViewAreaDTO[]}>{
     return this.http.get<{title:string,data:ViewAreaDTO[]}>(this.apiUrl+"GetAreaByCity/"+id).pipe(
+      tap(() => {
+        
+      })
+    );
+  }
+  fetchFinishAreaByCity(id:number):Observable<{title:string,data:ViewAreaDTO[]}>{
+    return this.http.get<{title:string,data:ViewAreaDTO[]}>(this.apiUrl+"FinishArea/"+id).pipe(
+      tap(() => {
+        
+      })
+    );
+  }
+  fetchUnfinishAreaByCity(id:number):Observable<{title:string,data:ViewAreaDTO[]}>{
+    return this.http.get<{title:string,data:ViewAreaDTO[]}>(this.apiUrl+"UnfinishArea/"+id).pipe(
       tap(() => {
         
       })
