@@ -105,7 +105,6 @@
     />
     <div *ngIf="finishForm.get('videoUrl')?.invalid" class="text-danger">
       <small>هذا الحقل مطلوب</small>
-      <small *ngIf="finishForm.get('videoUrl')?.errors?.['pattern']">يجب أن يكون رابط صالح</small>
     </div>
   </div>
 

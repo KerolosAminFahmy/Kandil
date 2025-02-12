@@ -47,7 +47,6 @@
       />
       <div *ngIf="mediaForm.get('videoUrl')?.invalid && mediaForm.get('videoUrl')?.touched" class="text-danger">
         <small *ngIf="mediaForm.get('videoUrl')?.errors?.['required']">هذا الحقل مطلوب</small>
-        <small *ngIf="mediaForm.get('videoUrl')?.errors?.['pattern']">يرجى إدخال رابط صحيح</small>
       </div>
     </div>
 

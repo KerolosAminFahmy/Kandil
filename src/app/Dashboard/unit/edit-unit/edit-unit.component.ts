@@ -194,7 +194,10 @@ export class EditUnitComponent {
     this.detailImages.removeAt(index);
   }
 
-
+  extractYouTubeSrc(embedCode: string): string | null {
+    const match = embedCode.match(/src="([^"]+)"/);
+    return match ? match[1] : null;
+  }
   onFileChange(event: { file: File | null}, index: number) {
     
     if (event.file && index>-1) {
@@ -237,7 +240,7 @@ export class EditUnitComponent {
         yearOfBuild:valueForm.yearOfBuild,
         price:valueForm.price,
         isShown:valueForm.isShown,
-        videoUrl:valueForm.videoUrl,
+        videoUrl:this.extractYouTubeSrc(valueForm.videoUrl)||"",
         typePrice:valueForm.typePrice=="Available"?'مقدم':'تقسيط',
         unitImages: this.detailImages.value
             .filter((e: UnitImageDTO) => e.id <= 0)

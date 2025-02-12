@@ -56,7 +56,7 @@ export class AddFinishItemComponent {
       description: ['', [Validators.required, Validators.maxLength(1000)]],
       NameLocation: ['', [Validators.required, Validators.maxLength(500)]],
       image: [null, Validators.required],
-      videoUrl: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+$/)]],
+      videoUrl: ['', [Validators.required]],
       detailImages: this.fb.array([])
     });
     this.subscriptions.add(Sub);
@@ -64,6 +64,10 @@ export class AddFinishItemComponent {
   }
   get detailImages(): FormArray {
     return this.finishForm.get('detailImages') as FormArray;
+  }
+  extractYouTubeSrc(embedCode: string): string | null {
+    const match = embedCode.match(/src="([^"]+)"/);
+    return match ? match[1] : null;
   }
   addDetailImage(): void {
     this.detailImages.push(this.fb.control(null, Validators.required));
@@ -107,7 +111,7 @@ export class AddFinishItemComponent {
         longitude:this.center.lng,
         latitude:this.center.lat,
         nameLocation:valueForm.NameLocation,
-        videoUrl:valueForm.videoUrl,
+        videoUrl:this.extractYouTubeSrc(valueForm.videoUrl)||"",
         detailImage:this.detailImages.value,
       }
       this.ServiceFinish.AddFinishItem(NewUnit).subscribe((data)=>{

@@ -69,7 +69,10 @@ export class AddProjectComponent {
   get locationProjects() {
     return this.projectForm.get('locationProjects') as FormArray;
   }
-
+  extractYouTubeSrc(embedCode: string): string | null {
+    const match = embedCode.match(/src="([^"]+)"/);
+    return match ? match[1] : null;
+  }
   // Add Advantage
   addAdvantage() {
     const advantageGroup = this.fb.group({
@@ -155,7 +158,7 @@ export class AddProjectComponent {
         title: ProjectForm.title,
         pdfFile:ProjectForm.pdfFile,
         aboutProject: ProjectForm.aboutProject,
-        videoUrl: ProjectForm.videoUrl,
+        videoUrl: this.extractYouTubeSrc(ProjectForm.videoUrl) || '',
         mainImage: ProjectForm.mainImage,
         isFinish: ProjectForm.isFinish,
         locationImage: ProjectForm.locationImage,

@@ -265,7 +265,7 @@
     />
     <div *ngIf="unitForm.get('videoUrl')?.invalid && unitForm.get('videoUrl')?.touched" class="text-danger">
       <small>هذا الحقل مطلوب</small>
-      <small *ngIf="unitForm.get('videoUrl')?.errors?.['pattern']">يجب أن يكون رابط صالح</small>
+      <!-- <small *ngIf="unitForm.get('videoUrl')?.errors?.['pattern']">يجب أن يكون رابط صالح</small> -->
     </div>
   </div>
 

@@ -45,7 +45,7 @@ export class AddMediaComponent {
     this.mediaForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(100)]],
       description: ['', [Validators.required]],
-      videoUrl: ['', [Validators.required, Validators.pattern(/https?:\/\/.*/)]],
+      videoUrl: ['', [Validators.required]],
       created: ['', [Validators.required]],
       image: [null,Validators.required],
       detailImages: this.fb.array([])
@@ -53,6 +53,10 @@ export class AddMediaComponent {
   }
   get detailImages(): FormArray {
     return this.mediaForm.get('detailImages') as FormArray;
+  }
+  extractYouTubeSrc(embedCode: string): string | null {
+    const match = embedCode.match(/src="([^"]+)"/);
+    return match ? match[1] : null;
   }
   addDetailImage(): void {
     this.detailImages.push(this.fb.control(null, Validators.required));
@@ -77,6 +81,7 @@ export class AddMediaComponent {
     if (this.mediaForm.valid) {
       const formData: MediaDTO = {
         ...this.mediaForm.value,
+        videoUrl: this.extractYouTubeSrc(this.mediaForm.value.videoUrl) || undefined,
         image: this.selectedImage || undefined, 
         mediaId:this.MediaCategoryId,
       };

@@ -54,7 +54,7 @@ export class EditMediaComponent {
     this.mediaForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(100)]],
       description: ['', [Validators.required]],
-      videoUrl: ['', [Validators.required, Validators.pattern(/https?:\/\/.*/)]],
+      videoUrl: ['', [Validators.required]],
       created: ['', [Validators.required]],
       image: [null],
       detailImages: this.fb.array([])
@@ -122,11 +122,15 @@ export class EditMediaComponent {
       
     }
   }
-
+  extractYouTubeSrc(embedCode: string): string | null {
+    const match = embedCode.match(/src="([^"]+)"/);
+    return match ? match[1] : null;
+  }
   onSubmit(): void {
     if (this.mediaForm.valid) {
       const formData: MediaDTO = {
         ...this.mediaForm.value,
+        videoURl:this.extractYouTubeSrc(this.mediaForm.value.videoUrl),
         detailImages: this.detailImages.value
             .filter((e:any) => e.id <= 0)
             .map((e:any) => {

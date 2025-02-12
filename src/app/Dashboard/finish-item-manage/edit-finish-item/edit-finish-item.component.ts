@@ -62,7 +62,7 @@ export class EditFinishItemComponent {
       description: ['', [Validators.required, Validators.maxLength(1000)]],
       NameLocation: ['', [Validators.required, Validators.maxLength(500)]],
       image: [null, Validators.required],
-      videoUrl: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+$/)]],
+      videoUrl: ['', [Validators.required]],
       detailImages: this.fb.array([])
     });
 
@@ -94,6 +94,10 @@ export class EditFinishItemComponent {
   }
   get detailImages(): FormArray {
     return this.finishForm.get('detailImages') as FormArray;
+  }
+  extractYouTubeSrc(embedCode: string): string | null {
+    const match = embedCode.match(/src="([^"]+)"/);
+    return match ? match[1] : null;
   }
   addDetailImage(): void {
     const ImageGroup = this.fb.group({
@@ -158,7 +162,7 @@ export class EditFinishItemComponent {
             title:valueForm.title,
             description:valueForm.description,
             image:this.isMainImageChange?valueForm.image:null,
-            videoUrl:valueForm.videoUrl,
+            videoUrl:this.extractYouTubeSrc(valueForm.videoUrl)||"",
             detailImage: this.detailImages.value
                 .filter((e: any) => e.id <= 0)
                 .map((e: {image:File,id:number}) => e.image) as File[],

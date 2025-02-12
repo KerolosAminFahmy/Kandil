@@ -69,7 +69,6 @@ export class EditProjectComponent {
     });
   
     const Sub = this.projectService.FetchProjectUpdate(this.projectId).subscribe((data)=>{
-      console.log(data);
       this.projectForm.patchValue({
         title:data.title,
         mainImage:data.mainImage,
@@ -228,6 +227,10 @@ export class EditProjectComponent {
     }
     this.locationProjects.removeAt(index);
   }
+  extractYouTubeSrc(embedCode: string): string | null {
+    const match = embedCode.match(/src="([^"]+)"/);
+    return match ? match[1] : null;
+  }
   submitForm() {
     if (this.projectForm.valid) {
       const ProjectForm = this.projectForm.value;
@@ -236,7 +239,7 @@ export class EditProjectComponent {
         title:ProjectForm.title,
         isFinish:ProjectForm.isFinish,
         aboutProject:ProjectForm.aboutProject,
-        videoURL:ProjectForm.videoUrl,
+        videoURL:this.extractYouTubeSrc(ProjectForm.videoUrl)||"",
         pdfFile:ProjectForm.pdfFile?ProjectForm.pdfFile:null,
         mainImage:this.isMainImageChange?ProjectForm.mainImage:null,
         locationImage:ProjectForm.locationImage,

@@ -83,7 +83,7 @@ export class AddUnitComponent {
       numberRoom: [null, [ Validators.required, Validators.min(1)]],
       yearOfBuild: [null, [ Validators.min(1800), Validators.max(2100)]],
       price: [null, [ Validators.required, Validators.min(1)]],
-      videoUrl: ['', [Validators.pattern(/^https?:\/\/.+$/)]],
+      videoUrl: ['', []],
       advantages: this.fb.array([]),
       services: this.fb.array([]),
       detailImages: this.fb.array([])
@@ -122,7 +122,10 @@ export class AddUnitComponent {
   removeDetailImage(index: number): void {
     this.detailImages.removeAt(index);
   }
-
+  extractYouTubeSrc(embedCode: string): string | null {
+    const match = embedCode.match(/src="([^"]+)"/);
+    return match ? match[1] : null;
+  }
   onFileSelect(event: Event, index: number): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0 && index>-1) {
@@ -162,7 +165,7 @@ export class AddUnitComponent {
         numberRoom:valueForm.numberRoom,
         yearOfBuild:valueForm.yearOfBuild,
         price:valueForm.price,
-        videoUrl:valueForm.videoUrl,
+        videoUrl:this.extractYouTubeSrc(valueForm.videoUrl)||"",
         detailImage:this.detailImages.value,
         typePrice:valueForm.typePrice=="Available"?'مقدم':'تقسيط',
         advantage:this.advantages.value.map((e:any)=>{
