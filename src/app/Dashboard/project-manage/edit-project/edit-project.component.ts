@@ -228,6 +228,9 @@ export class EditProjectComponent {
     this.locationProjects.removeAt(index);
   }
   extractYouTubeSrc(embedCode: string): string | null {
+    if(embedCode.includes("https://www.youtube.com/embed/")){
+      return embedCode;
+    }
     const match = embedCode.match(/src="([^"]+)"/);
     return match ? match[1] : null;
   }
